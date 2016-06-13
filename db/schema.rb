@@ -11,19 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160613113118) do
-
-  create_table "building_reports", force: :cascade do |t|
-    t.integer  "user_id",     limit: 4
-    t.integer  "building_id", limit: 4
-    t.text     "title",       limit: 65535
-    t.text     "problem",     limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-  end
-
-  add_index "building_reports", ["building_id"], name: "index_building_reports_on_building_id", using: :btree
-  add_index "building_reports", ["user_id"], name: "index_building_reports_on_user_id", using: :btree
+ActiveRecord::Schema.define(version: 20160613170618) do
 
   create_table "building_requests", force: :cascade do |t|
     t.integer  "user_id",          limit: 4
@@ -31,6 +19,7 @@ ActiveRecord::Schema.define(version: 20160613113118) do
     t.text     "building_address", limit: 65535
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
+    t.string   "tags",             limit: 255
   end
 
   add_index "building_requests", ["user_id"], name: "index_building_requests_on_user_id", using: :btree
@@ -128,8 +117,6 @@ ActiveRecord::Schema.define(version: 20160613113118) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  add_foreign_key "building_reports", "buildings"
-  add_foreign_key "building_reports", "users"
   add_foreign_key "building_requests", "users"
   add_foreign_key "building_sessions", "buildings"
   add_foreign_key "building_sessions", "users"
