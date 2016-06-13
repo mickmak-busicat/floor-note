@@ -23,7 +23,7 @@ var FloorView = React.createClass({
 			'workLabel': '',
 			'scale': 1,
 			'isReportPanelShow': false,
-			'reportSelect': 'building',
+			'reportSelect': 'none',
 		};
 	},
 
