@@ -1,0 +1,93 @@
+<% all = Building.all %>
+
+<script>
+	var floorId = -1;
+	function addFloor(buildingId, name, seq, objectsData){
+		var param = {
+			building_id: buildingId,
+			name: name,
+			seq: seq
+		}
+		$.ajax({
+			url: '/ajax/new_floor',
+			method: 'POST',
+			data: param,
+			success: function(json){
+				console.log(json);
+				var floorId = json.id;
+
+				$.each(objectsData, function(index, obj){
+					addObject(floorId, obj.x, obj.y, (obj.label || ''), obj.type, (obj.width || ''), (obj.height || ''), (obj.direction || ''), (obj.defaultStatus || ''));
+				});
+
+				$('#loadButton').val('DONE').attr('disabled', 'disabled');
+			},
+		});
+	}
+
+	function addObject(floorId, x, y, label, objectType, width, height, direction, defaultStatus){
+		var param = {
+			floor_id: floorId,
+			x: x,
+			y: y,
+			object_type: objectType
+		};
+
+		if(label !== ''){
+			param.label = label;
+		}
+
+		if(width !== ''){
+			param.width = width;
+		}
+
+		if(height !== ''){
+			param.height = height;
+		}
+
+		if(direction !== ''){
+			param.direction = direction;
+		}
+
+		if(defaultStatus !== ''){
+			param.defaultStatus = defaultStatus;
+		}
+
+		$.ajax({
+			url: '/ajax/new_floor_object',
+			method: 'POST',
+			data: param,
+			success: function(json){
+				console.log(json);
+			}
+		});
+	}
+
+	$( document ).ready(function() {
+		$('#loadButton').click(function(e){
+			var buildingId = $('#buildingId').val();
+			// addFloor($('#buildingId').val(), "test", 300);
+			// addObject(1, 0, 0, '', 'room', '', '', '', '');
+			floorData = JSON.parse($('#data').val());
+
+			$.each(floorData, function(index, floor){
+				addFloor(buildingId, floor.label, floor.seq, floor.objects);
+			});
+		});
+	});
+</script>
+
+<select name="building_id" id="buildingId">
+	<% all.each do |building| %>
+		<option value="<%= building.id %>"><%= building.name %></option>
+	<% end %>
+</select>
+<hr/>
+
+<textarea id="data" rows="5" cols="100"></textarea>
+
+<hr/>
+<input type="button" id="loadButton" value="Load data" />
+
+<%= form_for '/' do %>
+<% end %>

@@ -1,0 +1,65 @@
+<script>
+var Locale = {
+	words: {
+		modeTitle: '<%= I18n.t "blank.mode_title" %>',
+		floorLabel: '<%= I18n.t "blank.floor_label" %>',
+		modalTitle: '<%= I18n.t "blank.modal_title" %>',
+		modalLabel: '<%= I18n.t "blank.modal_label" %>',
+		modalNote: '<%= I18n.t "blank.modal_note" %>',
+		labelUpdate: '<%= I18n.t "blank.label_update" %>',
+		noteUpdate: '<%= I18n.t "blank.note_update" %>',
+		addedRoom: '<%= I18n.t "blank.added_room" %>',
+		addedFloor: '<%= I18n.t "blank.added_floor" %>',
+		cannotAddFloor: '<%= I18n.t "blank.cannot_add_floor" %>',
+		noRoomInThisFloor: '<%= I18n.t "blank.no_room_in_this_floor" %>',
+
+		goUp: '<%= I18n.t "work.go_up" %>',
+		goDown: '<%= I18n.t "work.go_down" %>',
+		close: '<%= I18n.t "work.close" %>',
+		floorSelect: '<%= I18n.t "work.floor_select" %>',
+		cannotGoUp: '<%= I18n.t "work.cannot_go_up" %>',
+		cannotGoDown: '<%= I18n.t "work.cannot_go_down" %>',
+		onFloor: '<%= I18n.t "work.on_floor" %>',
+		floorLabelUpdate: '<%= I18n.t "work.session_label_update" %>',
+		prepareResource: '<%= I18n.t "work.prepare_resource" %>',
+		resourceLoadSlow: '<%= I18n.t "work.resource_load_slow" %>',
+		loadSlowReload: '<%= I18n.t "work.load_slow_reload" %>',
+		loadSlowOr: '<%= I18n.t "work.load_slow_or" %>',
+		loadSlowReport: '<%= I18n.t "work.load_slow_report" %>',
+		workLabel: '<%= I18n.t "work.work_label" %>',
+		viewMode: '<%= I18n.t "work.view_mode" %>',
+		reportProblem: '<%= I18n.t "work.report_problem" %>',
+		cancelReport: '<%= I18n.t "work.cancel_report" %>',
+		reportChoose: '<%= I18n.t "work.report_choose" %>',
+		reportPartTitle: '<%= I18n.t "work.report_part_title" %>',
+		reportThisBuilding: '<%= I18n.t "work.report_this_building" %>',
+		reportThisFloor: '<%= I18n.t "work.report_this_floor" %>',
+		reportThisRoom: '<%= I18n.t "work.report_this_room" %>',
+		reportDetailSuggest: '<%= I18n.t "work.report_detail_suggest" %>',
+		sendReport: '<%= I18n.t "work.send_report" %>',
+		reportReasonTitle: '<%= I18n.t "work.report_reason_title" %>',
+		reportDetailTitle: '<%= I18n.t "work.report_detail_title" %>',
+		reportBuildingReasons: [
+			'<%= I18n.t "work.report_building.missing" %>',
+			'<%= I18n.t "work.report_building.wrong" %>',
+			'<%= I18n.t "work.report_building.missing_short_name" %>',
+			'<%= I18n.t "work.report_building.wrong_short_name" %>',
+		],
+		reportFloorReasons: [
+			'<%= I18n.t "work.report_floor.not_exist" %>',
+			'<%= I18n.t "work.report_floor.not_available" %>',
+			'<%= I18n.t "work.report_floor.wrong_structure" %>',
+			'<%= I18n.t "work.report_floor.missing_room" %>',
+		],
+		reportRoomReasons: [
+			'<%= I18n.t "work.report_room.incorrect" %>',
+			'<%= I18n.t "work.report_room.not_available" %>',
+			'<%= I18n.t "work.report_room.not_exist" %>',
+		],
+		reportOther: '<%= I18n.t "work.report_other" %>',
+		thanksReport: '<%= I18n.t "work.thanks_report" %>',
+		
+	}
+};
+</script>
+<%= react_component('FloorView', {:defaultIconSet => ['', 'like.png', 'bad.png', 'closed.png', 'question.png'], :buildingData => @building_data.as_json(:include => {:building => {:only => [:id], :methods => :ordered_floors, :include => {:floors => {:only => [:id, :name, :seq], :include => {:floor_objects => {:only => [:id, :x, :y, :width, :height, :direction, :label, :object_type]}}}}}}, :only => [:id]), :workLabel => @session_data['name'], :normalModeStoreKey => '_s'+@session_data['id'].to_s, :id => params[:id]}) %>

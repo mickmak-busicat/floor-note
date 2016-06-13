@@ -1,0 +1,42 @@
+<% if !resource.errors.empty? %>
+  <div class="notification notification-warning">
+    <%= my_devise_error_messages! %>
+  </div>
+<% end %>
+
+<div class="valign center-align w-100 login-form-content">
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+
+  <h1 class="m-0"><strong><%= I18n.t 'register.title' %></strong></h1>
+  <div class="p-20 form-content">
+    <div class="input-field center">
+      <input type="text" autofocus id="register" name="user[email]" value="<%= resource.email %>" />
+      <label for="register"><%= I18n.t 'login.email' %></label>
+    </div>
+
+    <div class="input-field center">
+      <input type="password" id="password" name="user[password]" autocomplete="off" />
+      <label for="password"><%= I18n.t 'login.password' %></label>
+    </div>
+
+    <div class="input-field center">
+      <input type="password" id="register-confirm-psw" autocomplete="off" name="user[password_confirmation]" />
+      <label for="register-confirm-psw"><%= I18n.t 'register.password_confirm' %></label>
+    </div>
+
+    <% if @minimum_password_length %>
+      <div class="small">(<%= @minimum_password_length %> <%= I18n.t 'register.password_length' %>)</div>
+    <% end %>
+
+    <div class="form-content">
+      <%= f.submit I18n.t('register.submit'), :class => "btn animated bouncein" %>
+    </div>
+
+  <div class="form-content">
+    <%= render "users/shared/links" %>
+  </div>
+</div>
+
+<% end %>
+
+</div>

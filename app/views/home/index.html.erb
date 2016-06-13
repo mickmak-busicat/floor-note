@@ -1,0 +1,74 @@
+<script>
+var Locale = {
+	words: {
+		building: ' <%= I18n.t "index.building" %>',
+		currentSelect: '<%= I18n.t "index.current_select" %>',
+		removeSession: '<%= I18n.t "index.remove_session" %>',
+		resetButton: '<%= I18n.t "index.reset_button" %>',
+		confirmResetButton: '<%= I18n.t "index.confirm_reset_button" %>',
+		go: '<%= I18n.t "index.go" %>',
+		continueSession: '<%= I18n.t "index.continue_session" %>',
+		resultNotFound: '<%= I18n.t "index.result_not_found" %>',
+		fullQuota: '<%= I18n.t "index.full_quota" %>',
+	}
+};
+</script>
+
+<div class="valign center-align w-100">
+	<div class="p-20">
+		ads
+	</div>
+	<div class="p-20">
+		<label for="search" class="search-label"><%= I18n.t 'index.search_string' %></label>
+		<div class="input-field center">
+			<input id="search" type="text" maxLength="10" placeholder="<%= I18n.t 'index.search_placeholder' %>" data-tooltip="<%= I18n.t 'index.search_long_help' %>" />
+		</div>
+		<%= link_to '(?) '+I18n.t('index.request'), request_building_path( :locale => I18n.locale ), :class => 'right underline_link' %>
+	</div>
+
+	<div class="clr"></div>
+
+	<div class="notification notification-success" id="buildingDisplay" style="display:none;">
+	  <a class="close-notification no-smoothState"><i class="ion-android-close"></i></a>
+      <h3 class="notification-success"></h3>
+      <span class="small"></span>
+      <div class="input-field center">
+	      <input class="" type="text" id="sessionNameInput" placeholder="<%= I18n.t 'index.session_name' %>" maxLength="10" />
+	  </div>
+    </div>
+
+    <div class="p-20">
+	    <button class="btn waves-effect waves-green btn-large" id="startSessionButton"><span class="normal-img" style="display:none;"><img src="<%= asset_path('preloader.gif') %>" /></span> <%= I18n.t 'index.start' %></button>
+	</div>
+
+	<div class="p-20">
+		<%= I18n.t 'index.or' %>
+	</div>
+
+	<div class="p-20">
+	    <button class="btn waves-effect waves-blue btn-large btn-blue" id="startBlankSessionButton"><%= I18n.t 'index.start_blank' %></button>
+	</div>
+
+	<div class="p-20 notification notification-info" id="blankModeSettingDisplay" style="display:none">
+		<p class="left-text"><%= I18n.t 'index.room_number' %>:</p>
+		<select class="browser-default" id="roomNumberSelect">
+			<%
+				for i in 1..10
+			%>
+					<option value="<%= i*5 %>" <%= (i*5===10) ? "selected='selected'" : "" %>><%= i*5 %></option>
+			<%
+				end
+			%>
+		</select>
+
+		<div class="p-20 notification notification-warning" id="activeSessionDisplay" style="display:none">
+			<p>&nbsp;</p>
+			<a class="close-notification no-smoothState delete-btn"><i class="ion-trash-a"></i> <span class="resetText"><%= I18n.t 'index.reset_button' %></span></a>
+			<p class=""><%= I18n.t 'index.blank_session_exist' %></p>
+			<p>&nbsp;</p>
+		</div>
+
+		<a href="javascript:void(0)" class="btn waves-effect waves-green btn-large block" id="goBlankSessionButton"></a>
+	</div>
+
+</div>

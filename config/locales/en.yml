@@ -1,0 +1,288 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+  sidebar:
+    home_link: "Home"
+    session_link: "Working"
+    blank_session_link: "Custom Session"
+    tutorial_link: "Tutorial"
+    terms_link: "Terms and Condition"
+    privacy_link: "Privacy"
+    login_link: "Login"
+    logout_link: "Logout"
+    reset_session: "Reset session"
+    warn_finish: "Work session cannot be edited or read after marked as finish."
+  index:
+    search_string: "Search building..."
+    building: "Building"
+    request: "Cannot find expected result?"
+    or: "OR"
+    start: "Start session"
+    start_blank: "Start custom session"
+    current_select: "Current selection..."
+    go: "Start new session"
+    room_number: "Number of room"
+    session_name: "Name of work"
+    remove_session: "Custom session reset successfully."
+    blank_session_exist: "You have an active session. Reset this before you start a new session."
+    reset_button: "Reset"
+    confirm_reset_button: "Confirm reset?"
+    continue_session: "Continue last session"
+    result_not_found: "Cannot find result matches `WORD`. Click here to provide info!"
+    full_quota: "You can only have `COUNT` sessions at the same time. Please finish other first or upgrade your account."
+    start_new: "Start new session"
+    mark_finish: "Mark work as finished"
+    finish_all: "Mark all as finished"
+    search_placeholder: "Building name or short name"
+    search_long_help: "Enter building name or short name(eg: 魚蛋, kh), you can specify the building street number separate with a SPACE."
+  blank:
+    add_room: "Room"
+    add_floor: "Floor"
+    mode_title: "Blank Mode"
+    floor_label: "Floor Label:"
+    modal_title: "Notes for room"
+    modal_label: "Room Label:"
+    modal_note: "Custom Notes:"
+    label_update: "Room label updated."
+    note_update: "Room note updated."
+    added_room: "Room `NAME` added."
+    added_floor: "Floor `NAME` added."
+    cannot_add_floor: "No more floor to add."
+    no_room_in_this_floor: "This floor is empty. Please use Add Room button to add more."
+  work:
+    go_up: "Go UP"
+    go_down: "Go DN"
+    close: "OK"
+    floor_select: "Floor:"
+    cannot_go_up: "You are on highest floor."
+    cannot_go_down: "You are on lowest floor."
+    on_floor: "On `NAME` now."
+    floor_label_update: "Floor label updated."
+    session_label_update: "Work name updated."
+    prepare_resource: "Preparing resource..."
+    resource_load_slow: "Still loading, please be patient`BR`OR`BR`Check your network avalability`BR`OR`BR`"
+    load_slow_reload: "Reload this page"
+    load_slow_or: "`BR`OR`BR`"
+    load_slow_report: "Report a problem"
+    work_label: "Work name:"
+    no_session: "Work expired."
+    finish_work: "Work is marked as finished. You could start another work session."
+    view_mode: " (View Only)"
+    report_problem: "Report problem"
+    cancel_report: "Cancel"
+    report_reason_title: "Reason:"
+    report_part_title: "Identify where the problem is:"
+    report_choose: "Please choose:"
+    report_this_building: "This building"
+    report_this_floor: "This floor"
+    report_this_room: "This room"
+    report_detail_title: "Detail:"
+    report_detail_suggest: "What do you suggest to improve this problem?"
+    send_report: "Send report"
+    report_building:
+      missing: "Missing floor"
+      wrong: "Wrong building name"
+      missing_short_name: "Missing building short name for search"
+      wrong_short_name: "Wrong short name for this building"
+    report_floor:
+      not_exist: "Floor does not exist"
+      not_available: "Floor is not available"
+      wrong_structure: "Wrong floor structure"
+      missing_room: "Room missing"
+    report_room:
+      incorrect: "Room info incorrect"
+      not_available: "Room not available"
+      not_exist: "Room should not exist here"
+    report_other: "Other(Please tell us in detail)"
+    thanks_report: "Thanks for your information!"
+  user:
+    login_link: "Login"
+    logout_link: "Logout"
+    register_link: "Register"
+    anonymous: "Visitor"
+    dont_have_account: "Dont have a Floor Note account?"
+    forgot_password: "Forgot your password?"
+    forgot_link: "Get it back"
+    already_have: "Already a Floor Note user?"
+  login:
+    title: "User Login"
+    email: "Email"
+    password: "Password"
+    remember_me: "Remember me"
+    submit: "Login"
+  register:
+    title: "Register Floor Note account"
+    password_confirm: "Password confirmation"
+    password_length: "characters password"
+    submit: "Start now!"
+  forgot:
+    title: "Forgot my password"
+    submit: "Send me reset instruction"
+  admin:
+    js:
+      true: True
+      false: False
+      is_present: Is present
+      is_blank: Is blank
+      date: Date ...
+      between_and_: Between ... and ...
+      today: Today
+      yesterday: Yesterday
+      this_week: This week
+      last_week: Last week
+      number: Number ...
+      contains: Contains
+      is_exactly: Is exactly
+      starts_with: Starts with
+      ends_with: Ends with
+      too_many_objects: "Too many objects, use search box above"
+      no_objects: "No objects found"
+    loading: "Loading..."
+    toggle_navigation: Toggle navigation
+    home:
+      name: "Home"
+    pagination:
+      previous: "&laquo; Prev"
+      next: "Next &raquo;"
+      truncate: "…"
+    misc:
+      search: "Search"
+      filter: "Filter"
+      refresh: "Refresh"
+      show_all: "Show all"
+      add_filter: "Add filter"
+      bulk_menu_title: "Selected items"
+      remove: "Remove"
+      add_new: "Add new"
+      chosen: "Chosen %{name}"
+      chose_all: "Choose all"
+      clear_all: "Clear all"
+      up: "Up"
+      down: "Down"
+      navigation: "Navigation"
+      navigation_static_label: "Links"
+      log_out: "Log out"
+      ago: "ago"
+    flash:
+      successful: "%{name} successfully %{action}"
+      error: "%{name} failed to be %{action}"
+      noaction: "No actions were taken"
+      model_not_found: "Model '%{model}' could not be found"
+      object_not_found: "%{model} with id '%{id}' could not be found"
+    table_headers:
+      model_name: "Model name"
+      last_created: "Last created"
+      records: "Records"
+      username: "User"
+      changes: "Changes"
+      created_at: "Date/Time"
+      item: "Item"
+      message: "Message"
+    actions:
+      dashboard:
+        title: "Site Administration"
+        menu: "Dashboard"
+        breadcrumb: "Dashboard"
+      index:
+        title: "List of %{model_label_plural}"
+        menu: "List"
+        breadcrumb: "%{model_label_plural}"
+      show:
+        title: "Details for %{model_label} '%{object_label}'"
+        menu: "Show"
+        breadcrumb: "%{object_label}"
+      show_in_app:
+        menu: "Show in app"
+      new:
+        title: "New %{model_label}"
+        menu: "Add new"
+        breadcrumb: "New"
+        link: "Add a new %{model_label}"
+        done: "created"
+      edit:
+        title: "Edit %{model_label} '%{object_label}'"
+        menu: "Edit"
+        breadcrumb: "Edit"
+        link: "Edit this %{model_label}"
+        done: "updated"
+      delete:
+        title: "Delete %{model_label} '%{object_label}'"
+        menu: "Delete"
+        breadcrumb: "Delete"
+        link: "Delete '%{object_label}'"
+        done: "deleted"
+      bulk_delete:
+        title: "Delete %{model_label_plural}"
+        menu: "Multiple delete"
+        breadcrumb: "Multiple delete"
+        bulk_link: "Delete selected %{model_label_plural}"
+      export:
+        title: "Export %{model_label_plural}"
+        menu: "Export"
+        breadcrumb: "Export"
+        link: "Export found %{model_label_plural}"
+        bulk_link: "Export selected %{model_label_plural}"
+        done: "exported"
+      history_index:
+        title: "History for %{model_label_plural}"
+        menu: "History"
+        breadcrumb: "History"
+      history_show:
+        title: "History for %{model_label} '%{object_label}'"
+        menu: "History"
+        breadcrumb: "History"
+    form:
+      cancel: "Cancel"
+      basic_info: "Basic info"
+      required: "Required"
+      optional: "Optional"
+      one_char: "character"
+      char_length_up_to: "length up to"
+      char_length_of: "length of"
+      save: "Save"
+      save_and_add_another: "Save and add another"
+      save_and_edit: "Save and edit"
+      all_of_the_following_related_items_will_be_deleted: "? The following related items may be deleted or orphaned:"
+      are_you_sure_you_want_to_delete_the_object: "Are you sure you want to delete this %{model_name}"
+      confirmation: "Yes, I'm sure"
+      bulk_delete: "The following objects will be deleted, which may delete or orphan some of their related dependencies:"
+      new_model: "%{name} (new)"
+    export:
+      confirmation: "Export to %{name}"
+      select: "Select fields to export"
+      select_all_fields: "Select All Fields"
+      fields_from: "Fields from %{name}"
+      fields_from_associated: "Fields from associated %{name}"
+      display: "Display %{name}: %{type}"
+      options_for: "Options for %{name}"
+      empty_value_for_associated_objects: "<empty>"
+      click_to_reverse_selection: 'Click to reverse selection'
+      csv:
+        header_for_root_methods: "%{name}" # 'model' is available
+        header_for_association_methods: "%{name} [%{association}]"
+        encoding_to: "Encode to"
+        encoding_to_help: "Choose output encoding. Leave empty to let current input encoding untouched: (%{name})"
+        skip_header: "No header"
+        skip_header_help: "Do not output a header (no fields description)"
+        default_col_sep: ","
+        col_sep: "Column separator"
+        col_sep_help: "Leave blank for default ('%{value}')" # value is default_col_sep

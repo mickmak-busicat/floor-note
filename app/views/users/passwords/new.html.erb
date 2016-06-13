@@ -1,0 +1,28 @@
+<% if !resource.errors.empty? %>
+  <div class="notification notification-warning">
+    <%= my_devise_error_messages! %>
+  </div>
+<% end %>
+
+<div class="valign center-align w-100 login-form-content">
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+
+  <h1 class="m-0"><strong><%= I18n.t 'forgot.title' %></strong></h1>
+  <div class="p-20 form-content">
+    <div class="input-field center">
+      <input type="text" autofocus id="email" name="user[email]" />
+      <label for="email"><%= I18n.t 'login.email' %></label>
+    </div>
+
+    <div class="form-content">
+      <%= f.submit I18n.t('forgot.submit'), :class => "btn animated bouncein" %>
+    </div>
+
+  <div class="form-content">
+    <%= render "users/shared/links" %>
+  </div>
+</div>
+
+<% end %>
+
+</div>

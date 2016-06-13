@@ -1,0 +1,33 @@
+<% if !resource.errors.empty? %>
+  <div class="notification notification-warning">
+    <%= my_devise_error_messages! %>
+  </div>
+<% end %>
+
+<div class="valign center-align w-100 login-form-content">
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+<%= f.hidden_field :reset_password_token %>
+  <h1 class="m-0"><strong>Change your password</strong></h1>
+  <div class="p-20 form-content">
+    <div class="input-field center">
+      <input type="text" autocomplete="off" autofocus id="psw" name="user[password]" />
+      <label for="psw">New password</label>
+    </div>
+
+    <div class="input-field center">
+      <input type="text" autocomplete="off" id="confirm-psw" name="user[password_confirmation]" />
+      <label for="confirm-psw">Password confirmatio</label>
+    </div>
+
+    <div class="form-content">
+      <%= f.submit "Reset my password", :class => "btn animated bouncein" %>
+    </div>
+
+  <div class="form-content">
+    <%= render "users/shared/links" %>
+  </div>
+</div>
+
+<% end %>
+
+</div>

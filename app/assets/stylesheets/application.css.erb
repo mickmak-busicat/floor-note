@@ -1,0 +1,431 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ body{
+ 	margin: 0;
+ }
+
+.floor-container{
+	background-color: #EEE;
+	overflow: scroll;
+	-webkit-overflow-scrolling: touch;
+
+	position: relative;
+	left: 0;
+	right: 0;
+}
+
+.room-object{
+	position: absolute;
+
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select:none;
+	user-select:none;
+	-o-user-select:none;
+}
+
+.room-object.block{
+	background-image: url("<%= asset_path('assets/block_bg.png') %>");
+
+	background-color: #F76868;
+}
+
+.room-object.walkable{
+	background-image: url("<%= asset_path('assets/walkable_bg.png') %>");
+
+	background-color: #59BDCE;
+}
+
+.room-object.elevator{
+	background-image: url("<%= asset_path('assets/elevator_bg.png') %>");
+
+	background-color: #E8CF96;
+
+	background-position: center;
+    background-repeat: no-repeat;
+
+    width: 100px;
+    height: 100px;
+}
+
+.room-object.stair{
+	background-color: #bbb;
+
+	background-position: center;
+    background-repeat: no-repeat;
+
+    width: 100px;
+    height: 100px;
+}
+
+.room-object.stair.up{
+	background-image: url("<%= asset_path('assets/stairs_up_bg.png') %>");
+}
+
+.room-object.stair.down{
+	background-image: url("<%= asset_path('assets/stairs_down_bg.png') %>");
+}
+
+.room-object.room{
+	width:100px;
+	height: 100px;
+
+	cursor: pointer;
+
+	background-color: #AACE9E;
+	background-position: center;
+    background-repeat: no-repeat;
+}
+
+.room:active{
+	background-color: #ffeeaa;
+}
+
+.room-object.active{
+	background-color: #DEAEA4;
+}
+
+.floor-container::-webkit-scrollbar-track
+{
+	background-color: #F5F5F5;
+}
+
+.floor-container::-webkit-scrollbar
+{
+	width: 5px;
+	height: 5px;
+	background-color: #F5F5F5;
+}
+
+.floor-container::-webkit-scrollbar-thumb
+{
+	background-color: #555;
+}
+
+.opacity-modal{
+	opacity: 0.85!important;
+}
+
+.room .notes{
+	background-color: #fff;
+	opacity: 0.8;
+
+	margin: 2px;
+	padding: 2px;
+}
+
+/*.modal-dialog, .modal-content {
+	height: 100%;
+}*/
+
+.screen-block{
+	position: fixed;
+	left: 0;
+	top: 0;
+
+	background-color: #ddd;
+	opacity: 0;
+
+	width:100%;
+	height: 100%;
+
+	z-index: 99999;
+}
+
+.screen-block.real-block{
+	opacity: 0.9;
+	color: #fff;
+
+	display: table;
+}
+
+.screen-block.real-block .cell{
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.screen-block.real-block .info{
+	width: 250px;
+	margin: auto;
+	padding: 10px;
+
+	text-align: center;
+}
+
+.screen-block.real-block .info.small{
+	color: #aaa;
+}
+
+.screen-block.real-block img{
+	width: auto;
+	margin: auto;
+}
+
+.screen-block.real-block a{
+	text-decoration: underline;
+}
+.screen-block.real-block a:hover{
+	color: #ddd;
+}
+
+a.underline_link{
+	text-decoration: underline;
+}
+
+.eac-item b{
+	color: #26a69a;
+}
+
+.eac-item {
+	font-size: 32px;
+}
+
+.footer-copyright .right{
+	margin-left: 30px;
+}
+
+.left-text{
+	text-align: left;
+}
+
+.btn-blue{
+	background-color: #266BA6;
+}
+
+.btn-blue:focus{
+	background-color: #2A5CB7;
+	color:#fff;
+}
+
+.btn-blue:hover{
+	background-color: #2B72BB;
+	color:#ddd;
+}
+
+.floor-controls{
+	height: 70px;
+	width: 100%;
+
+	overflow-x: auto;
+	overflow-y: hidden;
+	
+	background-color: #aaa;
+}
+
+.control-div{
+	height: 70px;
+	background-color: #bbb;
+	color: #333;
+	margin-right: 5px;
+
+	text-align: center;
+	display: table;
+
+	float: right;
+}
+
+.control-div.active{
+	background-color: #B6DEEA;
+	color: #3A7888;
+}
+
+.control-div.fixed-width{
+	width: 70px;
+}
+
+.control-div .control-content{
+	display: table-cell;
+	vertical-align: middle;
+}
+
+textarea.normal{
+	height: inherit;
+}
+
+.room-mark{
+	position: absolute;
+	width: 100%;
+	bottom: -3px;
+}
+
+.room-mark > span {
+	float:right;
+	margin-right: 5px;
+}
+
+.room-mark i{
+	font-size: 18px;
+}
+
+.text-success{
+	color: #3c763d;
+}
+
+.floor-name{
+	font-size: 16px;
+	text-decoration: underline;
+	margin-left: 10px;
+	margin-right: 5px;
+}
+
+.floor-name.editable{
+	font-size: 22px;
+}
+
+.floor-name-edit i{
+	font-size: 16px;
+}
+
+.floor-label{
+	margin-left: 20px;
+}
+
+.header-action{
+	cursor: pointer;
+}
+
+.delete-btn{
+	cursor: pointer;
+}
+
+.sidebar-item-control{
+	float: right;
+}
+
+.sidebar-item-control .action-icon{
+	margin-right: 0!important;
+}
+
+.sidebar-item-control .action-icon.pending{
+	color: #FC0;
+}
+
+.sidebar-item-control .action-icon.started{
+	color: #00FFD4;
+}
+
+.status-display-cavnas{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+.login-form-content{
+	margin-top: 64px;
+}
+
+.form-content{
+	margin-top: 32px;
+	margin-bottom: 32px;
+}
+
+.field_with_errors{
+	color: #f00;
+}
+
+.field_with_errors label{
+	color: #f00;
+}
+
+span.normal-img img{
+	width: auto;
+	display: inline-block;
+}
+
+.rate-btn{
+	height: 80px;
+    line-height: 26px;
+    margin-right: 20px;
+}
+
+.rate-btn:last-child{
+	margin-right: 0px!important;
+}
+
+.rate-btn i{
+	font-size: 50px;
+}
+
+.rate-btn.like-btn{
+	background-color: #FF6767;
+    color: #FFE7E7;
+}
+
+.rate-btn.dislike-btn{
+	background-color: #0F308E;
+    color: #A0C0FF;
+}
+
+.rates-label{
+    padding: 0 10px;
+    border-radius: 5px;
+}
+
+.rates-label.like-rates{
+	color: #FF6767;
+    background-color: #FFE7E7;
+}
+
+.rates-label.dislike-rates{
+	background-color: #A0C0FF;
+    color: #0F308E;
+}
+
+.modal-header.compact{
+	padding: 5px 15px;
+}
+
+.rate-title{
+	text-decoration: underline;
+	margin-bottom: 10px;
+}
+
+.report-btn{
+	font-size: 12px;
+    padding: 0 10px;
+}
+
+.complete-link{
+	background-color: #498298!important;
+}
+
+.rate-block{
+	display: inline-block;
+	margin-right: 0px;
+}
+
+.rate-block:first-child{
+	margin-right: 20px!important;
+}
+
+.stats-info{
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.opacity-modal {
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select:none;
+	user-select:none;
+	-o-user-select:none;
+}
+
+.search-label{
+	font-size: 18px;
+	color:#26a69a;
+}

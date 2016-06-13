@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyText
+  seq: 1
+  building_id: 
+
+two:
+  name: MyText
+  seq: 1
+  building_id: 

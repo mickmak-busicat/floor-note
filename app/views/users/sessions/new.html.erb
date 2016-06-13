@@ -1,0 +1,44 @@
+<% if !resource.errors.empty? %>
+  <div class="notification notification-warning">
+    <%= my_devise_error_messages! %>
+  </div>
+<% end %>
+
+<div class="valign center-align w-100 login-form-content">
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+
+  <h1 class="m-0"><strong><%= I18n.t 'login.title' %></strong></h1>
+  <div class="p-20 form-content">
+    <div class="input-field center">
+      <input type="text" autofocus id="login" name="user[email]" />
+      <label for="login"><%= I18n.t 'login.email' %></label>
+    </div>
+
+    <div class="input-field center">
+      <input type="password" autocomplete="off" id="login-psw" name="user[password]" />
+      <label for="login-psw" /><%= I18n.t 'login.password' %></label>
+    </div>
+
+    <div class="center">
+      <% if devise_mapping.rememberable? -%>
+        <div class="field">
+          <%= f.check_box :remember_me %>
+          <label for="user_remember_me"><%= I18n.t 'login.remember_me' %></label>
+        </div>
+      <% end -%>
+    </div>
+  </div>
+
+  <div class="form-content">
+    <%= f.submit I18n.t('login.submit'), :class => "btn animated bouncein" %>
+  </div>
+
+  <div class="form-content">
+    <%= render "users/shared/links" %>
+  </div>
+
+
+<% end %>
+
+</div>

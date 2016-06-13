@@ -1,0 +1,35 @@
+<script>
+var Locale = {
+	words: {
+		addRoom: '<%= I18n.t "blank.add_room" %>',
+		addFloor: '<%= I18n.t "blank.add_floor" %>',
+		modeTitle: '<%= I18n.t "blank.mode_title" %>',
+		floorLabel: '<%= I18n.t "blank.floor_label" %>',
+		modalTitle: '<%= I18n.t "blank.modal_title" %>',
+		modalLabel: '<%= I18n.t "blank.modal_label" %>',
+		modalNote: '<%= I18n.t "blank.modal_note" %>',
+		labelUpdate: '<%= I18n.t "blank.label_update" %>',
+		noteUpdate: '<%= I18n.t "blank.note_update" %>',
+		addedRoom: '<%= I18n.t "blank.added_room" %>',
+		addedFloor: '<%= I18n.t "blank.added_floor" %>',
+		cannotAddFloor: '<%= I18n.t "blank.cannot_add_floor" %>',
+		noRoomInThisFloor: '<%= I18n.t "blank.no_room_in_this_floor" %>',
+
+		goUp: '<%= I18n.t "work.go_up" %>',
+		goDown: '<%= I18n.t "work.go_down" %>',
+		close: '<%= I18n.t "work.close" %>',
+		floorSelect: '<%= I18n.t "work.floor_select" %>',
+		cannotGoUp: '<%= I18n.t "work.cannot_go_up" %>',
+		cannotGoDown: '<%= I18n.t "work.cannot_go_down" %>',
+		onFloor: '<%= I18n.t "work.on_floor" %>',
+		floorLabelUpdate: '<%= I18n.t "work.floor_label_update" %>',
+		prepareResource: '<%= I18n.t "work.prepare_resource" %>',
+		resourceLoadSlow: '<%= I18n.t "work.resource_load_slow" %>',
+		loadSlowReload: '<%= I18n.t "work.load_slow_reload" %>',
+		loadSlowOr: '<%= I18n.t "work.load_slow_or" %>',
+		loadSlowReport: '<%= I18n.t "work.load_slow_report" %>',
+		
+	}
+};
+</script>
+<%= react_component('FloorBlankView', {:rm => params[:r], :defaultIconSet => ['', 'like.png', 'bad.png', 'closed.png', 'question.png']}) %>
