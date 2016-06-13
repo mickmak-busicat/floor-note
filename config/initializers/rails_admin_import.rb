@@ -16,10 +16,10 @@ RailsAdmin.config do |config|
   # Optional:
   # Configure model-specific options using standard RailsAdmin DSL
   # See https://github.com/sferik/rails_admin/wiki/Railsadmin-DSL
-  config.model 'User' do
-    import do
-      include_all_fields
-      exclude_fields :secret_token
-    end
-  end
+  # config.model 'User' do
+  #   import do
+  #     include_all_fields
+  #     exclude_fields :secret_token
+  #   end
+  # end
 end
