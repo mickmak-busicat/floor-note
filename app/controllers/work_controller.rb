@@ -13,7 +13,7 @@ class WorkController < ApplicationController
 
 		@session_data = get_session_info(session_id)
 		
-		if @building_data.nil?
+		if @building_data.nil? || @session_data.nil?
 			flash[:alert] = I18n.t 'work.no_session'
 			remove_active_session(session_id)
 			redirect_to root_path(:locale => I18n.locale)

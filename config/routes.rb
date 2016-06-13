@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     root 'home#index'
     get 'test', :to => 'home#test', as: 'test'
     get 'request', :to => 'home#request_building', as: 'request_building'
-    get 'report', :to => 'home#report_app', as: 'report_app'
+    get 'helpus', :to => 'home#help_us', as: 'help_us'
 
     scope "work" do
       get 'blank', :to => 'work#blank', as: 'blank_mode'
