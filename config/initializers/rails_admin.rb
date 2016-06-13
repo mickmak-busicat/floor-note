@@ -55,15 +55,25 @@ RailsAdmin.config do |config|
     end
   end
 
-  # config.model 'FloorObject' do
-  #   object_label_method do
-  #     :custom_floor_object_label_method
-  #   end
-  # end
+  def custom_user_label_method
+    "#{self.email}"
+  end
 
-  # def custom_building_label_method
-  #   "#{self.name}"
-  # end
+  config.model 'FloorObject' do
+    object_label_method do
+      :custom_floor_object_label_method
+    end
+  end
+
+  def custom_floor_object_label_method
+    if !self.floor.nil? && !self.floor.building.nil?
+      label = self.id
+      label = self.label if !self.label.nil?
+      "#{self.floor.building.name}(#{self.floor.name})[#{label}]"
+    else
+      "#{self.object_type} #{self.id}"
+    end
+  end
 
   def custom_floor_label_method
     if self.building.nil?
@@ -71,10 +81,6 @@ RailsAdmin.config do |config|
     else
       "#{self.building.name}(#{self.name})"
     end
-  end
-
-  def custom_user_label_method
-    "#{self.email}"
   end
 
 end
