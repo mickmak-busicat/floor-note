@@ -1,0 +1,79 @@
+<script>
+$(document).ready(function(){
+	$('a[data-toggle="popover"]').popover();
+
+	$('a[plan="premium"]').click(function(e){
+		console.log('viewed premium');
+	});
+
+	$('a[plan="vip"]').click(function(e){
+		console.log('viewed vip');
+	});
+});
+</script>
+
+<div class="valign center-align w-100">
+
+	<div class="p-20">
+		<h1><%= I18n.t 'compare.title' %></h1>
+	</div>
+
+	<div class="p-20 plan-container">
+		<table class="plan-table">
+			<thead>
+				<tr>
+					<th></th><th><%= I18n.t 'compare.guest' %></th><th><%= I18n.t 'compare.registered' %></th><th><%= I18n.t 'compare.premium' %></th><th><%= I18n.t 'compare.vip' %></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><%= I18n.t 'compare.blank_mode' %></td>
+					<td><i class="ion-checkmark-circled able-color"></i></td>
+					<td><i class="ion-checkmark-circled able-color"></i></td>
+					<td><i class="ion-checkmark-circled able-color"></i></td>
+					<td><i class="ion-checkmark-circled able-color"></i></td>
+				</tr>
+				<tr>
+					<td><%= I18n.t 'compare.active_session' %></td>
+					<td>1</td>
+					<td>3</td>
+					<td>5</td>
+					<td>10+</td>
+				</tr>
+				<tr>
+					<td><%= I18n.t 'compare.monthly_session' %></td>
+					<td>N/A</td>
+					<td>30</td>
+					<td>50</td>
+					<td>100+</td>
+				</tr>
+				<tr>
+					<td><%= I18n.t 'compare.basic_normal' %></td>
+					<td><i class="ion-checkmark-circled able-color"></i></td>
+					<td><i class="ion-checkmark-circled able-color"></i></td>
+					<td><i class="ion-checkmark-circled able-color"></i></td>
+					<td><i class="ion-checkmark-circled able-color"></i></td>
+				</tr>
+				<tr>
+					<td><%= I18n.t 'compare.extra_normal' %></td>
+					<td><i class="ion-close-round disable-color"></i></td>
+					<td><i class="ion-checkmark-circled able-color"></i></td>
+					<td><i class="ion-checkmark-circled able-color"></i></td>
+					<td><i class="ion-checkmark-circled able-color"></i></td>
+				</tr>
+				<tr>
+					<td colspan="5"><%= I18n.t 'compare.more_coming_soon' %></td>
+					
+				</tr>
+				<tr>
+					<td></td>
+					<td><a href="<%= root_path(:locale => I18n.locale) %>" class="btn btn-grey"><%= I18n.t 'compare.start_now' %></a></td>
+					<td><a href="<%= new_user_registration_path(:locale => I18n.locale) %>" class="btn btn-grey"><%= I18n.t 'compare.signup_now' %></a></td>
+					<td><a class="btn btn-grey" plan="premium" class="btn btn-yellow" data-container="body" data-toggle="popover" data-placement="top" data-content="<%= I18n.t 'compare.coming_soon' %>"><%= I18n.t 'compare.become_premium' %></a></td>
+					<td><a role="button" plan="vip" class="btn btn-yellow" data-container="body" data-toggle="popover" data-placement="top" data-content="<%= I18n.t 'compare.coming_soon' %>"><%= I18n.t 'compare.become_vip' %></a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</div>

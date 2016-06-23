@@ -73,6 +73,7 @@ var FloorView = React.createClass({
 		var objects = {};
 		var currentFloor = {};
 		var floorViewIndex = 1;
+		var scale = 1;
 		var previousSession = localStorage.getItem(this.props.normalModeStoreKey);
 
 		if(previousSession === "" || previousSession === null){
@@ -81,6 +82,7 @@ var FloorView = React.createClass({
 			previousSession = JSON.parse(previousSession);
 			objects = previousSession.objects;
 			floorViewIndex = previousSession.floorViewIndex;
+			scale = previousSession.scale;
 		}
 
 		$(this.refs.containerBody).css('height', ($(window.top).height()-126)+'px');
@@ -88,7 +90,7 @@ var FloorView = React.createClass({
 		this._constructCachedImage();
 
 		$('body').addClass("primary-color");
-		this.setState({'objects': objects, 'floorViewIndex': floorViewIndex, 'workLabel': this.props.workLabel});
+		this.setState({'objects': objects, 'floorViewIndex': floorViewIndex, 'workLabel': this.props.workLabel, 'scale': scale});
 	},
 
 	_constructCachedImage: function(){
@@ -119,7 +121,7 @@ var FloorView = React.createClass({
 
 		setTimeout(function(){
 			if($('.screen-block.real-block').length > 0){
-				$('<div>').addClass('info small').append(Locale.words.resourceLoadSlow.split('`BR`').join('<br>')).append($('<a>').attr('href', '').html(Locale.words.loadSlowReload)).append(Locale.words.loadSlowOr.split('`BR`').join('<br>')).append($('<a>').attr('href', '/'+SidebarLocale.current+'/report').html(Locale.words.loadSlowReport)).appendTo(cell);
+				$('<div>').addClass('info small').append(Locale.words.resourceLoadSlow.split('`BR`').join('<br>')).append($('<a>').attr('href', '').html(Locale.words.loadSlowReload)).append(Locale.words.loadSlowOr.split('`BR`').join('<br>')).append($('<a>').attr('href', '/'+SidebarLocale.current+'/improve').html(Locale.words.loadSlowReport)).appendTo(cell);
 			}
 		}, 10000);
 
@@ -392,6 +394,29 @@ var FloorView = React.createClass({
 		return icon;
 	},
 
+
+	_scaleUp: function(){
+		var scale = this.state.scale;
+		if(scale < 1.5){
+			this.setState({'scale': scale + 0.1});
+		}else{
+			Materialize.toast(Locale.words.cannotScaleUp, 2000);
+		}
+	},
+
+	_scaleDown: function(){
+		var scale = this.state.scale;
+		if(scale > 0.5){
+			this.setState({'scale': scale - 0.1});
+		}else{
+			Materialize.toast(Locale.words.cannotScaleDown, 2000);
+		}
+	},
+
+	_getScale: function(){
+		return this.state.scale;
+	},
+
 	_isResourceReady: function(){
 		return this.cachedImage.loadDone;
 	},
@@ -434,6 +459,12 @@ var FloorView = React.createClass({
 		});
 	},
 
+	_rateRoom: function(score){
+		Materialize.toast("Coming soon...", 3000);
+
+		console.log(score);
+	},
+
 
 	/**
 	 *
@@ -458,21 +489,21 @@ var FloorView = React.createClass({
 			maxY = (boundaryY > maxY)?boundaryY:maxY;
 
 			if(finalObject.object_type == 'room'){
-				resultArray.push(<FloorRoom _pIsResourceReady={_this._isResourceReady} _pAddImageLoaderHook={_this._addHook} _pNextRoomStatus={_this._nextRoomStatus} _pGetRoomIcon={_this._getStatusIcon} _pGetBackgroundImage={_this._getBackgroundImage} _pOpenModal={_this._popForRoom} key={finalObject.id} id={finalObject.id} x={finalObject.x} y={finalObject.y} notes={finalObject.notes!==''?finalObject.notes:''} label={finalObject.label} status={finalObject.status} />);
+				resultArray.push(<FloorRoom _pGetScale={_this._getScale} _pIsResourceReady={_this._isResourceReady} _pAddImageLoaderHook={_this._addHook} _pNextRoomStatus={_this._nextRoomStatus} _pGetRoomIcon={_this._getStatusIcon} _pGetBackgroundImage={_this._getBackgroundImage} _pOpenModal={_this._popForRoom} key={finalObject.id} id={finalObject.id} x={finalObject.x} y={finalObject.y} notes={finalObject.notes!==''?finalObject.notes:''} label={finalObject.label} status={finalObject.status} />);
 			}else if(finalObject.object_type == 'walkable'){
-				resultArray.push(<FloorWalkable key={finalObject.id} id={finalObject.id} x={finalObject.x} y={finalObject.y} width={finalObject.width} height={finalObject.height} />);
+				resultArray.push(<FloorWalkable _pGetScale={_this._getScale} key={finalObject.id} id={finalObject.id} x={finalObject.x} y={finalObject.y} width={finalObject.width} height={finalObject.height} />);
 			}else if(finalObject.object_type == 'block'){
-				resultArray.push(<FloorBlock key={finalObject.id} id={finalObject.id} x={finalObject.x} y={finalObject.y} width={finalObject.width} height={finalObject.height} />);
+				resultArray.push(<FloorBlock _pGetScale={_this._getScale} key={finalObject.id} id={finalObject.id} x={finalObject.x} y={finalObject.y} width={finalObject.width} height={finalObject.height} />);
 			}else if(finalObject.object_type == 'stair'){
-				resultArray.push(<FloorStair key={finalObject.id} id={finalObject.id} x={finalObject.x} y={finalObject.y} direction={finalObject.direction} />);
+				resultArray.push(<FloorStair _pGetScale={_this._getScale} key={finalObject.id} id={finalObject.id} x={finalObject.x} y={finalObject.y} direction={finalObject.direction} />);
 			}else if(finalObject.object_type == 'elevator'){
-				resultArray.push(<FloorElevator key={finalObject.id} id={finalObject.id} x={finalObject.x} y={finalObject.y} direction={finalObject.direction} />);
+				resultArray.push(<FloorElevator _pGetScale={_this._getScale} key={finalObject.id} id={finalObject.id} x={finalObject.x} y={finalObject.y} direction={finalObject.direction} />);
 			}else {
 				console.log('Unknown object type: '+ finalObject.object_type);
 			}
 		});
 
-		resultArray.push(<FloorBlock key="screenMargin" id="margin" x={maxX+margin} y={maxY+margin} width={1} height={1} />);
+		resultArray.push(<FloorBlock _pGetScale={_this._getScale} key="screenMargin" id="margin" x={maxX+margin} y={maxY+margin} width={1} height={1} />);
 
 		return resultArray;
 	},
@@ -545,7 +576,10 @@ var FloorView = React.createClass({
 						{this._renderReasonSelect()}
 					</select>
 				  	<div>{Locale.words.reportDetailTitle}</div>
-				  	<textarea rows="3" className="normal" maxLength="255" placeholder={Locale.words.reportDetailSuggest} ref="reportDetail"></textarea>
+				  	<div className="input-field animated">
+						<i className="ion-ios-compose-outline prefix"></i>
+						<textarea className="materialize-textarea" maxLength="255" placeholder={Locale.words.reportDetailSuggest} ref="reportDetail"></textarea>
+					</div>
 				  </div>
 				  <div className="modal-body" ref="infoPanel" hidden={this.state.isReportPanelShow}>
 				  	<div>
@@ -556,24 +590,27 @@ var FloorView = React.createClass({
 					  		<div className="center">
 					  			<div className="rate-block">
 					  				<div>
-					  					<span className="rates-label like-rates"><i className="ion-heart"></i> x <span ref="likeRatesDisplay">???</span></span>
+					  					<span className="rates-label like-rates"><i className="ion-heart"></i> x <span ref="likeRatesDisplay">0</span></span>
 					  				</div>
-							    	<button type="button" className="btn btn-lg waves-effect waves-red like-btn rate-btn" style={this.props.mode=='VIEW'?{'display': 'none'}:{}} disabled={this.props.mode=='VIEW'}><i className="ion-heart"></i></button> 
+							    	<button type="button" className="btn btn-lg waves-effect waves-red like-btn rate-btn" style={this.props.mode=='VIEW'?{'display': 'none'}:{}} disabled={this.props.mode=='VIEW'} onClick={this._rateRoom.bind(null, 1)}><i className="ion-heart"></i></button> 
 							    </div>
 							    <div className="rate-block">
 							    	<div>
-							    		<span className="rates-label dislike-rates"><i className="ion-sad"></i> x <span ref="dislikeRatesDisplay">???</span></span>
+							    		<span className="rates-label dislike-rates"><i className="ion-sad"></i> x <span ref="dislikeRatesDisplay">0</span></span>
 							    	</div>
-							    	<button type="button" className="waves-effect waves-blue btn btn-lg dislike-btn rate-btn" style={this.props.mode=='VIEW'?{'display': 'none'}:{}} disabled={this.props.mode=='VIEW'}><i className="ion-sad"></i></button>
+							    	<button type="button" className="waves-effect waves-blue btn btn-lg dislike-btn rate-btn" style={this.props.mode=='VIEW'?{'display': 'none'}:{}} disabled={this.props.mode=='VIEW'} onClick={this._rateRoom.bind(null, -1)}><i className="ion-sad"></i></button>
 							    </div>
 							    <div className="stats-info small">(Last 7 days)</div>
 						    </div>
 					    </div>
 				    </div>
-				  	<div>{Locale.words.modalLabel}</div>
-				  	<input type="text" maxLength="10" value={this.state.modalLabel} onChange={this._updateModalLabel} onKeyPress={this._enterToBlur} onBlur={this._updateRoomLabel} disabled={this.props.mode=='VIEW'} />
-				  	<div>{Locale.words.modalNote}</div>
-				  	<textarea rows="2" className="normal" maxLength="255" value={this.state.modalNotes} onChange={this._updateModalNotes} onBlur={this._updateRoomNotes} disabled={this.props.mode=='VIEW'} ></textarea>
+				  	<div>{Locale.words.modalLabel + ((this.props.u)?'':Locale.words.loginToUse)}</div>
+				  	<input type="text" maxLength="10" value={this.state.modalLabel} onChange={this._updateModalLabel} onKeyPress={this._enterToBlur} onBlur={this._updateRoomLabel} disabled={this.props.mode=='VIEW'||!this.props.u} />
+				  	<div>{Locale.words.modalNote + ((this.props.u)?'':Locale.words.loginToUse)}</div>
+				  	<div className="input-field animated">
+						<i className="ion-ios-compose-outline prefix"></i>
+						<textarea className="materialize-textarea" maxLength="255" value={this.state.modalNotes} onChange={this._updateModalNotes} onBlur={this._updateRoomNotes} disabled={this.props.mode=='VIEW'||!this.props.u} ></textarea>
+					</div>
 				  </div>
 				  <div className="modal-footer" hidden={this.state.isReportPanelShow}>
 				    <button type="button" className="btn btn-lg col-md-12 col-xs-12 col-sm-12 waves-effect waves-green" data-dismiss="modal">{Locale.words.close}</button>
@@ -604,6 +641,16 @@ var FloorView = React.createClass({
 								<option disabled="disabled" value="0">{Locale.words.floorSelect}</option>
 								{this._renderFloorSelect()}
 							</select>
+						</span>
+					</div>
+					<div className="control-div fixed-width active" onClick={this._scaleUp}>
+						<span className="control-content">
+							<i className="ion-ios-plus-outline"></i><div>{Locale.words.scaleUp}</div>
+						</span>
+					</div>
+					<div className="control-div fixed-width active" onClick={this._scaleDown}>
+						<span className="control-content">
+							<i className="ion-ios-minus-outline"></i><div>{Locale.words.scaleDown}</div>
 						</span>
 					</div>
 				</div>

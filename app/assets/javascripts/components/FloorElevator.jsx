@@ -1,7 +1,7 @@
 var FloorElevator = React.createClass({
 	getDefaultProps: function(){
 		return {
-			
+			'size': 100,
 		};
 	},
 
@@ -20,8 +20,10 @@ var FloorElevator = React.createClass({
 		var border = [true, true, true, true]
 		var position = ['Top', 'Right', 'Bottom', 'Left'];
 
-		result['left'] = this.props.x+'px';
-		result['top'] = this.props.y+'px';
+		result['left'] = (this.props.x*this.props._pGetScale())+'px';
+		result['top'] = (this.props.y*this.props._pGetScale())+'px';
+		result['width'] = (this.props.size*this.props._pGetScale())+'px';
+		result['height'] = (this.props.size*this.props._pGetScale())+'px';
 
 		if(this.props.direction == 'n'){
 			border[0] = false

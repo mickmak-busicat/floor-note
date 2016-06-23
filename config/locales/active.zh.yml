@@ -44,7 +44,7 @@ zh:
       updated_not_active: "您的密碼已被修改。"
     registrations:
       destroyed: "再會！您的帳號已被取消。有緣再會。"
-      signed_up: "註冊成功，歡迎！"
+      signed_up: "註冊成功，歡迎使用Floor Note！"
       signed_up_but_inactive: "您已註冊成功。然而因為您的帳號尚未啓動，暫時無法登入，抱歉！"
       signed_up_but_locked: "您已註冊成功。 然而因為您的帳號已被鎖定，暫時無法登入，抱歉！"
       signed_up_but_unconfirmed: "確認信件已送至您的 Email 信箱，請點擊信件內連結以啓動您的帳號。"

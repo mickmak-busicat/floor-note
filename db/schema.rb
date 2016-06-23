@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160613170618) do
+ActiveRecord::Schema.define(version: 20160622155127) do
 
   create_table "building_requests", force: :cascade do |t|
     t.integer  "user_id",          limit: 4
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20160613170618) do
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
     t.string   "tags",             limit: 255
+    t.string   "email",            limit: 255
   end
 
   add_index "building_requests", ["user_id"], name: "index_building_requests_on_user_id", using: :btree
@@ -92,6 +93,7 @@ ActiveRecord::Schema.define(version: 20160613170618) do
     t.text     "comment",         limit: 65535
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+    t.string   "email",           limit: 255
   end
 
   add_index "reports", ["building_id"], name: "index_reports_on_building_id", using: :btree

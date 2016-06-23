@@ -58,8 +58,13 @@ var Locale = {
 		],
 		reportOther: '<%= I18n.t "work.report_other" %>',
 		thanksReport: '<%= I18n.t "work.thanks_report" %>',
+		loginToUse: '<%= I18n.t "work.login_to_use" %>',
+		scaleUp: '<%= I18n.t "work.scale_up" %>',
+		scaleDown: '<%= I18n.t "work.scale_down" %>',
+		cannotScaleUp: '<%= I18n.t "work.cannot_scale_up" %>',
+		cannotScaleDown: '<%= I18n.t "work.cannot_scale_down" %>',
 		
 	}
 };
 </script>
-<%= react_component('FloorView', {:defaultIconSet => ['', 'like.png', 'bad.png', 'closed.png', 'question.png'], :buildingData => @building_data.as_json(:include => {:building => {:only => [:id], :methods => :ordered_floors, :include => {:floors => {:only => [:id, :name, :seq], :include => {:floor_objects => {:only => [:id, :x, :y, :width, :height, :direction, :label, :object_type]}}}}}}, :only => [:id]), :workLabel => @session_data['name'], :normalModeStoreKey => '_s'+@session_data['id'].to_s, :id => params[:id]}) %>
+<%= react_component('FloorView', {:defaultIconSet => ['', 'like.png', 'bad.png', 'closed.png', 'question.png'], :buildingData => @building_data.as_json(:include => {:building => {:only => [:id], :methods => :ordered_floors, :include => {:floors => {:only => [:id, :name, :seq], :include => {:floor_objects => {:only => [:id, :x, :y, :width, :height, :direction, :label, :object_type]}}}}}}, :only => [:id]), :workLabel => @session_data['name'], :normalModeStoreKey => '_s'+@session_data['id'].to_s, :id => params[:id], :u => user_signed_in?}) %>

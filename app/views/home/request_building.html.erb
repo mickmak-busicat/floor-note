@@ -1,1 +1,100 @@
-request.html.erb
+<script>
+</script>
+
+<div class="valign center-align w-100">
+	<% if @success %>
+	
+		<div class="p-20">
+			<span><%= I18n.t('request.thanks_request') %></span>
+		</div>
+
+		<% if !@email.nil? && @email != "" && !@email_exist %>
+			<div class="p-20">
+				<h1><%= I18n.t('request.please_wait') %></h1>
+				<div><%= I18n.t('request.one_more_step') %></div>
+				<%= link_to '(?) '+I18n.t('request.plan_compare'), compare_path( :locale => I18n.locale ), :class => 'right underline_link' %>
+			</div>
+			<%= form_for(User, as: :user, url: registration_path(:user)) do |f| %>
+			  <div class="p-20 form-content">
+			    <div class="input-field center">
+			      <input type="text" autofocus id="register" name="user[email]" value="<%= @email %>" />
+			      <label for="register"><%= I18n.t 'login.email' %></label>
+			    </div>
+
+			    <div class="input-field center">
+			      <input type="password" id="password" name="user[password]" autocomplete="off" />
+			      <label for="password"><%= I18n.t 'login.password' %></label>
+			    </div>
+
+			    <div class="input-field center">
+			      <input type="password" id="register-confirm-psw" autocomplete="off" name="user[password_confirmation]" />
+			      <label for="register-confirm-psw"><%= I18n.t 'register.password_confirm' %></label>
+			    </div>
+
+			    <% if @minimum_password_length %>
+			      <div class="small">(<%= @minimum_password_length %> <%= I18n.t 'register.password_length' %>)</div>
+			    <% end %>
+
+			    <div class="form-content">
+			      <%= f.submit I18n.t('register.submit'), :class => "btn animated bouncein" %>
+			    </div>
+			</div>
+
+			<% end %>
+		<% end %>
+
+		<% if @email_exist && !user_signed_in? %>
+			<div class="p-20">
+				<%= link_to I18n.t('sidebar.login_link'), new_user_session_path( :locale => I18n.locale ) %>
+			</div>
+		<% end %>
+
+	<% else %>
+
+	<form method="POST">
+		<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+		<div class="p-20">
+			<h1><%= I18n.t('request.title') %></h1>
+			<span><%= I18n.t('request.request_here') %></span>
+		</div>
+		<div class="p-20">
+			<div class="input-field center">
+				<input id="buildingName" type="text" name="building_name" />
+				<label for="buildingName"><%= I18n.t('request.building_name') %></label>
+			</div>
+		</div>
+
+		<div class="p-20">
+			<div class="input-field center">
+				<input id="buildingAddress" type="text" name="building_address" />
+				<label for="buildingAddress"><%= I18n.t('request.building_address') %></label>
+			</div>
+		</div>
+
+		<div class="p-20">
+			<div class="input-field center">
+				<input id="buildingShortName" type="text" name="tags" />
+				<label for="buildingShortName"><%= I18n.t('request.building_short_name') %></label>
+			</div>
+		</div>
+
+		<% if !user_signed_in? %>
+		<div class="p-20">
+			<div class="input-field center">
+				<input id="email" type="text" name="email" />
+				<label for="email"><%= I18n.t('request.notify_email') %></label>
+			</div>
+			<span><%= I18n.t('request.send_notify') %></span>
+		</div>
+		<% end %>
+
+	    <div class="p-20">
+		    <input type="submit" class="btn animated bouncein" value="<%= I18n.t('request.submit') %>"/>
+		</div>
+
+	</form>
+
+	<% end %>
+
+
+</div>

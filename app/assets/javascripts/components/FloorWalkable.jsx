@@ -1,6 +1,7 @@
 var FloorWalkable = React.createClass({
 	getDefaultProps: function(){
 		return {
+			
 		};
 	},
 
@@ -14,6 +15,6 @@ var FloorWalkable = React.createClass({
 	},
 
 	render: function(){
-		return <div className='room-object walkable' style={{'left': this.props.x+'px', 'top':this.props.y+'px', 'width': this.props.width+'px', 'height': this.props.height+'px'}}></div>;
+		return <div className='room-object walkable' style={{'left': (this.props.x*this.props._pGetScale())+'px', 'top':(this.props.y*this.props._pGetScale())+'px', 'width': (this.props.width*this.props._pGetScale())+'px', 'height': (this.props.height*this.props._pGetScale())+'px'}}></div>;
 	}
 });

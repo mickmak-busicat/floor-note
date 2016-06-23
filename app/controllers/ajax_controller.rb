@@ -13,7 +13,7 @@ class AjaxController < ApplicationController
   	count = get_active_session_count
   	@building_session = nil
 
-  	if ( user_signed_in? && count < 3 ) || ( !user_signed_in? && count < 1 )
+  	if ( user_signed_in? && count < Settings.SESSION_COUNT.REGISTERED ) || ( !user_signed_in? && count < Settings.SESSION_COUNT.GUEST )
   		create_building_session
   	end
 

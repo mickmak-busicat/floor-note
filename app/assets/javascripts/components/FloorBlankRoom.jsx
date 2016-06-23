@@ -8,6 +8,7 @@ var FloorBlankRoom = React.createClass({
 			'notes': '',
 			'index': 0,
 			'currentFloor': 0,
+			'size': 100,
 		};
 	},
 
@@ -82,7 +83,7 @@ var FloorBlankRoom = React.createClass({
 	},
 
 	render: function(){
-		return <div ref="roomBody" className='room-object room' style={{'left': this.props.x+'px','top':this.props.y+'px',}} onClick={this._nextStatus}>
+		return <div ref="roomBody" className='room-object room' style={{'left': (this.props.x*this.props._pGetScale())+'px','top':(this.props.y*this.props._pGetScale())+'px','width': (this.props.size*this.props._pGetScale())+'px', 'height': (this.props.size*this.props._pGetScale())+'px'}} onClick={this._nextStatus}>
 			<canvas status={this.props.status} className="status-display-cavnas" ref="iconDisplay" width="100" height="100"></canvas>
 			<p className='notes' hidden={this.props.label==''}>{this.props.label}</p>
 			<span className="room-mark">

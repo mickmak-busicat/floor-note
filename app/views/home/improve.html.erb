@@ -1,0 +1,42 @@
+<script>
+</script>
+
+<div class="valign center-align w-100">
+
+	<form method="POST">
+		<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+		<div class="p-20">
+			<h1><%= I18n.t('improve.title') %></h1>
+			<span><%= I18n.t('improve.description') %></span>
+		</div>
+		<div class="p-20">
+			<div class="input-field center">
+				<input id="reason" type="text" name="reason" />
+				<label for="reason"><%= I18n.t('improve.reason') %></label>
+			</div>
+		</div>
+
+		<div class="p-20">
+			<span><%= I18n.t('improve.comment') %></span>
+			<div class="input-field animated">
+				<i class="ion-ios-compose-outline prefix"></i>
+				<textarea name="comment" class="materialize-textarea"></textarea>
+			</div>
+		</div>
+
+		<% if !user_signed_in? %>
+		<div class="p-20">
+			<div class="input-field center">
+				<input id="email" type="text" name="email" />
+				<label for="email"><%= I18n.t('improve.notify_email') %></label>
+			</div>
+		</div>
+		<% end %>
+
+	    <div class="p-20">
+		    <input type="submit" class="btn animated bouncein" value="<%= I18n.t('request.submit') %>"/>
+		</div>
+
+	</form>
+
+</div>

@@ -57,9 +57,10 @@
 
 	background-position: center;
     background-repeat: no-repeat;
+    background-size: cover;
 
-    width: 100px;
-    height: 100px;
+    /*width: 100px;
+    height: 100px;*/
 }
 
 .room-object.stair{
@@ -67,9 +68,10 @@
 
 	background-position: center;
     background-repeat: no-repeat;
+    background-size: cover;
 
-    width: 100px;
-    height: 100px;
+    /*width: 100px;
+    height: 100px;*/
 }
 
 .room-object.stair.up{
@@ -81,8 +83,8 @@
 }
 
 .room-object.room{
-	width:100px;
-	height: 100px;
+	/*width:100px;
+	height: 100px;*/
 
 	cursor: pointer;
 
@@ -123,6 +125,7 @@
 .room .notes{
 	background-color: #fff;
 	opacity: 0.8;
+	overflow: hidden;
 
 	margin: 2px;
 	padding: 2px;
@@ -428,4 +431,59 @@ span.normal-img img{
 .search-label{
 	font-size: 18px;
 	color:#26a69a;
+}
+
+.able-color{
+	color: #87d07c;
+}
+
+.disable-color{
+	color: #ddd;
+}
+
+.btn-grey{
+	background-color: #bdbdbd;
+	color:#000;
+}
+
+.btn-grey:focus{
+	background-color: #989898;
+	color:#000;
+}
+
+.btn-grey:hover{
+	background-color: #989898;
+	color:#333;
+}
+
+.btn-yellow{
+	background-color: #ffe52a;
+	color:#5a2b00;
+
+	box-shadow: 0 2px 5px 0 rgba(158, 154, 29, 0.16),0 2px 10px 0 rgba(138, 134, 24, 0.12);
+}
+
+.btn-yellow:focus{
+	background-color: #ffed6d;
+	color:#5a2b00;
+}
+
+.btn-yellow:hover{
+	background-color: #ffed6d;
+	color:#5a2b00;
+
+	box-shadow: 0 5px 11px 0 rgba(158, 104, 4, 0.18),0 4px 15px 0 rgba(56, 115, 11, 0.15);
+}
+
+table.plan-table td, table.plan-table th{
+	text-align: center;
+}
+
+.plan-table tr > td:first-child{
+	min-width: 200px;
+}
+
+.plan-container{
+	width: 100%;
+	overflow-x: scroll;
 }

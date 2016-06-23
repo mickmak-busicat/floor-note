@@ -210,9 +210,6 @@ var FloorBlankView = React.createClass({
 			index: index
 		};
 
-		console.log(index);
-		console.log(roomObject);
-
 		return roomObject;
 	},
 
@@ -374,6 +371,10 @@ var FloorBlankView = React.createClass({
 		return result;
 	},
 
+	_getScale: function(){
+		return 1;
+	},
+
 	_updateFloorModalLabel: function(e){
 		this.setState({'modalFloorLabel': e.target.value});
 	},
@@ -421,7 +422,7 @@ var FloorBlankView = React.createClass({
 
 		$.each(targetFloorObjects, function(index, obj){
 			if(obj.type == 'room'){
-				resultArray.push(<FloorBlankRoom _pIsResourceReady={_this._isResourceReady} _pAddImageLoaderHook={_this._addHook} _pOpenModal={_this._popForRoom} _pNextRoomStatus={_this._nextRoomStatus} _pGetRoomIcon={_this._getStatusIcon} _pGetBackgroundImage={_this._getBackgroundImage} key={index} id={index} x={obj.x} y={obj.y} label={obj.label!==''?obj.label:''} status={obj.status} index={obj.index} notes={obj.notes} currentFloor={_this.state.floorViewIndex} />);
+				resultArray.push(<FloorBlankRoom _pGetScale={_this._getScale} _pIsResourceReady={_this._isResourceReady} _pAddImageLoaderHook={_this._addHook} _pOpenModal={_this._popForRoom} _pNextRoomStatus={_this._nextRoomStatus} _pGetRoomIcon={_this._getStatusIcon} _pGetBackgroundImage={_this._getBackgroundImage} key={index} id={index} x={obj.x} y={obj.y} label={obj.label!==''?obj.label:''} status={obj.status} index={obj.index} notes={obj.notes} currentFloor={_this.state.floorViewIndex} />);
 			}else {
 				console.log('Unknown object type: '+ obj.type);
 			}
@@ -465,7 +466,10 @@ var FloorBlankView = React.createClass({
 				  	<div>{Locale.words.modalLabel}</div>
 				  	<input type="text" maxLength="10" value={this.state.modalLabel} onChange={this._updateModalLabel} onKeyPress={this._enterToBlur} onBlur={this._updateRoomLabel} />
 				  	<div>{Locale.words.modalNote}</div>
-				  	<textarea rows="3" className="normal" maxLength="255" value={this.state.modalNotes} onChange={this._updateModalNotes} onBlur={this._updateRoomNotes} ></textarea>
+				  	<div className="input-field animated">
+						<i className="ion-ios-compose-outline prefix"></i>
+						<textarea className="materialize-textarea" maxLength="255" value={this.state.modalNotes} onChange={this._updateModalNotes} onBlur={this._updateRoomNotes} ></textarea>
+					</div>
 				  </div>
 				  <div className="modal-footer">
 				    <button type="button" className="btn btn-lg col-md-12 col-xs-12 col-sm-12 waves-effect waves-green" data-dismiss="modal">{Locale.words.close}</button>

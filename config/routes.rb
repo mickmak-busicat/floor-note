@@ -6,8 +6,16 @@ Rails.application.routes.draw do
   scope "(:locale)", locale: /en|zh/ do
     root 'home#index'
     get 'test', :to => 'home#test', as: 'test'
+    
     get 'request', :to => 'home#request_building', as: 'request_building'
-    get 'helpus', :to => 'home#help_us', as: 'help_us'
+    post 'request', :to => 'home#request_building_add', as: 'request_building_add'
+
+    get 'improve', :to => 'home#improve', as: 'improve'
+    post 'improve', :to => 'home#improve_add', as: 'improve_add'
+    
+    get 'compare', :to => 'home#compare_plan', as: 'compare'
+
+    get 'tutorial', :to => 'home#tutorial', as: 'tutorial'
 
     scope "work" do
       get 'blank', :to => 'work#blank', as: 'blank_mode'

@@ -7,20 +7,20 @@
 <div class="valign center-align w-100 login-form-content">
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
 <%= f.hidden_field :reset_password_token %>
-  <h1 class="m-0"><strong>Change your password</strong></h1>
+  <h1 class="m-0"><strong><%= I18n.t 'reset.title' %></strong></h1>
   <div class="p-20 form-content">
     <div class="input-field center">
-      <input type="text" autocomplete="off" autofocus id="psw" name="user[password]" />
-      <label for="psw">New password</label>
+      <input type="password" autocomplete="off" autofocus id="psw" name="user[password]" />
+      <label for="psw"><%= I18n.t 'reset.new_password' %></label>
     </div>
 
     <div class="input-field center">
-      <input type="text" autocomplete="off" id="confirm-psw" name="user[password_confirmation]" />
-      <label for="confirm-psw">Password confirmatio</label>
+      <input type="password" autocomplete="off" id="confirm-psw" name="user[password_confirmation]" />
+      <label for="confirm-psw"><%= I18n.t 'reset.confirm_password' %></label>
     </div>
 
     <div class="form-content">
-      <%= f.submit "Reset my password", :class => "btn animated bouncein" %>
+      <%= f.submit I18n.t('reset.submit'), :class => "btn animated bouncein" %>
     </div>
 
   <div class="form-content">

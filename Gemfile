@@ -60,3 +60,5 @@ gem 'grape-kaminari'
 gem 'grape-entity'
 
 gem "rails_admin_import", "~> 1.2"
+
+gem 'config'
