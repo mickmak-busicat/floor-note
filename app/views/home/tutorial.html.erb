@@ -4,28 +4,135 @@
 <div class="valign center-align w-100">
 
 	<div class="p-20">
-		<h1>Tutorial</h1>
-		<p>Normal mode (Known building solution)</p>
-		<p>Blank mode (Most flexible solution)</p>
+		<h1><%= I18n.t 'tutorial.title' %></h1>
+		<ol>
+			<li><a href="#normal_mode" class="underline_link"><%= I18n.t 'tutorial.normal_mode_link' %></a></li>
+			<li><a href="#blank_mode" class="underline_link"><%= I18n.t 'tutorial.blank_mode_link' %></a></li>
+		</ol>
 	</div>
-	<div class="p-20">
-		<p>Search your building would like to work with</p>
-		<p>Name your work session</p>
-		<p>Start working!</p>
-		<p>Browse among floors in the building</p>
-		<p>Simply switching the state of room by clicking on it</p>
-		<p>Long click on a room to do advanced action</p>
-		<p>Changes is auto saved. </p>
-		<p>Mark session as complete if no more changes want to make</p>
-		<p>can start another session</p>
+	<div class="p-20" id="normal_mode">
+
+		<h3><%= I18n.t 'tutorial.normal_mode.title' %></h3>
+		<div class="description-section">
+			<%= I18n.t 'tutorial.normal_mode.description' %>
+		</div>
+		<ol>
+			<li>
+				<p><%= I18n.t 'tutorial.normal_mode.point1_1' %><a href="<%= improve_path(:locale => I18n.locale) %>" class="underline_link"><%= I18n.t 'tutorial.normal_mode.point1_2' %></a></p>
+				<div class="normal-img">
+					<img src="<%= asset_path('tutorial/normal/normal_tutor1.png') %>" />
+				</div>
+				<hr class="primary-hr" />
+			</li>
+
+			<li>
+				<p><%= I18n.t 'tutorial.normal_mode.point2' %></p>
+				<div class="normal-img">
+					<img src="<%= asset_path('tutorial/normal/normal_tutor2.png') %>" />
+				</div>
+				<hr class="primary-hr" />
+			</li>
+			<li>
+				<p><%= I18n.t 'tutorial.normal_mode.point3' %></p>
+				<div class="normal-img">
+					<img src="<%= asset_path('tutorial/normal/normal_tutor3.png') %>" />
+				</div>
+				<hr class="primary-hr" />
+			</li>
+			<li>
+				<p><%= I18n.t 'tutorial.normal_mode.point4' %></p>
+				<div class="normal-img">
+					<img src="<%= asset_path('tutorial/normal/normal_tutor4.png') %>" />
+				</div>
+				<hr class="primary-hr" />
+			</li>
+
+			<li>
+				<p><%= I18n.t 'tutorial.normal_mode.point5' %></p>
+				<div class="normal-img">
+					<img src="<%= asset_path('tutorial/normal/normal_tutor5.png') %>" />
+				</div>
+				<hr class="primary-hr" />
+			</li>
+			<li>
+				<p><%= I18n.t 'tutorial.normal_mode.point6' %></p>
+				<div class="normal-img">
+					<img src="<%= asset_path('tutorial/normal/normal_tutor6.png') %>" />
+					<img src="<%= asset_path('tutorial/normal/normal_tutor7.png') %>" />
+				</div>
+				<hr class="primary-hr" />
+			</li>
+			<li>
+				<p><%= I18n.t 'tutorial.normal_mode.point7_1' %><a href="<%= compare_path(:locale => I18n.locale) %>" class="underline_link"><%= I18n.t 'tutorial.normal_mode.point7_2' %></a></p>
+				<div class="normal-img">
+					<img src="<%= asset_path('tutorial/normal/normal_tutor8.png') %>" />
+				</div>
+				<p></p>
+				<p><a href="#" class="right underline_link"><%= I18n.t 'tutorial.back_top' %></a></p>
+				<div class="clearfix"></div>
+				<hr class="primary-hr" />
+			</li>
+		</ol>
 	</div>
 
-	<div class="p-20">
-		<p>Most flexiable way to take note on floors</p>
-		<p>Start blank session with a number of room</p>
-		<p>Operations same as normal mode</p>
-		<p>You can add more floor or more room at any time</p>
-		<p>Changes is auto saved. </p>
+	<div class="p-20" id="blank_mode">
+		<h3><%= I18n.t 'tutorial.blank_mode.title' %></h3>
+		<div class="description-section">
+			<%= I18n.t 'tutorial.blank_mode.description' %>
+		</div>
+
+		<ol>
+			<li>
+				<p><%= I18n.t 'tutorial.blank_mode.point1' %></p>
+				<div class="normal-img">
+					<img src="<%= asset_path('tutorial/blank/blank_tutor1.png') %>" />
+				</div>
+				<hr class="primary-hr" />
+			</li>
+			<li>
+				<p><%= I18n.t 'tutorial.blank_mode.point2' %></p>
+				<div class="normal-img">
+					<img src="<%= asset_path('tutorial/blank/blank_tutor2.png') %>" />
+				</div>
+				<hr class="primary-hr" />
+			</li>
+			<li>
+				<p><%= I18n.t 'tutorial.blank_mode.point3' %></p>
+				<div class="normal-img">
+					<img src="<%= asset_path('tutorial/blank/blank_tutor3.png') %>" />
+					<img src="<%= asset_path('tutorial/blank/blank_tutor4.png') %>" />
+				</div>
+				<hr class="primary-hr" />
+			</li>
+
+			<li>
+				<p><%= I18n.t 'tutorial.blank_mode.point4' %></p>
+				<div class="normal-img">
+					<img src="<%= asset_path('tutorial/blank/blank_tutor5.png') %>" />
+				</div>
+				<hr class="primary-hr" />
+			</li>
+
+			<li>
+				<p><%= I18n.t 'tutorial.blank_mode.point5' %></p>
+				<div class="normal-img">
+					<img src="<%= asset_path('tutorial/blank/blank_tutor6.png') %>" />
+				</div>
+				<hr class="primary-hr" />
+			</li>
+
+			<li>
+				<p><%= I18n.t 'tutorial.blank_mode.point6' %></p>
+				<div class="normal-img">
+					<img src="<%= asset_path('tutorial/blank/blank_tutor7.png') %>" />
+				</div>
+
+				<p></p>
+				<p><a href="#" class="right underline_link"><%= I18n.t 'tutorial.back_top' %></a></p>
+				<div class="clearfix"></div>
+				<hr class="primary-hr" />
+			</li>
+		</ol>
 	</div>
 
 </div>

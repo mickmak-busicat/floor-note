@@ -45,7 +45,7 @@ var FloorElevator = React.createClass({
 			if(border[i]){
 				result['border'+position[i]] = '4px solid #3A2E15';
 			}else{
-				result['border'+position[i]] = '4px solid #fff';
+				result['border'+position[i]] = '4px solid #59B0CE';
 			}
 		}
 

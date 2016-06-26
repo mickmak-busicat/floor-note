@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
   before_action :set_title_name
   before_action :set_active_session_info
+  before_action :set_guest_key
 
   def set_locale
     I18n.locale = params[:locale] || I18n.default_locale
@@ -21,6 +22,17 @@ class ApplicationController < ActionController::Base
 
   def default_js
     @default_js = true
+  end
+
+  def set_guest_key
+    session[:guest_key] ||= nil
+
+    if !user_signed_in? && session[:guest_key].nil?
+      t = Time.now.to_f.to_s.split('.')
+      token = t[0].last(6) + t[1] + Devise.friendly_token
+
+      session[:guest_key] = token
+    end
   end
 
   def set_active_session_info

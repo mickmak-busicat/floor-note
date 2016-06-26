@@ -8,6 +8,7 @@ var FloorView = React.createClass({
 		return {
 			'assetPrefix': '/assets/default_iconset/',
 			'mode': 'NORMAL',
+			'serverInterval': 10, // min
 		};
 	},
 
@@ -66,6 +67,8 @@ var FloorView = React.createClass({
 				_this.setState({'modalSessionLabel': _this.state.workLabel});
 			});
 		}
+
+		this._serverSyncSession();
 	},
 
 	_constructSession: function(){
@@ -144,6 +147,34 @@ var FloorView = React.createClass({
 		var state = JSON.stringify(rawObject);
 
 		localStorage.setItem(this.props.normalModeStoreKey, state);
+	},
+
+	_serverSyncSession: function(){
+		var _this = this;
+		var interval = 60 * 1000 * this.props.serverInterval;
+
+		setTimeout(function(){
+			var stateString = JSON.stringify(_this.state);
+
+			var sessionIds = [_this.props.id];
+			var sessionData = [stateString];
+
+		    if(sessionIds.length > 0){
+		    	var param = {
+		    		id: sessionIds,
+		    		data: sessionData
+		    	};
+		    	$.ajax({
+					url: '/ajax/session_save',
+					data: param,
+					method: "POST",
+					dataType: "json"
+				});
+		    }
+
+			_this._serverSyncSession();
+		}, interval);
+		
 	},
 
 	/**
@@ -643,14 +674,14 @@ var FloorView = React.createClass({
 							</select>
 						</span>
 					</div>
-					<div className="control-div fixed-width active" onClick={this._scaleUp}>
-						<span className="control-content">
-							<i className="ion-ios-plus-outline"></i><div>{Locale.words.scaleUp}</div>
-						</span>
-					</div>
 					<div className="control-div fixed-width active" onClick={this._scaleDown}>
 						<span className="control-content">
 							<i className="ion-ios-minus-outline"></i><div>{Locale.words.scaleDown}</div>
+						</span>
+					</div>
+					<div className="control-div fixed-width active" onClick={this._scaleUp}>
+						<span className="control-content">
+							<i className="ion-ios-plus-outline"></i><div>{Locale.words.scaleUp}</div>
 						</span>
 					</div>
 				</div>

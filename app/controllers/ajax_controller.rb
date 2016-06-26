@@ -56,10 +56,18 @@ class AjaxController < ApplicationController
 
   	if ids.count > 0
   		ids.each_with_index do |id, index|
-  			ss = BuildingSession.find_by(:id => id)
-  			ss.payload = data[index].to_s
-        ss.status = 0
-  			ss.save
+        ss = nil
+        if user_signed_in?
+          ss = BuildingSession.find_by(:id => id.to_i, :user => current_user)
+        else
+          ss = BuildingSession.find_by(:id => id.to_i, :guest_key => session[:guest_key])
+        end
+  			
+        if !ss.nil?
+          ss.payload = data[index].to_s
+          # ss.status = 0
+          ss.save
+        end
   		end
   	end
 
@@ -129,7 +137,7 @@ class AjaxController < ApplicationController
     end
 
 	  def create_building_session
-	  	@building_session = BuildingSession.create!(:name => work_params[:name], :building_id => work_params[:building], :user => current_user, :status => 1)
+	  	@building_session = BuildingSession.create!(:name => work_params[:name], :building_id => work_params[:building], :user => current_user, :status => 1, :guest_key => session[:guest_key])
 
 	  	if @building_session.save
 	  		add_active_session(@building_session.id, work_params[:name])

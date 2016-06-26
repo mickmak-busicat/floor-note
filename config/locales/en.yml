@@ -59,7 +59,7 @@ en:
   blank:
     add_room: "Room"
     add_floor: "Floor"
-    mode_title: "Blank Mode"
+    mode_title: "Custom Mode"
     floor_label: "Floor Label:"
     modal_title: "Notes for room"
     modal_label: "Room Label:"
@@ -146,7 +146,7 @@ en:
     registered: "Registered User"
     premium: "Premium User"
     vip: "VIP User"
-    blank_mode: "Full blank mode feature"
+    blank_mode: "Full custom mode feature"
     active_session: "Normal active session count"
     monthly_session: "Monthly normal session total"
     basic_normal: "Basic normal mode feature"
@@ -157,6 +157,7 @@ en:
     become_premium: "Free upgrade!"
     become_vip: "Become VIP!"
     coming_soon: "Coming soon..."
+    advanced_search: "Advanced Search"
   user:
     login_link: "Login"
     logout_link: "Logout"
@@ -185,6 +186,32 @@ en:
     new_password: "New password"
     confirm_password: "Confirm password"
     submit: "Reset my password"
+  tutorial:
+    title: "Tutorial"
+    normal_mode_link: "Normal mode (Solution for a known building)"
+    blank_mode_link: "Custom mode (Flexible solution)"
+    back_top: "Back to TOP"
+    normal_mode:
+      title: "Normal mode"
+      description: "Normal mode is the most completed and convenience solution let you manage information of a building. Provided floor plan can help you manage all the information very easily. To start with normal mode work, just simply follow a few steps:"
+      point1_1: "To start normal mode session. You can search for the building by name or short name. If you know there is another short name of the building but we dont have it. "
+      point1_2: "Please report the problem to us."
+      point2: "Search result of the keyword will be shown. You can choose your building to start work session. If there are more than one building in the result. Please also provide the street number separate with a SPACE if possible to narrow down the search. Tell us if there is any missing building with detailed information. We will add ASAP."
+      point3: "You can rename your work session to make yourself easier remember. With these simple setups, you can start your work session."
+      point4: "Inside a building, there is floor plan for each floor. You can go up or go down to view each floor."
+      point5: "You can switch the status of a room by simply a click on it. This can help you mark down the basic status of this room so easily. By default, there are only 4 statuses. Custom status set will be available in the future."
+      point6: "You can long click on the room to edit and view detailed info of it. You can use these information freely to help you mark any important notes for this room. Press ok to close the popup when you finish editing."
+      point7_1: "As there are a limit of active session. After some actions, you may want to mark some unused session as finish. Open the right menu and mark this the current session as finished. Finished session cannot be edited or viewed at this moment. For the limit of active session of different user type. "
+      point7_2: "Please check out the plan page."
+    blank_mode:
+      title: "Custom mode"
+      description: "custom mode is the most flexiable way to manage information of a building when the building is not ready in our system. You can add any number of rooms and floors to meet your needs in work. To start with custom mode work is extremely easy:"
+      point1: "Click on the custom session button. Setup default number of room on a floor. The system will create this number of room for you. Start the work after simple setup!"
+      point2: "Similar with normal mode, you can click on room to switch state of it."
+      point3: "Long tap any room to edit the notes, you can edit both the room label and free note on a room that can help you work more easier."
+      point4: "Unlike normal mode, you can manually add new floor to meet your need in custom mode. Click on add floor button to add a new one. By default, the number of room in new floor is same as the default number of room."
+      point5: "You can also manually add any new room to use. Click on add new room button to add new room."
+      point6: "There is only one custom session available at the same time. (more available in future) Therefore, before you want to start another new working session. Please finish your current one first. Finished session cannot be edited/viewed."
   admin:
     js:
       true: True
