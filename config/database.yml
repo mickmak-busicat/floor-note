@@ -31,6 +31,6 @@ development:
 production:
   <<: *default
   database: floornote_prod
-  username: root
+  username: <%= ENV["FN_DB_USER"] %>
   password: <%= ENV["FN_DB_PASS"] %>
 
