@@ -1,6 +1,13 @@
 RailsAdmin.config do |config|
 
   ### Popular gems integration
+  config.authenticate_with do
+    name = ENV['ADMIN_USERNAME']
+    pass = ENV['ADMIN_PASSWORD']
+    authenticate_or_request_with_http_basic('Login to continue') do |username, password|
+      username == name && password == pass
+    end
+  end
 
   ## == Devise ==
   # config.authenticate_with do
