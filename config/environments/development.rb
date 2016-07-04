@@ -45,7 +45,7 @@ Rails.application.configure do
      :tls => true,
      :address => "smtp.gmail.com",
      :port => 587,
-     :domain => "gmail.com",
+     :domain => "floornote.com",
      :authentication => :plain,
      :user_name => "mk.triniti@gmail.com",
      :password => "k5085yrm"

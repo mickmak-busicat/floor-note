@@ -111,12 +111,12 @@ var FloorBlankView = React.createClass({
 
 		var screenBlock = $('<div>').addClass('screen-block real-block primary-color');
 		var cell = $('<div>').addClass('cell').appendTo(screenBlock);
-		var info = $('<div>').addClass('info').append($('<img>').attr('src', '/assets/preloader.gif')).append(Locale.words.prepareResource).appendTo(cell);
+		var info = $('<div>').addClass('info').append($('<img>').attr('src', Assets.preloader)).append(Locale.words.prepareResource).appendTo(cell);
 		$('body').append(screenBlock);
 
 		setTimeout(function(){
 			if($('.screen-block.real-block').length > 0){
-				$('<div>').addClass('info small').append(Locale.words.resourceLoadSlow.split('`BR`').join('<br>')).append($('<a>').attr('href', '').html(Locale.words.loadSlowReload)).append(Locale.words.loadSlowOr.split('`BR`').join('<br>')).append($('<a>').attr('href', '/'+SidebarLocale.current+'/report').html(Locale.words.loadSlowReport)).appendTo(cell);
+				$('<div>').addClass('info small').append(Locale.words.resourceLoadSlow.split('`BR`').join('<br>')).append($('<a>').attr('href', '').html(Locale.words.loadSlowReload)).append(Locale.words.loadSlowOr.split('`BR`').join('<br>')).append($('<a>').attr('href', '/'+SidebarLocale.current+'/improve').html(Locale.words.loadSlowReport)).appendTo(cell);
 			}
 		}, 10000);
 

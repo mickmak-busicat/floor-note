@@ -119,7 +119,7 @@ var FloorView = React.createClass({
 
 		var screenBlock = $('<div>').addClass('screen-block real-block primary-color');
 		var cell = $('<div>').addClass('cell').appendTo(screenBlock);
-		var info = $('<div>').addClass('info').append($('<img>').attr('src', '/assets/preloader.gif')).append(Locale.words.prepareResource).appendTo(cell);
+		var info = $('<div>').addClass('info').append($('<img>').attr('src', Assets.preloader)).append(Locale.words.prepareResource).appendTo(cell);
 		$('body').append(screenBlock);
 
 		setTimeout(function(){
