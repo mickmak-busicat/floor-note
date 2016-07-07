@@ -6,7 +6,6 @@ var FloorView = React.createClass({
 
 	getDefaultProps: function(){
 		return {
-			'assetPrefix': '/assets/default_iconset/',
 			'mode': 'NORMAL',
 			'serverInterval': 10, // min
 		};
@@ -110,7 +109,7 @@ var FloorView = React.createClass({
 				_this.cachedImage.defaultSet.push(null);
 			}else{
 				var image = new Image();
-				image.src = _this.props.assetPrefix+key;
+				image.src = key;
 				image.onload = _this._loadImageDone;
 
 				_this.cachedImage.defaultSet.push(image);
@@ -288,7 +287,7 @@ var FloorView = React.createClass({
 		if(iconDisplay === ""){
 			return "";
 		}
-		return this.props.assetPrefix+iconDisplay;
+		return iconDisplay;
 	},
 
 	_updateRoomData: function(roomId, key, value){

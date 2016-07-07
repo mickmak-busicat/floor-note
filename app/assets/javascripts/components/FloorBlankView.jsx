@@ -6,7 +6,6 @@ var FloorBlankView = React.createClass({
 
 	getDefaultProps: function(){
 		return {
-			'assetPrefix': '/assets/default_iconset/',
 			'blankModeStoreKey': '_b',
 			'columnSize': 4,
 			'floorLimit': 50,
@@ -102,7 +101,7 @@ var FloorBlankView = React.createClass({
 				_this.cachedImage.defaultSet.push(null);
 			}else{
 				var image = new Image();
-				image.src = _this.props.assetPrefix+key;
+				image.src = key;
 				image.onload = _this._loadImageDone;
 
 				_this.cachedImage.defaultSet.push(image);
@@ -243,7 +242,7 @@ var FloorBlankView = React.createClass({
 		if(iconDisplay === ""){
 			return "";
 		}
-		return this.props.assetPrefix+iconDisplay;
+		return iconDisplay;
 	},
 
 	_updateRoomData: function(floorIndex, roomIndex, key, value){

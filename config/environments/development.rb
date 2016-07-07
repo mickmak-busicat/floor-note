@@ -43,12 +43,12 @@ Rails.application.configure do
   # ActionMailer::Base.delivery_method = :smtp
   ActionMailer::Base.smtp_settings = {
      :tls => true,
-     :address => "smtp.gmail.com",
-     :port => 587,
+     :address => "smtp.mailgun.org",
+     :port => 465,
      :domain => "floornote.com",
      :authentication => :plain,
-     :user_name => "mk.triniti@gmail.com",
-     :password => "k5085yrm"
+     :user_name => "postmaster@floornote.com",
+     :password => "F!00rSend"
    }
 
   config.action_mailer.default_url_options = { host: 'localhost' }

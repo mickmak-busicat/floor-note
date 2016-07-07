@@ -17,6 +17,8 @@ Rails.application.routes.draw do
 
     get 'tutorial', :to => 'home#tutorial', as: 'tutorial'
 
+    get 'donate', :to => 'home#donate', as: 'donate'
+
     scope "work" do
       get 'blank', :to => 'work#blank', as: 'blank_mode'
       get 'session/:id', :to => 'work#active_session', as: 'normal_mode'

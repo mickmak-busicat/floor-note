@@ -35,4 +35,4 @@ var Locale = {
 	}
 };
 </script>
-<%= react_component('FloorBlankView', {:rm => params[:r], :defaultIconSet => ['', 'like.png', 'bad.png', 'closed.png', 'question.png']}) %>
+<%= react_component('FloorBlankView', {:rm => params[:r], :defaultIconSet => ['', asset_path('default_iconset/like.png'), asset_path('default_iconset/bad.png'), asset_path('default_iconset/closed.png'), asset_path('default_iconset/question.png')]}) %>

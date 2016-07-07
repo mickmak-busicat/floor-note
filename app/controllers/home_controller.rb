@@ -1,11 +1,15 @@
 class HomeController < ApplicationController
-	before_filter :default_js, only: [:request_building, :request_building_add, :improve, :improve_add, :compare_plan, :tutorial]
+	before_filter :default_js, only: [:request_building, :request_building_add, :improve, :improve_add, :compare_plan, :tutorial, :donate]
   
   def index
   	clear_dead_session
   end
 
   def request_building
+
+  end
+
+  def donate
 
   end
 
