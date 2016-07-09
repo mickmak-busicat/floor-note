@@ -79,7 +79,7 @@
 
 <select name="building_id" id="buildingId">
 	<% all.each do |building| %>
-		<option value="<%= building.id %>"><%= building.name %></option>
+		<option value="<%= building.id %>"><%= building.name %> (<%= building.district %>)</option>
 	<% end %>
 </select>
 <hr/>
