@@ -76,4 +76,19 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = {:address => "localhost", :port => 1025}
+  # ActionMailer::Base.delivery_method = :smtp
+  ActionMailer::Base.smtp_settings = {
+     :tls => true,
+     :address => "smtp.mailgun.org",
+     :port => 465,
+     :domain => "floornote.com",
+     :authentication => :plain,
+     :user_name => "postmaster@floornote.com",
+     :password => ENV['FLOORNOTE_MAILGUN_PASS']
+   }
+
+  config.action_mailer.default_url_options = { host: 'floornote.com' }
 end
