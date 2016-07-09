@@ -1,3 +1,7 @@
+MEMBERSHIP_ID_NAME:
+  BASIC: 'Basic member'
+  ACTIVE: 'Active member'
+  PREMIUM: 'Premium member'
 MEMBERSHIP_ID:
   BASIC: 'BASIC'
   ACTIVE: 'ACTIVE'

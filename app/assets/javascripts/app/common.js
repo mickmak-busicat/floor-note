@@ -16,6 +16,8 @@ var SidebarApp = {
 		discardBlankLink: "#discardBlankLink",
 		completeLink: '.complete-link',
 		finishAllLink: '#finishAllLink',
+		newNormalLink: '#newNormalLink',
+		continueNormalLink: '.continue-normal',
 	},
 
 	updateSidebarBlankSession: function(){
@@ -61,10 +63,16 @@ $( document ).ready(function() {
 			localStorage.removeItem('_b');
 			Materialize.toast(SidebarLocale.words.removeSession, 2000);
 
+			// GA #15
+			ga('send', 'event', 'Sidebar Blank Mode', 'Attempt reset blank');
+
 			SidebarApp.updateSidebarBlankSession();
 		}else{
 			$(this).find('.resetText').html(SidebarLocale.words.confirmResetButton);
 			$(this).attr('confirm', 'confirm');
+
+			// GA #16
+			ga('send', 'event', 'Sidebar Blank Mode', 'Confirm reset blank');
 
 			setTimeout(SidebarApp.cancelOfConfirm.bind(null, $(this)), 5000);
 		}
@@ -92,11 +100,17 @@ $( document ).ready(function() {
     });
 
     $(SidebarApp.element.finishAllLink).click(function(e){
+    	// GA #17
+		ga('send', 'event', 'Sidebar Normal Mode', 'Attempt reset all active session clicked');
+
     	if($(this).attr('confirm') !== undefined){
 			return true;
 		}else{
 			$(this).find('.resetText').html(SidebarLocale.words.confirmResetButton);
 			$(this).attr('confirm', 'confirm');
+
+			// GA #21
+			ga('send', 'event', 'Sidebar Normal Mode', 'Confirm reset all active session clicked');
 
 			setTimeout(SidebarApp.cancelOfConfirm.bind(null, $(this), SidebarLocale.words.finishAll), 5000);
 
@@ -106,8 +120,31 @@ $( document ).ready(function() {
 
     $(SidebarApp.element.completeLink).click(function(e){
         var answer = confirm(SidebarLocale.words.warnFinish);
-	    
-	    return answer;
+
+        // GA #37
+		ga('send', 'event', 'Normal Mode Sidebar', 'Mark current finish clicked');
+
+		return answer;
+    });
+
+    $(SidebarApp.element.continueBlankLink).click(function(e){
+    	// GA #18
+		ga('send', 'event', 'Sidebar Blank Mode', 'Continue blank clicked');
+    });
+
+    $(SidebarApp.element.newBlankLink).click(function(e){
+    	// GA #19
+		ga('send', 'event', 'Sidebar Blank Mode', 'New blank clicked');
+    });
+
+    $(SidebarApp.element.newNormalLink).click(function(e){
+    	// GA #20
+		ga('send', 'event', 'Sidebar Normal Mode', 'New normal clicked');
+    });
+
+    $(SidebarApp.element.continueNormalLink).click(function(e){
+    	// GA #21
+		ga('send', 'event', 'Sidebar Normal Mode', 'Continue normal clicked', parseInt($(this).attr('ref')));
     });
 
     SidebarApp.updateSidebarBlankSession();

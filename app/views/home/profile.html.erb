@@ -1,0 +1,37 @@
+
+<div class="valign center-align w-100">
+	<div class="p-20">
+		<h2><%= I18n.t 'profile.title' %></h2>
+	</div>
+	<div class="col-md-12 profile-row col-sm-12 col-xs-12">
+		<div class="col-md-6 col-sm-6 col-xs-6"><b><%= I18n.t 'profile.email' %></b></div><div class="col-md-6 col-sm-6 col-xs-6"><%= current_user.email %></div>
+	</div>
+
+	<div class="col-md-12 profile-row col-sm-12 col-xs-12">
+		<div class="col-md-6 col-sm-6 col-xs-6"><b><%= I18n.t 'profile.membership' %></b></div><div class="col-md-6 col-sm-6 col-xs-6"><%= Settings.MEMBERSHIP_ID_NAME[current_user.membership.membership_id] %><br><a href="<%= compare_path(:locale => I18n.locale) %>" class="underline_link"><%= I18n.t 'profile.compare' %></a></div>
+	</div>
+
+	<div class="col-md-12 profile-row col-sm-12 col-xs-12">
+		<div class="col-md-6 col-sm-6 col-xs-6"><b><%= I18n.t 'profile.extra' %>*</b></div>
+		<div class="col-md-6 col-sm-6 col-xs-6"><%= current_user.extra_quota %> <br>
+			<a href="#" class="underline_link" id="addMoreLink"><%= I18n.t 'profile.add_more' %></a><br>
+			<span class="small">* <%= I18n.t 'profile.extra_info' %></span>
+		</div>
+	</div>
+
+	<div class="col-md-12 profile-row col-sm-12 col-xs-12">
+		<div class="col-md-6 col-sm-6 col-xs-6"><b><%= I18n.t 'profile.active_limit' %></b></div><div class="col-md-6 col-sm-6 col-xs-6"><%= @active_count %> / <%= @membership.active_limit %></div>
+	</div>
+
+	<div class="col-md-12 profile-row col-sm-12 col-xs-12">
+		<div class="col-md-6 col-sm-6 col-xs-6"><b><%= I18n.t 'profile.monthly_limit' %></b></div><div class="col-md-6 col-sm-6 col-xs-6"><%= @monthly_count %> / <%= @membership.monthly_limit %><% if @monthly_count >= @membership.monthly_limit %> (<%= I18n.t 'profile.full_quota' %>)<% end %></div>
+	</div>
+
+	<div class="col-md-12 profile-row col-sm-12 col-xs-12">
+		<div class="col-md-6 col-sm-6 col-xs-6"><b><%= I18n.t 'profile.expires' %></b></div><div class="col-md-6 col-sm-6 col-xs-6">N/A</div>
+	</div>
+
+	<div class="clearfix"></div>
+</div>
+
+<p></p>

@@ -50,6 +50,12 @@ RailsAdmin.config do |config|
   #   end
   # end
 
+  config.model 'Membership' do
+    object_label_method do
+      :custom_membership_label_method
+    end
+  end
+
   config.model 'Floor' do
     object_label_method do
       :custom_floor_label_method
@@ -70,6 +76,10 @@ RailsAdmin.config do |config|
     object_label_method do
       :custom_floor_object_label_method
     end
+  end
+
+  def custom_membership_label_method
+    "#{self.membership_id}"
   end
 
   def custom_floor_object_label_method

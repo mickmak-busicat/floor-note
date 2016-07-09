@@ -3,11 +3,13 @@ $(document).ready(function(){
 	$('a[data-toggle="popover"]').popover();
 
 	$('a[plan="premium"]').click(function(e){
-		console.log('viewed premium');
+		// GA #12
+		ga('send', 'event', 'Compare', 'Premium plan button clicked');
 	});
 
 	$('a[plan="vip"]').click(function(e){
-		console.log('viewed vip');
+		// GA #13
+		ga('send', 'event', 'Compare', 'Active plan button clicked');
 	});
 });
 </script>
@@ -21,7 +23,7 @@ $(document).ready(function(){
 	<div class="p-20 plan-container">
 		<table class="plan-table">
 			<thead>
-				<tr bgcolor="#eee">
+				<tr bgcolor="#fbfbfb">
 					<th></th>
 					<th><%= I18n.t 'compare.guest' %></th>
 					<th><%= I18n.t 'compare.registered' %></th>
@@ -37,21 +39,21 @@ $(document).ready(function(){
 					<td><i class="ion-checkmark-circled able-color"></i></td>
 					<td><i class="ion-checkmark-circled able-color"></i></td>
 				</tr>
-				<tr bgcolor="#eee">
+				<tr bgcolor="#f3f3f3">
 					<td><%= I18n.t 'compare.active_session' %></td>
 					<td>1</td>
-					<td>3</td>
-					<td>5</td>
-					<td>10+</td>
+					<td><%= @basic.active_limit %></td>
+					<td><%= @active.active_limit %></td>
+					<td><%= @premium.active_limit %>+</td>
 				</tr>
 				<tr>
 					<td><%= I18n.t 'compare.monthly_session' %></td>
 					<td>N/A</td>
-					<td>30</td>
-					<td>50</td>
-					<td>100+</td>
+					<td><%= @basic.monthly_limit %></td>
+					<td><%= @active.monthly_limit %>+</td>
+					<td><%= @premium.monthly_limit %>+</td>
 				</tr>
-				<tr>
+				<tr bgcolor="#f3f3f3">
 					<td><%= I18n.t 'compare.basic_normal' %></td>
 					<td><i class="ion-checkmark-circled able-color"></i></td>
 					<td><i class="ion-checkmark-circled able-color"></i></td>
@@ -65,13 +67,27 @@ $(document).ready(function(){
 					<td><i class="ion-checkmark-circled able-color"></i></td>
 					<td><i class="ion-checkmark-circled able-color"></i></td>
 				</tr>
+				<!-- <tr bgcolor="#f3f3f3">
+					<td><%= I18n.t 'compare.use_public_session' %></td>
+					<td><i class="ion-close-round disable-color"></i></td>
+					<td><i class="ion-close-round disable-color"></i></td>
+					<td><i class="ion-checkmark-circled able-color"></i></td>
+					<td><i class="ion-checkmark-circled able-color"></i></td>
+				</tr>
 				<tr>
-					<td><%= I18n.t 'compare.advanced_search' %>*</td>
+					<td><%= I18n.t 'compare.extra_bonus' %></td>
+					<td><i class="ion-close-round disable-color"></i></td>
+					<td><i class="ion-close-round disable-color"></i></td>
+					<td><i class="ion-checkmark-circled able-color"></i></td>
+					<td><i class="ion-checkmark-circled able-color"></i></td>
+				</tr>
+				<tr bgcolor="#f3f3f3">
+					<td><%= I18n.t 'compare.advanced_search' %></td>
 					<td><i class="ion-close-round disable-color"></i></td>
 					<td><i class="ion-close-round disable-color"></i></td>
 					<td><i class="ion-close-round disable-color"></i></td>
 					<td><i class="ion-checkmark-circled able-color"></i></td>
-				</tr>
+				</tr> -->
 				<tr>
 					<td colspan="5"><%= I18n.t 'compare.more_coming_soon' %></td>
 					

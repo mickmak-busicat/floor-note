@@ -54,6 +54,9 @@ var FloorBlankView = React.createClass({
 		$('#appUseSpan').find('.header-action').click(function(e){
 			$(_this.refs.editNameModal).modal('show');
 
+			// GA #40
+			ga('send', 'event', 'Blank Mode', 'Floor name clicked');
+
 			_this.setState({'modalFloorLabel': _this._getFloorLabel()});
 		});
 	},
@@ -145,6 +148,9 @@ var FloorBlankView = React.createClass({
 		$('#roomRates').modal('show');
 		var room = this._findFloorObjects(this.state.floorViewIndex, roomIndex);
 
+		// GA #39
+		ga('send', 'event', 'Blank Mode', 'Room detail popup opened');
+
 		var state = {
 			'currentModalRoom': roomIndex,
 			'modalNotes': room.notes===undefined?'':room.notes,
@@ -215,6 +221,9 @@ var FloorBlankView = React.createClass({
 	_nextRoomStatus: function(roomIndex, currentStatus){
 		var currentIndex = ((currentStatus + 1)==this.props.defaultIconSet.length)?0:(currentStatus+1);
 		this._updateRoomData(this.state.floorViewIndex, roomIndex, 'status', currentIndex);
+
+		// GA #38
+		ga('send', 'event', 'Blank Mode', 'Change room state');
 	
 		return this._getStatusIcon(currentIndex);
 	},
@@ -225,6 +234,9 @@ var FloorBlankView = React.createClass({
 
 	_updateRoomLabel: function(e){
 		Materialize.toast(Locale.words.labelUpdate, 2000);
+		// GA #45
+		ga('send', 'event', 'Blank Mode', 'Room label updated');
+
 		this._updateRoomData(this.state.floorViewIndex, this.state.currentModalRoom, 'label', e.target.value);
 	},
 
@@ -234,6 +246,9 @@ var FloorBlankView = React.createClass({
 
 	_updateRoomNotes: function(e){
 		Materialize.toast(Locale.words.noteUpdate, 2000);
+		// GA #46
+		ga('send', 'event', 'Blank Mode', 'Room notes updated');
+
 		this._updateRoomData(this.state.floorViewIndex, this.state.currentModalRoom, 'notes', e.target.value);
 	},
 
@@ -257,6 +272,9 @@ var FloorBlankView = React.createClass({
 		var nextIndex = (Object.keys(rooms).length==0)?0:Math.max.apply(null, Object.keys(rooms)) + 1;
 		rooms[nextIndex] = this._createRoom(nextIndex);
 
+		// GA #47
+		ga('send', 'event', 'Blank Mode', 'Add room clicked');
+
 		Materialize.toast(Locale.words.addedRoom.replace('`NAME`', rooms[nextIndex].label), 2000);
 		this.setState({'floors': floors});
 	},
@@ -266,6 +284,9 @@ var FloorBlankView = React.createClass({
 		var nextIndex = Math.max.apply(null, Object.keys(floors)) + 1;
 		var numberOfRooms = parseInt(this.props.rm) || 0;
 		var newFloor = this._createFloor(nextIndex);
+
+		// GA #48
+		ga('send', 'event', 'Blank Mode', 'Add Floor clicked');
 
 		for(var i=0; i<numberOfRooms; i++){
 			newFloor.objects[i] = this._createRoom(i);
@@ -297,6 +318,9 @@ var FloorBlankView = React.createClass({
 	},
 
 	_switchFloor: function(e){
+		// GA #44
+		ga('send', 'event', 'Blank Mode', 'Go to floor used', ""+e.target.value);
+
 		this._goToFloor(e.target.value);
 	},
 
@@ -308,6 +332,9 @@ var FloorBlankView = React.createClass({
 	_goUpFloor: function(){
 		var targetFloor = -1;
 		var currentFloor = this.state.floorViewIndex;
+
+		// GA #42
+		ga('send', 'event', 'Blank Mode', 'Go up floor clicked');
 
 		$.each(this.state.floors, function(index, floor){
 			if(floor.index > currentFloor){
@@ -327,6 +354,9 @@ var FloorBlankView = React.createClass({
 	_goDownFloor: function(){
 		var targetFloor = -1;
 		var currentFloor = this.state.floorViewIndex;
+
+		// GA #43
+		ga('send', 'event', 'Blank Mode', 'Go down floor clicked');
 
 		$.each(this.state.floors, function(index, floor){
 			if(floor.index < currentFloor){
@@ -375,6 +405,9 @@ var FloorBlankView = React.createClass({
 	},
 
 	_updateFloorModalLabel: function(e){
+		// GA #41
+		ga('send', 'event', 'Blank Mode', 'Floor label updated');
+
 		this.setState({'modalFloorLabel': e.target.value});
 	},
 

@@ -77,6 +77,9 @@ var deadSession = <%= @dead_session.as_json %>;
 
         <!-- Menu -->
         <li><a href="<%= root_path( :locale => I18n.locale ) %>" class="no-child"><i class="ion-ios-home-outline"></i> <%= I18n.t 'sidebar.home_link' %></a></li>
+        <% if user_signed_in? %>
+        <li><a href="<%= profile_path( :locale => I18n.locale ) %>" class="no-child"><i class="ion-ios-person-outline"></i> <%= I18n.t 'sidebar.profile_link' %></a></li>
+        <% end %>
         <% if params[:controller] == 'work' && params[:action] == 'active_session' %>
           <li><a href="<%= finish_work_path( :id => params[:id] ) %>" class="no-child complete-link" data-method="DELETE"><i class="ion-ios-flag"></i> <%= I18n.t 'index.mark_finish' %></a></li>
         <% end %>
@@ -88,10 +91,10 @@ var deadSession = <%= @dead_session.as_json %>;
             <ul class="collapsible">
               <li>
                 <% if @session_count == 0 %>
-                  <a href="<%= root_path(:locale => I18n.locale) %>" class="no-child"><i class="ion-ios-play-outline"></i> <%= I18n.t 'index.start_new' %></a>
+                  <a href="<%= root_path(:locale => I18n.locale) %>" id="newNormalLink" class="no-child"><i class="ion-ios-play-outline"></i> <%= I18n.t 'index.start_new' %></a>
                 <% else %>
                   <% @active_session_info.each do |active| %>
-                    <a href="<%= normal_mode_path(:locale => I18n.locale, :id => active['id']) %>" class="no-child"><i class="<%= (active['id'] == params[:id].to_i) ? 'ion-ios-circle-filled current-session-li' : 'ion-ios-circle-outline'%>"></i> <span><%= active["name"] %></span></a>
+                    <a href="<%= normal_mode_path(:locale => I18n.locale, :id => active['id']) %>" ref="<%= active['id'] %>" class="continue-normal no-child"><i class="<%= (active['id'] == params[:id].to_i) ? 'ion-ios-circle-filled current-session-li' : 'ion-ios-circle-outline'%>"></i> <span><%= active["name"] %></span></a>
                   <% end %>
                   <a href="<%= finish_all_path(:locale => I18n.locale) %>" class="no-child" data-method="DELETE" id="finishAllLink"><i class="ion-ios-flame"></i> <span class="resetText"><%= I18n.t 'index.finish_all' %></a></a>
                 <% end %>
@@ -180,8 +183,22 @@ var deadSession = <%= @dead_session.as_json %>;
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
+// window.ga_debug = {trace: true};
   ga('create', 'UA-79812204-1', 'auto');
   ga('send', 'pageview');
+
+  <% if user_signed_in? %>
+  ga('set', 'userId', '<%= current_user.id %>');
+  <% end %>
+
+  if (window.performance) {
+    // Gets the number of milliseconds since page load
+    // (and rounds the result since the value must be an integer).
+    var timeSincePageLoad = Math.round(performance.now());
+
+    // Sends the timing hit to Google Analytics.
+    ga('send', 'timing', 'JS Dependencies', 'load', timeSincePageLoad);
+  }
 
 </script>
     

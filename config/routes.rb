@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     get 'donate', :to => 'home#donate', as: 'donate'
     get 'donate_done', :to => 'home#donate_done', as: 'donate_done'
 
+    get 'profile', :to => 'home#profile', as: 'profile'
+
     scope "work" do
       get 'blank', :to => 'work#blank', as: 'blank_mode'
       get 'session/:id', :to => 'work#active_session', as: 'normal_mode'

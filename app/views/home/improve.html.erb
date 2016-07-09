@@ -1,4 +1,10 @@
 <script>
+$(document).ready(function(){
+	$('input[type="submit"]').click(function(e){
+		// GA #14
+		ga('send', 'event', 'Improve', 'Submit improve clicked');
+	});
+});
 </script>
 
 <div class="valign center-align w-100">

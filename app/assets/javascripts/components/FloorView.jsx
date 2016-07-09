@@ -63,6 +63,9 @@ var FloorView = React.createClass({
 			$('#appUseSpan').find('.header-action').click(function(e){
 				$(_this.refs.editNameModal).modal('show');
 
+				// GA #22
+				ga('send', 'event', 'Normal Mode', 'Session name update clicked');
+
 				_this.setState({'modalSessionLabel': _this.state.workLabel});
 			});
 		}
@@ -187,6 +190,9 @@ var FloorView = React.createClass({
 		$('#roomRates').modal('show');
 		var room = this._findFloorObjects(this.state.floorViewIndex, roomId);
 
+		// GA #26
+		ga('send', 'event', 'Normal Mode', 'Room detail popup opened');
+
 		var state = {
 			'currentModalRoom': roomId,
 			'modalNotes': room.notes===undefined?'':room.notes,
@@ -217,15 +223,24 @@ var FloorView = React.createClass({
 
 	_nextRoomStatus: function(roomId, currentStatus){
 		if(this.props.mode == 'VIEW'){
+			// GA #25
+			ga('send', 'event', 'Normal Mode (View)', 'Attempt to change room status');
+
 			return this._getStatusIcon(currentStatus);
 		}
 		var currentIndex = ((currentStatus + 1)==this.props.defaultIconSet.length)?0:(currentStatus+1);
 		this._updateRoomData(roomId, 'status', currentIndex);
+
+		// GA #24
+		ga('send', 'event', 'Normal Mode', 'Change room status');
 	
 		return this._getStatusIcon(currentIndex);
 	},
 
 	_updateModalLabel: function(e){
+		// GA #33
+		ga('send', 'event', 'Normal Mode', 'Room label updated');
+
 		this.setState({'modalLabel': e.target.value});
 	},
 
@@ -238,6 +253,9 @@ var FloorView = React.createClass({
 	},
 
 	_updateModalNotes: function(e){
+		// GA #34
+		ga('send', 'event', 'Normal Mode', 'Room notes updated');
+
 		this.setState({'modalNotes': e.target.value});
 	},
 
@@ -250,6 +268,9 @@ var FloorView = React.createClass({
 	},
 
 	_updateSessionModalLabel: function(e){
+		// GA #23
+		ga('send', 'event', 'Normal Mode', 'Update session label');
+
 		this.setState({'modalSessionLabel': e.target.value});
 	},
 
@@ -349,6 +370,9 @@ var FloorView = React.createClass({
 	},
 
 	_switchFloor: function(e){
+		// GA #31
+		ga('send', 'event', 'Normal Mode', 'Go to floor used', ""+e.target.value);
+
 		this._goToFloor(e.target.value);
 	},
 
@@ -370,6 +394,9 @@ var FloorView = React.createClass({
 			}
 		});
 
+		// GA #27
+		ga('send', 'event', 'Normal Mode', 'Go up floor clicked');
+
 		if(targetFloor == -1){
 			Materialize.toast(Locale.words.cannotGoUp, 2000);
 		}else{
@@ -389,6 +416,9 @@ var FloorView = React.createClass({
 				}
 			}
 		});
+
+		// GA #28
+		ga('send', 'event', 'Normal Mode', 'Go down floor clicked');
 
 		if(targetFloor == -1){
 			Materialize.toast(Locale.words.cannotGoDown, 2000);
@@ -427,6 +457,10 @@ var FloorView = React.createClass({
 
 	_scaleUp: function(){
 		var scale = this.state.scale;
+
+		// GA #29
+		ga('send', 'event', 'Normal Mode', 'Zoom in clicked');
+
 		if(scale < 1.5){
 			this.setState({'scale': scale + 0.1});
 		}else{
@@ -436,6 +470,10 @@ var FloorView = React.createClass({
 
 	_scaleDown: function(){
 		var scale = this.state.scale;
+
+		// GA #30
+		ga('send', 'event', 'Normal Mode', 'Zoom out clicked');
+
 		if(scale > 0.5){
 			this.setState({'scale': scale - 0.1});
 		}else{
@@ -452,6 +490,9 @@ var FloorView = React.createClass({
 	},
 
 	_setDisplayReporPanel: function(show){
+		// GA #35
+		ga('send', 'event', 'Normal Mode', 'Report button clicked', show?"1":"0");
+
 		$(this.refs.reportDetail).val('');
 		this.setState({'isReportPanelShow': show, 'reportSelect': 'none'});
 	},
@@ -463,6 +504,9 @@ var FloorView = React.createClass({
 			comment: $(this.refs.reportDetail).val()
 		};
 		var reportType = $(this.refs.reportTypeSelect).val();
+
+		// GA #36
+		ga('send', 'event', 'Normal Mode', 'Report send clicked');
 
 		if(reportType == 'building'){
 			param.building_id = this.props.buildingData.building.id;
@@ -492,7 +536,8 @@ var FloorView = React.createClass({
 	_rateRoom: function(score){
 		Materialize.toast("Coming soon...", 3000);
 
-		console.log(score);
+		// GA #32
+		ga('send', 'event', 'Normal Mode', 'Rate room clicked', score+"");
 	},
 
 

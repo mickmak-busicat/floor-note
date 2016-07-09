@@ -12,9 +12,16 @@ class HomeController < ApplicationController
   def donate
 
   end
-  
+
   def donate_done
 
+  end
+
+  def profile
+    @active_count = get_active_session_count
+    @monthly_count = current_user.get_monthly_usage if user_signed_in?
+    @membership = current_user.membership if user_signed_in?
+    redirect_to root_path(:locale => I18n.locale) if !user_signed_in?
   end
 
   def request_building_add
@@ -56,7 +63,9 @@ class HomeController < ApplicationController
   end
 
   def compare_plan
-
+    @basic = Membership.find_by({:membership_id => Settings.MEMBERSHIP_ID.BASIC})
+    @active = Membership.find_by({:membership_id => Settings.MEMBERSHIP_ID.ACTIVE})
+    @premium = Membership.find_by({:membership_id => Settings.MEMBERSHIP_ID.PREMIUM})
   end
 
   def tutorial

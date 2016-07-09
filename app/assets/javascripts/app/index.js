@@ -108,6 +108,9 @@ $( document ).ready(function() {
 		requestDelay: 400,
 		listLocation: function(json){
 			var notFound = [false];
+
+			// GA #1
+			ga('send', 'event', 'Search Keyword', IndexApp.searchKeyword);
 			
 			if(json.length == 0){
 				return notFound;
@@ -133,6 +136,9 @@ $( document ).ready(function() {
 				IndexApp.setBuilding(selectedItem);
 
 				$(IndexApp.element.search).val('').blur();
+
+				// GA #2
+				ga('send', 'event', 'Index Search', 'Selected result', ""+selectedData.id);
 			},
 
 		}
@@ -145,6 +151,9 @@ $( document ).ready(function() {
 	});
 
 	$(IndexApp.element.buildingDisplay).find('.ion-android-close').click(function(e){
+
+		// GA #6
+		ga('send', 'event', 'Index Normal Mode', 'Cancel building selection');
 		IndexApp.setBuilding(null);
 	});
 
@@ -153,6 +162,9 @@ $( document ).ready(function() {
 	});
 
 	$(IndexApp.element.goBlankSessionButton).click(function(e){
+		// GA #7
+		ga('send', 'event', 'Index Blank Mode', 'Start session');
+
 		IndexApp.startBlankSession();
 	});
 
@@ -160,11 +172,17 @@ $( document ).ready(function() {
 		if($(this).attr('confirm') !== undefined){
 			localStorage.removeItem('_b');
 			Materialize.toast(Locale.words.removeSession, 2000);
+
+			// GA #10
+			ga('send', 'event', 'Index Blank Mode', 'Confirm delete');
 			
 			SidebarApp.updateSidebarBlankSession();
 		}else{
 			$(this).find('.resetText').html(Locale.words.confirmResetButton);
 			$(this).attr('confirm', 'confirm');
+
+			// GA #9
+			ga('send', 'event', 'Index Blank Mode', 'Attempt delete');
 
 			setTimeout(IndexApp.cancelOfConfirm.bind(null, $(this)), 5000);
 		}
@@ -174,6 +192,9 @@ $( document ).ready(function() {
 		var _this = this;
 		$(this).find('span').show();
 		$(this).attr('disabled', 'disabled');
+
+		// GA #4
+		ga('send', 'event', 'Index Normal Mode', 'Start button clicked');
 
 		var param = {
 			building: IndexApp.selectedItem.id,
@@ -189,13 +210,14 @@ $( document ).ready(function() {
 			},
 			success: function(json){
 				console.log('success');
-				console.log(json);
 
 				IndexApp.startSession(json.session.id);
 			},
 			error: function(e){
 				console.log('error');
-				console.log(e);
+
+				// GA #5
+				ga('send', 'event', 'Index Normal Mode', 'Work session full');
 
 				var errJson = JSON.parse(e.responseText);
 
@@ -207,6 +229,16 @@ $( document ).ready(function() {
 	});
 
 	$(IndexApp.element.search).tooltip();
+
+	$(IndexApp.element.sessionNameInput).on('focus', function(e){
+		// GA #3
+		ga('send', 'event', 'Index Normal Mode', 'Change session name');
+	});
+
+	$(IndexApp.element.roomNumberSelect).on('change', function(e){
+		// GA #8
+		ga('send', 'event', 'Index Blank Mode', 'Change room number', e.target.value);
+	});
 
 	IndexApp.setBuilding(null);
 	IndexApp.updateBlankSession();
