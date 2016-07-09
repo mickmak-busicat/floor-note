@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160707083759) do
+ActiveRecord::Schema.define(version: 20160709122223) do
 
   create_table "building_requests", force: :cascade do |t|
     t.integer  "user_id",          limit: 4
@@ -73,6 +73,15 @@ ActiveRecord::Schema.define(version: 20160707083759) do
 
   add_index "floors", ["building_id"], name: "index_floors_on_building_id", using: :btree
 
+  create_table "memberships", force: :cascade do |t|
+    t.string   "membership_id", limit: 255
+    t.integer  "active_limit",  limit: 4
+    t.integer  "monthly_limit", limit: 4
+    t.decimal  "price",                     precision: 10, scale: 2
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+  end
+
   create_table "rates", force: :cascade do |t|
     t.integer  "rating",          limit: 4
     t.integer  "floor_object_id", limit: 4
@@ -116,6 +125,8 @@ ActiveRecord::Schema.define(version: 20160707083759) do
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
     t.integer  "extra_quota",            limit: 4,   default: 0
+    t.integer  "membership_id",          limit: 4
+    t.datetime "expires_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

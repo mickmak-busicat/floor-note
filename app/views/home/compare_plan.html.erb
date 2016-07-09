@@ -21,8 +21,12 @@ $(document).ready(function(){
 	<div class="p-20 plan-container">
 		<table class="plan-table">
 			<thead>
-				<tr>
-					<th></th><th><%= I18n.t 'compare.guest' %></th><th><%= I18n.t 'compare.registered' %></th><th><%= I18n.t 'compare.premium' %></th><th><%= I18n.t 'compare.vip' %></th>
+				<tr bgcolor="#eee">
+					<th></th>
+					<th><%= I18n.t 'compare.guest' %></th>
+					<th><%= I18n.t 'compare.registered' %></th>
+					<th><%= I18n.t 'compare.premium' %></th>
+					<th><%= I18n.t 'compare.vip' %></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -33,7 +37,7 @@ $(document).ready(function(){
 					<td><i class="ion-checkmark-circled able-color"></i></td>
 					<td><i class="ion-checkmark-circled able-color"></i></td>
 				</tr>
-				<tr>
+				<tr bgcolor="#eee">
 					<td><%= I18n.t 'compare.active_session' %></td>
 					<td>1</td>
 					<td>3</td>
@@ -62,7 +66,7 @@ $(document).ready(function(){
 					<td><i class="ion-checkmark-circled able-color"></i></td>
 				</tr>
 				<tr>
-					<td><%= I18n.t 'compare.advanced_search' %></td>
+					<td><%= I18n.t 'compare.advanced_search' %>*</td>
 					<td><i class="ion-close-round disable-color"></i></td>
 					<td><i class="ion-close-round disable-color"></i></td>
 					<td><i class="ion-close-round disable-color"></i></td>

@@ -13,11 +13,32 @@ class AjaxController < ApplicationController
   	count = get_active_session_count
   	@building_session = nil
 
-  	if ( user_signed_in? && count < Settings.SESSION_COUNT.REGISTERED ) || ( !user_signed_in? && count < Settings.SESSION_COUNT.GUEST )
-  		create_building_session
+    activeLimit = (user_signed_in?) ? current_user.membership.active_limit : Settings.GUEST_SESSION_COUNT
+    statusMsg = I18n.t('index.full_quota').sub!('`COUNT`', activeLimit.to_s)
+
+    # 1. check usage here
+    # 2. upgrade to ACTIVE for BASIC user
+  	if count < activeLimit
+      if user_signed_in?
+        # checking for registered users
+        if current_user.get_monthly_usage >= current_user.membership.monthly_limit
+          if current_user.use_extra_quota?
+            # registered users can create session when they reach limit and account have extra quota.
+            create_building_session
+          else
+            statusMsg = I18n.t('index.limit_reach')
+          end
+        else
+          # registered users can create session when not reach limit.
+          create_building_session
+        end
+      else
+        # guest can create session when there is no active session
+        create_building_session
+      end
   	end
 
-  	render_error_json('Quota full', 422) if @building_session.nil?
+  	render_error_json(statusMsg, 422) if @building_session.nil?
   end
 
   def update_session_name

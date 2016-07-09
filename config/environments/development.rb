@@ -48,7 +48,7 @@ Rails.application.configure do
      :domain => "floornote.com",
      :authentication => :plain,
      :user_name => "postmaster@floornote.com",
-     :password => "F!00rSend"
+     :password => ENV['FLOORNOTE_MAILGUN_PASS']
    }
 
   config.action_mailer.default_url_options = { host: 'localhost' }

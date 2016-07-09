@@ -45,11 +45,9 @@ var User = {
   <% if user_signed_in? %>
     signedIn: true,
     email: '<%= current_user.email %>',
-    activeCount: 3,
   <% else %>
     signedIn: false,
     email: '',
-    activeCount: 1,
   <% end %>
 };
 var deadSession = <%= @dead_session.as_json %>;

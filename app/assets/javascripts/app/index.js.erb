@@ -197,7 +197,9 @@ $( document ).ready(function() {
 				console.log('error');
 				console.log(e);
 
-				Materialize.toast(Locale.words.fullQuota.replace('`COUNT`', User.activeCount), 5000);
+				var errJson = JSON.parse(e.responseText);
+
+				Materialize.toast(errJson.error, 5000);
 
 				$(_this).removeAttr('disabled');
 			}

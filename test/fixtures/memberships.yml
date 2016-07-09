@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  membership_id: MyString
+  active_limit: 1
+  monthly_limit: 1
+  price: 9.99
+
+two:
+  membership_id: MyString
+  active_limit: 1
+  monthly_limit: 1
+  price: 9.99
