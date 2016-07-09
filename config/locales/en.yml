@@ -28,6 +28,7 @@ en:
     terms_link: "Terms and Condition"
     privacy_link: "Privacy"
     compare_plan: "Compare user plan"
+    donate_link: "Support us to become better"
     help_us: "Help us to improve"
     login_link: "Login"
     logout_link: "Logout"
@@ -158,6 +159,18 @@ en:
     become_vip: "Become VIP!"
     coming_soon: "Coming soon..."
     advanced_search: "Advanced Search"
+  donate:
+    title: "Thank you for using FloorNote!"
+    description1: "FloorNote is still in developing stage, we will bring the most effective managing tools in the future. If you find our service is interesting, it can definitely help us with giving us donation! Besides, you can also send your opinion in "
+    description2: "help us improve"
+    description3: " section. We will provide more and more useful features based on your valuable comments. Your enjoyment in FloorNote is the best support for us!"
+    type: "Donation type"
+    addition_info: " * Members who donate now will get a FREE VIP membership period according to the donation type."
+  donate_done:
+    title: "Big thanks to your donation!"
+    info: "Keep well of your receipt. We will announce the membership upgrade steps in the website."
+    keep_using: "We will provide the best service for you!"
+    start_now: "Sign up your new account to enjoy our service now!"
   user:
     login_link: "Login"
     logout_link: "Logout"

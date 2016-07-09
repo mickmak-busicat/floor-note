@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     get 'tutorial', :to => 'home#tutorial', as: 'tutorial'
 
     get 'donate', :to => 'home#donate', as: 'donate'
+    get 'donate_done', :to => 'home#donate_done', as: 'donate_done'
 
     scope "work" do
       get 'blank', :to => 'work#blank', as: 'blank_mode'

@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-	before_filter :default_js, only: [:request_building, :request_building_add, :improve, :improve_add, :compare_plan, :tutorial, :donate]
+	before_filter :default_js, only: [:request_building, :request_building_add, :improve, :improve_add, :compare_plan, :tutorial, :donate, :donate_done]
   
   def index
   	clear_dead_session
@@ -10,6 +10,10 @@ class HomeController < ApplicationController
   end
 
   def donate
+
+  end
+  
+  def donate_done
 
   end
 

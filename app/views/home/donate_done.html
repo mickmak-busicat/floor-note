@@ -1,0 +1,14 @@
+<div class="valign center-align w-100">
+	<div class="p-20">
+		<h2><%= I18n.t 'donate_done.title' %></h2>
+		<div class="description-section">
+			<p><%= I18n.t 'donate_done.info' %></p>
+			<% if user_signed_in? %>
+			<p><a href="<%= root_path(:locale => I18n.locale) %>" class="underline_link"><%= I18n.t 'donate_done.keep_using' %></a></p>
+			<% else %>
+			<p><a href="<%= new_registration_path(User, :locale => I18n.locale) %>" class="underline_link"><%= I18n.t 'donate_done.start_now' %></a></p>
+			<% end %>
+		</div>
+	</div>
+
+</div>

@@ -7,6 +7,7 @@ zh:
     terms_link: "條款及細則"
     privacy_link: "私隱政策"
     compare_plan: "用戶等級及功能"
+    donate_link: "支持我們發展"
     help_us: "幫助我們改善"
     login_link: "登入"
     logout_link: "退出"
@@ -137,6 +138,18 @@ zh:
     become_vip: "成為VIP！"
     coming_soon: "即將啟用..."
     advanced_search: "高級搜尋"
+  donate:
+    title: "感謝您使用FloorNote 的服務！"
+    description1: "FloorNote 仍然是在發展中的階段，隨後會為您們提供更多更有效的管理工具。如您對我們的服務功能感興趣，可選擇用捐助的方式支持我們的工作！另外您也可以在 "
+    description2: "幫助我們改善"
+    description3: " 中提出意見令我們可為大家提供更多貼心功能，只要有您們的支持就是我們提供更好服務的動力‌！"
+    type: "捐助種類"
+    addition_info: " * 現在進行捐助的用戶可以在之後啟用VIP 會員功能時，免費獲得用相應金額以優惠價計算的VIP 會藉。"
+  donate_done:
+    title: "十分感謝您對我們的支持和肯定！"
+    info: "請保管好收據，我們之後會在網站上公佈捐助用戶升級的步驟！"
+    keep_using: "我們會繼續為您提供更優質服務！"
+    start_now: "請前往註冊用戶以開始使用我們的服務！"
   user:
     login_link: "登入"
     logout_link: "退出"
