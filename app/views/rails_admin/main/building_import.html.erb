@@ -78,9 +78,13 @@
 </script>
 
 <select name="building_id" id="buildingId">
-	<% all.each do |building| %>
+	<% all.each do |building| 
+		if building.floors.count == 0
+		%>
 		<option value="<%= building.id %>"><%= building.name %> (<%= building.district %>)</option>
-	<% end %>
+	<% end
+	end
+	 %>
 </select>
 <hr/>
 
