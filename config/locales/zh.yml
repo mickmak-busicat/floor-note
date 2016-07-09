@@ -37,7 +37,7 @@ zh:
     mark_finish: "標記工作為完成"
     finish_all: "標記所有工作為完成"
     search_placeholder: "輸入大廈名稱或代號"
-    search_long_help: "輸入大廈名稱或代號（如：yc, kh）用空白隔開大廈街號。"
+    search_long_help: "輸入大廈名稱或代號（如：yc, kh）用空白隔開大廈街號。搜尋英文名稱不用空格。"
   blank:
     add_room: "房"
     add_floor: "樓層"

@@ -58,7 +58,7 @@ en:
     mark_finish: "Mark work as finished"
     finish_all: "Mark all as finished"
     search_placeholder: "Building name or short name"
-    search_long_help: "Enter building name or short name(eg: yc, kh), you can specify the building street number separate with a SPACE."
+    search_long_help: "Enter building name or short name(eg: yc, kh), you can specify the building street number separate with a SPACE. If you are searching for building english name, please skip all SPACES."
   blank:
     add_room: "Room"
     add_floor: "Floor"
