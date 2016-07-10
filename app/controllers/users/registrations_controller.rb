@@ -2,6 +2,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   before_filter :default_js
 # before_filter :configure_sign_up_params, only: [:create]
 # before_filter :configure_account_update_params, only: [:update]
+  after_action :assign_session_to_user, only: [:create]
 
   # GET /resource/sign_up
   # def new
@@ -58,4 +59,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+  private
+  def assign_session_to_user
+      if !session[:active_session].nil?
+        session[:active_session].each do |s|
+          db_session = BuildingSession.find_by(:id => s['id'], :status => 1)
+          if !db_session.nil?
+            db_session.user = current_user
+            db_session.save
+          end
+        end
+      end
+    end
 end

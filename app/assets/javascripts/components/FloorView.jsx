@@ -7,7 +7,7 @@ var FloorView = React.createClass({
 	getDefaultProps: function(){
 		return {
 			'mode': 'NORMAL',
-			'serverInterval': 10, // min
+			'serverInterval': 5, // min
 		};
 	},
 
