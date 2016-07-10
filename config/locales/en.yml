@@ -143,6 +143,7 @@ en:
     notify_email: "Your email (optional)"
     comment: "Your suggestion about this:"
     reason: "What is the problem about?(eg, website feature/bug report)"
+    email_contact: "You can also contact us at: "
   compare:
     title: "Compare plan"
     guest: "Guest"

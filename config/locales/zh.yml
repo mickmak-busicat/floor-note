@@ -122,6 +122,7 @@ zh:
     notify_email: "你的電郵地址 (選填)"
     comment: "你對此的意見："
     reason: "你想提出的問題關於？(eg, 網站功能/回報回題)"
+    email_contact: "你也可以透過電郵聯繫我們: "
   compare:
     title: "用戶等級及功能比較"
     guest: "訪客"
