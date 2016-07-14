@@ -1260,8 +1260,8 @@ var EasyAutocomplete = (function(scope) {
 
 			function bindKeyup() {
 				$field
-				.off("keyup")
-				.keyup(function(event) {
+				.off("keyup input")
+				.on("keyup input", function(event) {
 
 					switch(event.keyCode) {
 
@@ -1304,7 +1304,7 @@ var EasyAutocomplete = (function(scope) {
 
 						default:
 
-							if (event.keyCode > 40 || event.keyCode === 8) {
+							if (event.keyCode > 40 || event.keyCode === 8 || event.type == "input") {
 
 								var inputPhrase = $field.val();
 
