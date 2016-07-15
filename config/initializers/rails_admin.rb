@@ -50,6 +50,24 @@ RailsAdmin.config do |config|
   #   end
   # end
 
+  config.model 'BuildingSession' do
+    configure :created_at, :datetime do
+      strftime_format '%Y-%m-%d %H:%M:%S'
+    end
+    configure :updated_at, :datetime do
+      strftime_format '%Y-%m-%d %H:%M:%S'
+    end
+  end
+
+  config.model 'Rate' do
+    configure :created_at, :datetime do
+      strftime_format '%Y-%m-%d %H:%M:%S'
+    end
+    configure :updated_at, :datetime do
+      strftime_format '%Y-%m-%d %H:%M:%S'
+    end
+  end
+
   config.model 'Membership' do
     object_label_method do
       :custom_membership_label_method
@@ -65,6 +83,12 @@ RailsAdmin.config do |config|
   config.model 'User' do
     object_label_method do
       :custom_user_label_method
+    end
+    configure :created_at, :datetime do
+      strftime_format '%Y-%m-%d %H:%M:%S'
+    end
+    configure :updated_at, :datetime do
+      strftime_format '%Y-%m-%d %H:%M:%S'
     end
   end
 
