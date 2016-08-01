@@ -29,6 +29,8 @@ Rails.application.routes.draw do
       delete 'sessions/finish_all', :to => 'work#finish_all', as: 'finish_all'
     end
 
+    get 'c/:token', :to => 'home#confirm_token', as: 'confirm_token'
+
     devise_for :users, controllers: { sessions: 'users/sessions', registrations: 'users/registrations', passwords: 'users/passwords' }
   end
 
@@ -44,6 +46,8 @@ Rails.application.routes.draw do
 
     post 'new_floor', :to => 'ajax#admin_new_floor', as: 'admin_new_floor'
     post 'new_floor_object', :to => 'ajax#admin_new_floor_object', as: 'admin_new_floor_object'
+
+    post 'confirm_email', :to => 'ajax#confirm_email', as: 'confirm_email'
   end
 
   # You can have the root of your site routed with "root"

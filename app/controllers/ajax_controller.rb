@@ -1,3 +1,5 @@
+require 'rest-client'
+
 class AjaxController < ApplicationController
   
   def search
@@ -42,7 +44,7 @@ class AjaxController < ApplicationController
   end
 
   def update_session_name
-  	render_error_json('Session not found', 404) if session[:active_session].nil?
+  	render_error_json('Session not found', 404) and return if session[:active_session].nil?
 
   	session_id = session_name_params[:id].to_i
   	new_session_name = session_name_params[:name]
@@ -64,7 +66,7 @@ class AjaxController < ApplicationController
   end
 
   def rate_room
-    render_error_json('Please login') if current_user.nil?
+    render_error_json('Please login') and return if current_user.nil?
 
   	render_success_json
   end
@@ -73,7 +75,7 @@ class AjaxController < ApplicationController
   	ids = session_save_params[:id]
   	data = session_save_params[:data]
 
-    render_error_json('Not data', 404) if (ids.nil? || data.nil?)
+    render_error_json('Not data', 404) and return if (ids.nil? || data.nil?)
 
   	if ids.count > 0
   		ids.each_with_index do |id, index|
@@ -121,6 +123,41 @@ class AjaxController < ApplicationController
     object = FloorObject.create(new_floor_object_params)
 
     render json: object, status: 200
+  end
+
+  def confirm_email
+    # ((DateTime.now() - old)*24*60*60).to_i
+    render_error_json('Please login', 400) and return if current_user.nil?
+
+    last_sent = current_user.last_confirmation_sent
+    if last_sent != nil
+      last_sent = last_sent.to_datetime
+      interval = ((DateTime.now() - last_sent)*24*60*60).to_i
+
+      render_error_json('Please wait', 422) and return if interval < 900
+    end
+
+    token = current_user.prepare_email_confirmation
+
+    begin
+      data = {}
+      data[:from] = "Excited User <test@floornote.com>"
+      data[:to] = "mk.triniti@gmail.com"
+      data[:subject] = "Hello"
+      data[:html] = "<html>your token : "+token+"</html>"
+
+      puts data.inspect
+
+      RestClient.post "https://api:key-6ef63c389adb1c7ba960f4cb8032f16c"\
+      "@api.mailgun.net/v3/floornote.com/messages", data
+    rescue Exception
+      # handle everything else
+      puts '-------'
+      puts "Confirmation Email sent Error #{$!}"
+      puts '-------'
+    end
+
+    render_success_json
   end
 
   private

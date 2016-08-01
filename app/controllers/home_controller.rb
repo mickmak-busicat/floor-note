@@ -1,3 +1,5 @@
+require 'rest-client'
+
 class HomeController < ApplicationController
 	before_filter :default_js, only: [:request_building, :request_building_add, :improve, :improve_add, :compare_plan, :tutorial, :donate, :donate_done]
   
@@ -21,7 +23,7 @@ class HomeController < ApplicationController
     @active_count = get_active_session_count
     @monthly_count = current_user.get_monthly_usage if user_signed_in?
     @membership = current_user.membership if user_signed_in?
-    redirect_to root_path(:locale => I18n.locale) if !user_signed_in?
+    redirect_to new_user_session_path(:locale => I18n.locale) if !user_signed_in?
   end
 
   def request_building_add
@@ -72,6 +74,15 @@ class HomeController < ApplicationController
 
   end
 
+  def confirm_token
+    token = confirm_token_params[:token]
+
+    if current_user.confirmation_token == token
+
+    end
+    # redirect_to new_user_session_path(:locale => I18n.locale) if !user_signed_in?
+  end
+
   private
 
 	  def request_building_add_params
@@ -81,5 +92,9 @@ class HomeController < ApplicationController
 	  def improve_add_params
 	  	params.permit(:reason, :comment, :email)
 	  end
+
+    def confirm_token_params
+      params.permit(:token)
+    end
 
 end

@@ -16,11 +16,26 @@ class User < ActiveRecord::Base
   def use_extra_quota?
   	rs = (self.extra_quota > 0)
   	if rs
-	  self.extra_quota = self.extra_quota - 1;
-	  self.save
-	end
+  	  self.extra_quota = self.extra_quota - 1;
+  	  self.save
+  	end
 
-	rs
+  	rs
+  end
+
+  def is_confirmed?
+    (self.is_confirmed === true)
+  end
+
+  def prepare_email_confirmation
+    loop do
+      self.confirmation_token = Devise.friendly_token
+      break self.confirmation_token unless User.where(confirmation_token: self.confirmation_token).first
+    end
+    self.last_confirmation_sent = DateTime.now()
+    self.save
+
+    self.confirmation_token
   end
 
   private

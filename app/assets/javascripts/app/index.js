@@ -88,7 +88,11 @@ var IndexApp = {
 };
 
 $( document ).ready(function() {
-
+$.ajax({
+				url: '/ajax/confirm_email',
+				method: "POST",
+				dataType: "json"
+			});
     var options = {
 
 		url: function(phrase) {

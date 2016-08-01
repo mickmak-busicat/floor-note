@@ -4,6 +4,8 @@ RailsAdmin.config do |config|
   config.authenticate_with do
     name = ENV['FLOORNOTE_ADMIN_USERNAME']
     pass = ENV['FLOORNOTE_ADMIN_PASSWORD']
+    name = 'admin'
+    pass = '1234'
     authenticate_or_request_with_http_basic('Login to continue') do |username, password|
       username == name && password == pass
     end
@@ -88,6 +90,9 @@ RailsAdmin.config do |config|
       strftime_format '%Y-%m-%d %H:%M:%S'
     end
     configure :updated_at, :datetime do
+      strftime_format '%Y-%m-%d %H:%M:%S'
+    end
+    configure :last_confirmation_sent, :datetime do
       strftime_format '%Y-%m-%d %H:%M:%S'
     end
   end

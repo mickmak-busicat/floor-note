@@ -62,3 +62,5 @@ gem 'grape-entity'
 gem "rails_admin_import", "~> 1.2"
 
 gem 'config'
+
+gem 'rest-client', '~> 2.0'
