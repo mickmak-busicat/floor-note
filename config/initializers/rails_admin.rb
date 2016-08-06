@@ -4,8 +4,10 @@ RailsAdmin.config do |config|
   config.authenticate_with do
     name = ENV['FLOORNOTE_ADMIN_USERNAME']
     pass = ENV['FLOORNOTE_ADMIN_PASSWORD']
-    name = 'admin'
-    pass = '1234'
+    if ENV['RAILS_ENV'] != 'production'
+      name = 'admin'
+      pass = '1234'
+    end
     authenticate_or_request_with_http_basic('Login to continue') do |username, password|
       username == name && password == pass
     end
