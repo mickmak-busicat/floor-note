@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160806131101) do
+ActiveRecord::Schema.define(version: 20160806183103) do
 
   create_table "building_requests", force: :cascade do |t|
     t.integer  "user_id",          limit: 4
@@ -115,8 +115,9 @@ ActiveRecord::Schema.define(version: 20160806131101) do
   create_table "shareable_links", force: :cascade do |t|
     t.integer  "building_session_id", limit: 4
     t.string   "code",                limit: 255
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+    t.boolean  "status",                          default: true
   end
 
   add_index "shareable_links", ["building_session_id"], name: "index_shareable_links_on_building_session_id", using: :btree

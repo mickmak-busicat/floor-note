@@ -229,6 +229,10 @@ class AjaxController < ApplicationController
 
             code = ln_code
           else
+            if !slink.status
+              slink.status = true
+              slink.save
+            end
             code = slink.code
           end
 
@@ -250,7 +254,9 @@ class AjaxController < ApplicationController
     render_error_json('Not link for this session', 404) and return if !slink
 
     if slink.building_session.user.id == current_user.id
-      slink.delete
+      # slink.delete
+      slink.status = false
+      slink.save
     end
 
     render_success_json

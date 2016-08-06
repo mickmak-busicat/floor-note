@@ -87,7 +87,7 @@ class WorkController < ApplicationController
 
 		slink = ShareableLink.find_by(:code => code)
 
-		redirect_to root_path(:locale => I18n.locale) and return if slink.nil?
+		redirect_to root_path(:locale => I18n.locale) and return if slink.nil? || !slink.status
 
 		@building_data = slink.building_session
 	end
