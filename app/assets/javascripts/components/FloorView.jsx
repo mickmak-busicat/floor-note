@@ -82,7 +82,7 @@ var FloorView = React.createClass({
 		var scale = 0.7;
 		var previousSession = localStorage.getItem(this.props.normalModeStoreKey);
 
-		if(previousSession === "" || previousSession === null){
+		if(previousSession === "" || previousSession === null || this.props.normalModeStoreKey === undefined){
 			floorViewIndex = this.props.buildingData.building.floors[0].seq;
 		}else{
 			previousSession = JSON.parse(previousSession);
