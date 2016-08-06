@@ -175,7 +175,7 @@ class AjaxController < ApplicationController
 
       data[:html] = contents
 
-      RestClient.post "https://api:key-6ef63c389adb1c7ba960f4cb8032f16c"\
+      RestClient.post "https://api:#{ENV['FLOORNOTE_MAILGUN_KEY']}"\
       "@api.mailgun.net/v3/floornote.com/messages", data
     rescue Exception
       # handle everything else
