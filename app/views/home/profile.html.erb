@@ -1,20 +1,43 @@
+<script>
+var Locale = {
+	words: {
+		confirmation_sent: '<%= I18n.t "profile.confirmation_sent" %>'
+	}
+};
+</script>
 
 <div class="valign center-align w-100">
 	<div class="p-20">
 		<h2><%= I18n.t 'profile.title' %></h2>
 	</div>
 	<div class="col-md-12 profile-row col-sm-12 col-xs-12">
-		<div class="col-md-6 col-sm-6 col-xs-6"><b><%= I18n.t 'profile.email' %></b></div><div class="col-md-6 col-sm-6 col-xs-6"><%= current_user.email %></div>
+		<div class="col-md-6 col-sm-6 col-xs-6"><b><%= I18n.t 'profile.email' %></b></div>
+		<div class="col-md-6 col-sm-6 col-xs-6">
+			<div><%= current_user.email %></div>
+			<% 
+			if current_user.confirmed?
+			%>
+			<div><span class="verified"><span class="ion-checkmark-circled" aria-hidden="true"></span> <%= I18n.t 'profile.email_verified' %></span></div>
+			<% else %>
+			<div id="verifyDiv"><button class="not-verified" id="verifyButton"><%= I18n.t 'profile.verify_email' %></button></div>
+			<% end %>
+		</div>
 	</div>
 
 	<div class="col-md-12 profile-row col-sm-12 col-xs-12">
-		<div class="col-md-6 col-sm-6 col-xs-6"><b><%= I18n.t 'profile.membership' %></b></div><div class="col-md-6 col-sm-6 col-xs-6"><%= Settings.MEMBERSHIP_ID_NAME[current_user.membership.membership_id] %><br><a href="<%= compare_path(:locale => I18n.locale) %>" class="underline_link"><%= I18n.t 'profile.compare' %></a></div>
+		<div class="col-md-6 col-sm-6 col-xs-6"><b><%= I18n.t 'profile.membership' %></b></div><div class="col-md-6 col-sm-6 col-xs-6"><%= Settings.MEMBERSHIP_ID_NAME[current_user.membership.membership_id] %> <% if current_user.membership.membership_id == Settings.MEMBERSHIP_ID.BASIC %><br>(<a href="/upgrade" class="underline_link"><%= I18n.t 'profile.upgrade_text' %></a>)<% end %><br><a href="<%= compare_path(:locale => I18n.locale) %>" class="underline_link"><%= I18n.t 'profile.compare' %></a></div>
 	</div>
+
+	<% if current_user.membership.membership_id != Settings.MEMBERSHIP_ID.BASIC %>
+	<div class="col-md-12 profile-row col-sm-12 col-xs-12">
+		<div class="col-md-6 col-sm-6 col-xs-6"><b><%= I18n.t 'profile.expires' %></b></div><div class="col-md-6 col-sm-6 col-xs-6"><%= (current_user.expires_at.nil?) ? 'N/A' : current_user.expires_at.to_date %></div>
+	</div>
+	<% end %>
 
 	<div class="col-md-12 profile-row col-sm-12 col-xs-12">
 		<div class="col-md-6 col-sm-6 col-xs-6"><b><%= I18n.t 'profile.extra' %>*</b></div>
 		<div class="col-md-6 col-sm-6 col-xs-6"><%= current_user.extra_quota %> <br>
-			<a href="#" class="underline_link" id="addMoreLink"><%= I18n.t 'profile.add_more' %></a><br>
+			<a href="<%= quota_path(:locale => I18n.locale) %>" class="underline_link" id="addMoreLink"><%= I18n.t 'profile.add_more' %></a><br>
 			<span class="small">* <%= I18n.t 'profile.extra_info' %></span>
 		</div>
 	</div>
@@ -27,9 +50,11 @@
 		<div class="col-md-6 col-sm-6 col-xs-6"><b><%= I18n.t 'profile.monthly_limit' %></b></div><div class="col-md-6 col-sm-6 col-xs-6"><%= @monthly_count %> / <%= @membership.monthly_limit %><% if @monthly_count >= @membership.monthly_limit %> (<%= I18n.t 'profile.full_quota' %>)<% end %></div>
 	</div>
 
-	<div class="col-md-12 profile-row col-sm-12 col-xs-12">
-		<div class="col-md-6 col-sm-6 col-xs-6"><b><%= I18n.t 'profile.expires' %></b></div><div class="col-md-6 col-sm-6 col-xs-6">N/A</div>
+	<% if current_user.membership.membership_id == Settings.MEMBERSHIP_ID.ACTIVE %>
+	<div class="col-md-12 profile-row col-sm-12 col-xs-12 non-qualify">
+		<div class="col-md-6 col-sm-6 col-xs-6"><b><%= I18n.t 'profile.active_target' %></b></div><div class="col-md-6 col-sm-6 col-xs-6"><%= @monthly_count %> / <%= Settings.KEEP_ACTIVE_CONFIG.MONTHLY_SESSION %></div>
 	</div>
+	<% end %>
 
 	<div class="clearfix"></div>
 </div>

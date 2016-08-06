@@ -1,0 +1,3 @@
+<%= render partial: "normal_locale" %>
+
+<%= react_component('FloorView', {:defaultIconSet => ['', asset_path('default_iconset/bad.png'), asset_path('default_iconset/closed.png'), asset_path('default_iconset/like.png'), asset_path('default_iconset/question.png')], :buildingData => @building_data.as_json(:include => {:building => {:only => [:id], :methods => :ordered_floors, :include => {:floors => {:only => [:id, :name, :seq], :include => {:floor_objects => {:only => [:id, :x, :y, :width, :height, :direction, :label, :object_type]}}}}}}, :only => [:id]), :workLabel => @building_data.name, :u => user_signed_in?, :mode => 'VIEW', :serverPayload => @building_data.payload, :lastUpdateDate => @building_data.updated_at.to_date}) %>

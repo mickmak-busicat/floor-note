@@ -13,17 +13,34 @@ class AjaxController < ApplicationController
 
   def work
   	count = get_active_session_count
+    month_usage = 0
   	@building_session = nil
 
     activeLimit = (user_signed_in?) ? current_user.membership.active_limit : Settings.GUEST_SESSION_COUNT
     statusMsg = I18n.t('index.full_quota').sub!('`COUNT`', activeLimit.to_s)
+
+    if user_signed_in?
+      month_usage = current_user.get_monthly_usage
+
+      # TODO: check account expire here
+      if current_user.membership.membership_id == Settings.MEMBERSHIP_ID.ACTIVE && !current_user.expires_at.nil? && current_user.expires_at < DateTime.now
+        # extend or end active membership
+        if month_usage >= Settings.KEEP_ACTIVE_CONFIG.MONTHLY_SESSION
+          # extend membership
+          current_user.expires_at = DateTime.now() + 30.days
+        else
+          current_user.membership = Membership.find_by(:membership_id => Settings.MEMBERSHIP_ID.BASIC)
+        end
+        current_user.save
+      end
+    end
 
     # 1. check usage here
     # 2. upgrade to ACTIVE for BASIC user
   	if count < activeLimit
       if user_signed_in?
         # checking for registered users
-        if current_user.get_monthly_usage >= current_user.membership.monthly_limit
+        if month_usage >= current_user.membership.monthly_limit
           if current_user.use_extra_quota?
             # registered users can create session when they reach limit and account have extra quota.
             create_building_session
@@ -134,19 +151,29 @@ class AjaxController < ApplicationController
       last_sent = last_sent.to_datetime
       interval = ((DateTime.now() - last_sent)*24*60*60).to_i
 
-      render_error_json('Please wait', 422) and return if interval < 900
+      puts 'wait: '
+      puts interval
+
+      # render_error_json('Please wait', 422) and return if interval < 900
     end
 
     token = current_user.prepare_email_confirmation
 
     begin
       data = {}
-      data[:from] = "Excited User <test@floornote.com>"
-      data[:to] = "mk.triniti@gmail.com"
-      data[:subject] = "Hello"
-      data[:html] = "<html>your token : "+token+"</html>"
+      data[:from] = "FloorNote Team <noreply@floornote.com>"
+      data[:to] = current_user.email
+      data[:subject] = I18n.t 'confirm.email_title'
+
+      # views/devise/mailer/confirmation_instructions.html.erb
+      file = File.join(Rails.root, 'app', 'views', 'devise', 'mailer', 'confirmation_instructions.html.erb')
+      contents = File.read(file)
+      contents.sub!('`DOMAIN`', request.host_with_port)
+      contents.sub!('`CONFIRMATION_TOKEN`', token)
 
       puts data.inspect
+
+      data[:html] = contents
 
       RestClient.post "https://api:key-6ef63c389adb1c7ba960f4cb8032f16c"\
       "@api.mailgun.net/v3/floornote.com/messages", data
@@ -155,6 +182,75 @@ class AjaxController < ApplicationController
       puts '-------'
       puts "Confirmation Email sent Error #{$!}"
       puts '-------'
+    end
+
+    render_success_json
+  end
+
+  def account_upgrade
+    render_error_json('Please login', 400) and return if current_user.nil?
+
+    account_life = ((DateTime.now() - current_user.created_at.to_datetime)).to_i
+    month_usage = current_user.get_monthly_usage
+    
+    is_verified = current_user.is_confirmed?
+    is_long_life_enough = (account_life >= Settings.UPGRADE_CONFIG.ACCOUNT_LIFE)
+    is_enough_monthly_usage = (month_usage >= Settings.UPGRADE_CONFIG.MONTHLY_SESSION)
+
+    if is_verified && is_enough_monthly_usage && is_long_life_enough
+      current_user.membership = Membership.find_by(:membership_id => Settings.MEMBERSHIP_ID.ACTIVE)
+      current_user.expires_at = DateTime.now() + 30.days
+      current_user.save
+
+      render_success_json
+    else
+      render_error_json
+    end
+  end
+
+  def shareable_link
+    ids = session_save_params[:id]
+    data = session_save_params[:data]
+    code = ''
+
+    render_error_json('Not data', 404) and return if (ids.nil? || data.nil?)
+
+    if ids.count > 0
+      ids.each_with_index do |id, index|
+        ss = BuildingSession.find_by(:id => id.to_i, :user => current_user)
+        
+        if !ss.nil?
+          ss.payload = data[index].to_s
+          slink = ShareableLink.find_by(:building_session_id => ss.id)
+
+          if !slink
+            ln_code = ShareableLink.get_code
+            ShareableLink.create!(:building_session => ss, :code => ln_code)
+
+            code = ln_code
+          else
+            code = slink.code
+          end
+
+          ss.save
+        end
+      end
+    end
+
+    render_success_json({code: code})
+  end
+
+  def remove_shareable_link
+    id = remove_shareable_link_params[:sid]
+
+    render_error_json('Not data', 404) and return if (id.nil?)
+
+    slink = ShareableLink.find_by(:building_session_id => id)
+
+    render_error_json('Not link for this session', 404) and return if !slink
+
+    if slink.building_session.user.id == current_user.id
+      slink.delete
     end
 
     render_success_json
@@ -177,6 +273,10 @@ class AjaxController < ApplicationController
 	  def rate_room_params
 	  	params.permit(:id, :rating)
 	  end
+
+    def remove_shareable_link_params
+      params.permit(:sid)
+    end
 
 	  def session_save_params
 	  	params.permit(:id => [], :data => [])

@@ -1,5 +1,6 @@
 class WorkController < ApplicationController
 	before_action :hide_footer
+	protect_from_forgery
   
 	def blank
 		@title_name = I18n.t "blank.mode_title"
@@ -18,6 +19,10 @@ class WorkController < ApplicationController
 			remove_active_session(session_id)
 			redirect_to root_path(:locale => I18n.locale)
 		end
+
+		slink = ShareableLink.find_by(:building_session_id => @building_data.id)
+
+		@shareable_link = slink.nil? ? '' : slink.code
 	end
 
 	def finish_work
@@ -71,6 +76,20 @@ class WorkController < ApplicationController
 
 	  	flash[:notice] = I18n.t 'work.finish_work'
 	  	redirect_to root_path(:locale => I18n.locale)
+	end
+
+	def view_share_link
+		store_location_for(:user, request.url)
+		redirect_to new_user_session_path(:locale => I18n.locale) and return if !user_signed_in?
+
+		@title_name = ''
+		code = params[:code]
+
+		slink = ShareableLink.find_by(:code => code)
+
+		redirect_to root_path(:locale => I18n.locale) and return if slink.nil?
+
+		@building_data = slink.building_session
 	end
 
 end

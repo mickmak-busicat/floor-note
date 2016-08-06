@@ -144,13 +144,13 @@ var deadSession = <%= @dead_session.as_json %>;
       <!-- Page Contents -->
       <div class="page">
 
-        <% if !flash[:notice].nil? %>
+        <% if !flash[:notice].nil? && !@hide_footer %>
           <div class="notification notification-info">
           <%= flash[:notice] %>
           </div>
         <% end %>
 
-        <% if !flash[:alert].nil? %>
+        <% if !flash[:alert].nil? && !@hide_footer %>
           <div class="notification notification-warning">
           <%= flash[:alert] %>
           </div>

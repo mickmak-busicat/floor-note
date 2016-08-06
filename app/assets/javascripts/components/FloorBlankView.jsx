@@ -233,7 +233,7 @@ var FloorBlankView = React.createClass({
 	},
 
 	_updateRoomLabel: function(e){
-		Materialize.toast(Locale.words.labelUpdate, 2000);
+		Materialize.toast(Locale.words.labelUpdate, 2000, 'toast-info');
 		// GA #45
 		ga('send', 'event', 'Blank Mode', 'Room label updated');
 
@@ -245,7 +245,7 @@ var FloorBlankView = React.createClass({
 	},
 
 	_updateRoomNotes: function(e){
-		Materialize.toast(Locale.words.noteUpdate, 2000);
+		Materialize.toast(Locale.words.noteUpdate, 2000, 'toast-info');
 		// GA #46
 		ga('send', 'event', 'Blank Mode', 'Room notes updated');
 
@@ -275,7 +275,7 @@ var FloorBlankView = React.createClass({
 		// GA #47
 		ga('send', 'event', 'Blank Mode', 'Add room clicked');
 
-		Materialize.toast(Locale.words.addedRoom.replace('`NAME`', rooms[nextIndex].label), 2000);
+		Materialize.toast(Locale.words.addedRoom.replace('`NAME`', rooms[nextIndex].label), 2000, 'toast-info');
 		this.setState({'floors': floors});
 	},
 
@@ -294,10 +294,10 @@ var FloorBlankView = React.createClass({
 
 		floors[nextIndex] = newFloor;
 
-		Materialize.toast(Locale.words.addedFloor.replace('`NAME`', newFloor.label), 3000);
+		Materialize.toast(Locale.words.addedFloor.replace('`NAME`', newFloor.label), 3000, 'toast-info');
 
 		if(numberOfRooms == 0){
-			Materialize.toast(Locale.words.noRoomInThisFloor, 10000);
+			Materialize.toast(Locale.words.noRoomInThisFloor, 10000, 'toast-warning');
 		}
 
 		this.setState({'floors': floors, 'floorViewIndex': nextIndex});
@@ -325,7 +325,7 @@ var FloorBlankView = React.createClass({
 	},
 
 	_goToFloor: function(floorIndex){
-		Materialize.toast(Locale.words.onFloor.replace('`NAME`', this.state.floors[floorIndex].label), 2000);
+		Materialize.toast(Locale.words.onFloor.replace('`NAME`', this.state.floors[floorIndex].label), 2000, 'toast-info');
 		this.setState({'floorViewIndex': floorIndex});
 	},
 
@@ -345,7 +345,7 @@ var FloorBlankView = React.createClass({
 		});
 
 		if(targetFloor == -1){
-			Materialize.toast(Locale.words.cannotGoUp, 2000);
+			Materialize.toast(Locale.words.cannotGoUp, 2000, 'toast-warning');
 		}else{
 			this._goToFloor(targetFloor);
 		}
@@ -367,7 +367,7 @@ var FloorBlankView = React.createClass({
 		});
 
 		if(targetFloor == -1){
-			Materialize.toast(Locale.words.cannotGoDown, 2000);
+			Materialize.toast(Locale.words.cannotGoDown, 2000, 'toast-warning');
 		}else{
 			this._goToFloor(targetFloor);
 		}
@@ -412,7 +412,7 @@ var FloorBlankView = React.createClass({
 	},
 
 	_updateFloorLabel: function(e){
-		Materialize.toast(Locale.words.floorLabelUpdate, 2000);
+		Materialize.toast(Locale.words.floorLabelUpdate, 2000, 'toast-info');
 		this._updateFloorData(this.state.floorViewIndex, 'label', e.target.value);
 	},
 

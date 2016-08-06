@@ -55,6 +55,8 @@ zh:
   work:
     go_up: "往上"
     go_down: "往下"
+    share_link: "分享連結"
+    duplicate: "複製工作"
     close: "確定"
     floor_select: "樓層："
     cannot_go_up: "你已在最高一層了。"
@@ -103,6 +105,12 @@ zh:
     scale_down: "縮小"
     cannot_scale_up: "已經放到最大。"
     cannot_scale_down: "已經縮到最小。"
+    share_link_pop:
+      title: "此工作的分享連結"
+      login: "請登入以使用分享連結。"
+      get_link: "取得連結"
+      disable_share_link: "停止分享"
+    want_to_rate: "我要評分！"
   request:
     thanks_request: "感謝你的資料。我們會盡快處理。"
     please_wait: "不過請等等！"
@@ -139,10 +147,12 @@ zh:
     signup_now: "馬上註冊帳號！"
     become_premium: "免費升級！"
     become_vip: "成為VIP！"
-    coming_soon: "即將啟用..."
+    coming_soon: "即將啟用"
     advanced_search: "高級搜尋"
     extra_bonus: "每月額外額度獎勵"
     use_public_session: "使用公用工作模式"
+    share_link_view: "查看分享連結"
+    share_link_use: "取得分享連結"
   profile:
     title: "我的帳戶"
     email: "電郵地址"
@@ -155,6 +165,17 @@ zh:
     monthly_limit: "每月工作上限"
     expires: "用戶等級有效至"
     full_quota: "己達上限"
+    verify_email: "認證我的電郵地址"
+    email_verified: "電郵地址已認證"
+    active_target: "活躍用戶的每月目標工作數目"
+    upgrade_text: "升級至活躍用戶"
+    confirmation_sent: "認證電郵已發送到你的電郵地址。請依照電郵內的指示進行認證。"
+  confirm:
+    title: "認證你的電郵地址"
+    continue: "繼續使用FloorNote"
+    success: "你的電郵地址已經成功認證！"
+    fail: "錯誤的連結。"
+    email_title: "請在FloorNote 上認證你的電郵地址"
   donate:
     title: "感謝你使用FloorNote 的服務！"
     description1: "FloorNote 仍然是在發展中的階段，隨後會為你們提供更多更有效的管理工具。如你對我們的服務功能感興趣，可選擇用捐助的方式支持我們的工作！另外你也可以在 "
@@ -221,3 +242,29 @@ zh:
       point4: "跟一般模式不同的是你可以根據你的需要來加新樓層，按下加樓層按鈕即可。新加的樓層會為你製造出預設數量的房間數目。"
       point5: "你也可以根據需要加新的房間來做筆記。只需按下加房間按鈕即可。"
       point6: "現在自訂模式只可同時有一個工作階段，所以在開始下一個自訂模式階段之前，請先完成現在的工作。完成的工作階段暫時不能再編輯或查看。在未來會開放更多同時工作數量。"
+  upgrade:
+    title: "升級至活躍用戶"
+    about:
+      title: "甚麼是活躍用戶？"
+      point1: "只有註冊用戶才可進行用戶升級。"
+      point2: "升級用戶必需符合下列所有條件。"
+      point3: "可享有更多特權。"
+      point3_link: "比較不同用戶的特權。"
+      point4: "每一個月只要達成一定數量的活躍用戶都可享有自動續期。如果工作數不夠，帳號會降回一般註冊用戶。"
+      point4_link: "本月工作數目可於我的帳戶頁面中查看。"
+      point5: "你可隨時將你的帳戶進行升級。不過每個帳戶都有一個升級次數上限。"
+    criteria:
+      c1: "電郵地址認證"
+      c2: "帳戶使用時間"
+      c3: "本月工作總數"
+    message:
+      already_active: "你已經享有活躍用戶特權了"
+      not_qualified: "條件未達成"
+      upgrade_now: "馬上升級至活躍月戶！"
+      success_upgrade: "恭喜！你已經成功升級！"
+  quota:
+    title: "額外額度"
+    about:
+      title: "甚麼是額外額度？"
+      description: "當工作數達至每月上限後，每次開始新工作會扣除一個額外額度。"
+      quota_bonus: "高級用戶可免費獲得額外額度。"

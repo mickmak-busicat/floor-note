@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   	rs
   end
 
-  def is_confirmed?
+  def confirmed?
     (self.is_confirmed === true)
   end
 

@@ -13,4 +13,6 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.precompile += %w( home_index.js )
 Rails.application.config.assets.precompile += %w( work_blank.js )
 Rails.application.config.assets.precompile += %w( work_active_session.js )
+Rails.application.config.assets.precompile += %w( work_view_share_link.js )
 Rails.application.config.assets.precompile += %w( home_profile.js )
+Rails.application.config.assets.precompile += %w( home_upgrade.js )

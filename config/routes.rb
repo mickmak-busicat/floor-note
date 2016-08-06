@@ -22,6 +22,10 @@ Rails.application.routes.draw do
 
     get 'profile', :to => 'home#profile', as: 'profile'
 
+    get 'upgrade', :to => 'home#upgrade', as: 'upgrade'
+
+    get 'quota', :to => 'home#quota', as: 'quota'
+
     scope "work" do
       get 'blank', :to => 'work#blank', as: 'blank_mode'
       get 'session/:id', :to => 'work#active_session', as: 'normal_mode'
@@ -30,6 +34,7 @@ Rails.application.routes.draw do
     end
 
     get 'c/:token', :to => 'home#confirm_token', as: 'confirm_token'
+    get 's/:code', :to => 'work#view_share_link', as: 'view_share_link'
 
     devise_for :users, controllers: { sessions: 'users/sessions', registrations: 'users/registrations', passwords: 'users/passwords' }
   end
@@ -48,6 +53,10 @@ Rails.application.routes.draw do
     post 'new_floor_object', :to => 'ajax#admin_new_floor_object', as: 'admin_new_floor_object'
 
     post 'confirm_email', :to => 'ajax#confirm_email', as: 'confirm_email'
+    post 'account_upgrade', :to => 'ajax#account_upgrade', as: 'account_upgrade'
+
+    post 'get_shareable_link', :to => 'ajax#shareable_link', as: 'shareable_link'
+    post 'remove_shareable_link', :to => 'ajax#remove_shareable_link', as: 'remove_shareable_link'
   end
 
   # You can have the root of your site routed with "root"

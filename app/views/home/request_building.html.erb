@@ -17,7 +17,7 @@
 			<%= form_for(User, as: :user, url: registration_path(:user)) do |f| %>
 			  <div class="p-20 form-content">
 			    <div class="input-field center">
-			      <input type="text" autofocus id="register" name="user[email]" value="<%= @email %>" />
+			      <input type="email" autofocus id="register" name="user[email]" value="<%= @email %>" />
 			      <label for="register"><%= I18n.t 'login.email' %></label>
 			    </div>
 
@@ -81,7 +81,7 @@
 		<% if !user_signed_in? %>
 		<div class="p-20">
 			<div class="input-field center">
-				<input id="email" type="text" name="email" />
+				<input id="email" type="email" name="email" />
 				<label for="email"><%= I18n.t('request.notify_email') %></label>
 			</div>
 			<span><%= I18n.t('request.send_notify') %></span>

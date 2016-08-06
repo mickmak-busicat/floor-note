@@ -1,0 +1,75 @@
+<script>
+var Locale = {
+	words: {
+		success_upgrade: '<%= I18n.t "upgrade.message.success_upgrade" %>'
+	}
+};
+</script>
+
+<div class="valign center-align w-100">
+
+	<div class="p-20">
+		<h1><%= I18n.t 'upgrade.title' %></h1>
+	</div>
+
+	<div class="p-20 description-section">
+		<b><%= I18n.t 'upgrade.about.title' %></b>
+		<hr/>
+		<ol>
+			<li>
+				<p><%= I18n.t 'upgrade.about.point3' %> <a href="<%= compare_path(:locale => I18n.locale) %>" class="underline_link"><%= I18n.t 'upgrade.about.point3_link' %></a></p>
+			</li>
+			<li>
+				<p><%= I18n.t 'upgrade.about.point1' %></p>
+			</li>
+			<li>
+				<p><%= I18n.t 'upgrade.about.point2' %></p>
+			</li>
+			<li>
+				<p><%= I18n.t 'upgrade.about.point4' %> <a href="<%= profile_path(:locale => I18n.locale) %>" class="underline_link"><%= I18n.t 'upgrade.about.point4_link' %></a></p>
+			</li>
+			<li>
+				<p><%= I18n.t 'upgrade.about.point5' %></p>
+			</li>
+		</ol>
+	</div>
+
+	<div class="p-20">
+
+		<div class="col-md-12 profile-row col-sm-12 col-xs-12 <%= (@is_verified) ? 'qualify' : 'non-qualify' %>">
+			<div class="col-md-6 col-sm-6 col-xs-6"><b><%= I18n.t 'upgrade.criteria.c1' %></b></div>
+			<div class="col-md-6 col-sm-6 col-xs-6">
+				<% if @is_verified %>
+				<span class="ion-checkmark-circled" aria-hidden="true"></span>
+				<% else %>
+				<span class="ion-close-circled" aria-hidden="true"></span>
+				<% end %>
+			</div>
+		</div>
+
+		<div class="col-md-12 profile-row col-sm-12 col-xs-12 <%= (@is_long_life_enough) ? 'qualify' : 'non-qualify' %>">
+			<div class="col-md-6 col-sm-6 col-xs-6"><b><%= I18n.t 'upgrade.criteria.c2' %></b></div>
+			<div class="col-md-6 col-sm-6 col-xs-6"><%= @account_life %> / <%= Settings.UPGRADE_CONFIG.ACCOUNT_LIFE %> days</div>
+		</div>
+
+		<div class="col-md-12 profile-row col-sm-12 col-xs-12 <%= (@is_enough_monthly_usage) ? 'qualify' : 'non-qualify' %>">
+			<div class="col-md-6 col-sm-6 col-xs-6"><b><%= I18n.t 'upgrade.criteria.c3' %></b></div>
+			<div class="col-md-6 col-sm-6 col-xs-6"><%= @month_usage %> / <%= Settings.UPGRADE_CONFIG.MONTHLY_SESSION %></div>
+		</div>
+
+		<div class="clearfix"></div>
+	</div>
+
+	<div class="p-20">
+		<% if @account_type == Settings.MEMBERSHIP_ID.BASIC %>
+			<% if @is_verified && @is_enough_monthly_usage && @is_long_life_enough %>
+			<button class="btn waves-effect waves-green btn-large" id="upgradeButton"><span class="normal-img" style="display:none;"><img src="<%= asset_path('preloader.gif') %>" /></span> <%= I18n.t 'upgrade.message.upgrade_now' %></button>
+			<% else %>
+			<h3><%= I18n.t 'upgrade.message.not_qualified' %></h3>
+			<% end %>
+		<% else %>
+			<h3><%= I18n.t 'upgrade.message.already_active' %></h3>
+		<% end %>
+	</div>
+
+</div>

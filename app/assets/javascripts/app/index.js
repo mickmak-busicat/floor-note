@@ -88,11 +88,7 @@ var IndexApp = {
 };
 
 $( document ).ready(function() {
-$.ajax({
-				url: '/ajax/confirm_email',
-				method: "POST",
-				dataType: "json"
-			});
+	
     var options = {
 
 		url: function(phrase) {
@@ -175,7 +171,7 @@ $.ajax({
 	$(IndexApp.element.activeSessionDisplay).find('.delete-btn').click(function(e){
 		if($(this).attr('confirm') !== undefined){
 			localStorage.removeItem('_b');
-			Materialize.toast(Locale.words.removeSession, 2000);
+			Materialize.toast(Locale.words.removeSession, 2000, 'toast-info');
 
 			// GA #10
 			ga('send', 'event', 'Index Blank Mode', 'Confirm delete');
@@ -225,7 +221,7 @@ $.ajax({
 
 				var errJson = JSON.parse(e.responseText);
 
-				Materialize.toast(errJson.error, 5000);
+				Materialize.toast(errJson.error, 5000, 'toast-warning');
 
 				$(_this).removeAttr('disabled');
 			}
@@ -247,4 +243,5 @@ $.ajax({
 	IndexApp.setBuilding(null);
 	IndexApp.updateBlankSession();
 	IndexApp.clearSessionStorage();
+	
 });

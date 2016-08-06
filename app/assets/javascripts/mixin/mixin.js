@@ -27,6 +27,11 @@ var InputMixin = {
 				this[hookId][i]();
 			}
 		}
+	},
+
+	_highlightText: function(e){
+		$(e.target).select();
+		e.target.setSelectionRange(0, e.target.value.length);
 	}
 
 };

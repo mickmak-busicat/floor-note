@@ -1,1 +1,18 @@
-confirm_token.html.erb
+<div class="valign center-align w-100">
+
+	<div class="p-20">
+		<h1><%= I18n.t 'confirm.title' %></h1>
+	</div>
+	<div class="p-20">
+
+		<div class="description-section">
+			<h3><%= @message %></h3>
+		</div>
+		<div>
+			<a href="<%= root_path(:locale => I18n.locale) %>" class="underline_link"><%= I18n.t 'confirm.continue' %></a>
+		</div>
+	</div>
+
+	<div class="p-20"><p></p></div>
+
+</div>

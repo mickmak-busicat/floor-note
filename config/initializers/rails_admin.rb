@@ -86,6 +86,9 @@ RailsAdmin.config do |config|
     object_label_method do
       :custom_user_label_method
     end
+    configure :expires_at, :datetime do
+      strftime_format '%Y-%m-%d %H:%M:%S'
+    end
     configure :created_at, :datetime do
       strftime_format '%Y-%m-%d %H:%M:%S'
     end

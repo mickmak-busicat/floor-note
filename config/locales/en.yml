@@ -76,6 +76,8 @@ en:
   work:
     go_up: "Go UP"
     go_down: "Go DN"
+    share_link: "ShareLink"
+    duplicate: "Duplicate"
     close: "OK"
     floor_select: "Floor:"
     cannot_go_up: "You are on highest floor."
@@ -124,6 +126,12 @@ en:
     scale_down: "Zoom -"
     cannot_scale_up: "The view is the largest one."
     cannot_scale_down: "The view is the smallest one."
+    share_link_pop:
+      title: "Shareable link to this work"
+      login: "Please login to use shareable link."
+      get_link: "Get Link"
+      disable_share_link: "Disable Link"
+    want_to_rate: "I want to rate!"
   request:
     thanks_request: "Thanks for your information. We will fix it ASAP."
     please_wait: "But wait!"
@@ -160,10 +168,12 @@ en:
     signup_now: "Signup NOW!"
     become_premium: "Free upgrade!"
     become_vip: "Become VIP!"
-    coming_soon: "Coming soon..."
+    coming_soon: "Coming soon"
     advanced_search: "Advanced Search"
     extra_bonus: "Extra quota monthly bonus"
     use_public_session: "Use public mode"
+    share_link_view: "View shareable link"
+    share_link_use: "Get shareable link"
   profile:
     title: "Profile"
     email: "Email"
@@ -176,6 +186,17 @@ en:
     monthly_limit: "Monthly Limit"
     expires: "Membership Expires At"
     full_quota: "FULL"
+    verify_email: "Verify my email"
+    email_verified: "Email verified"
+    active_target: "Monthly work target to keep ACTIVE membership"
+    upgrade_text: "Upgrade to ACTIVE membership"
+    confirmation_sent: "Confirmation email is sent to your email. Please follow the instruction in it."
+  confirm:
+    title: "Verify your email address"
+    continue: "Continue to use FloorNote"
+    success: "Your email address is verified successfully!"
+    fail: "Wrong email verification link."
+    email_title: "Please verify your email address on FloorNote"
   donate:
     title: "Thank you for using FloorNote!"
     description1: "FloorNote is still in developing stage, we will bring the most effective managing tools in the future. If you find our service is interesting, it can definitely help us with giving us donation! Besides, you can also send your opinion in "
@@ -242,6 +263,32 @@ en:
       point4: "Unlike normal mode, you can manually add new floor to meet your need in custom mode. Click on add floor button to add a new one. By default, the number of room in new floor is same as the default number of room."
       point5: "You can also manually add any new room to use. Click on add new room button to add new room."
       point6: "There is only one custom session available at the same time. (more available in future) Therefore, before you want to start another new working session. Please finish your current one first. Finished session cannot be edited/viewed."
+  upgrade:
+    title: "Account upgrade to ACTIVE membership"
+    about:
+      title: "What is ACTIVE membership?"
+      point1: "Account upgrade is ONLY available for all BASIC membership."
+      point2: "Fulfill following criteria to upgrade to ACTIVE membership."
+      point3: "Enjoy higher membership privilege than BASIC membership."
+      point3_link: "Compare different membership privilege."
+      point4: "You have to keep certain number of usage every month to keep using ACTIVE membership otherwise your account will go back to BASIC tier."
+      point4_link: "You can check this in your profile page."
+      point5: "You can upgrade at any time when you fulfill the criteria. But there is a limit of upgrade count."
+    criteria:
+      c1: "Email verified"
+      c2: "Account life"
+      c3: "Total work session count in this month"
+    message:
+      already_active: "You are already enjoying ACTIVE membership"
+      not_qualified: "Not qualified"
+      upgrade_now: "Upgrade to ACTIVE membership now!"
+      success_upgrade: "Congratulations! Your have successfully upgraded your account!"
+  quota:
+    title: "Extra quota"
+    about:
+      title: "What is extra quota?"
+      description: "One extra quota will be consumed when your account reached monthly limit."
+      quota_bonus: "Premium accounts can get free extra quota."
   admin:
     js:
       true: True

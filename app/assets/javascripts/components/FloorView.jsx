@@ -21,9 +21,10 @@ var FloorView = React.createClass({
 			'currentModalRoom': 0,
 
 			'workLabel': '',
-			'scale': 1,
+			'scale': 0.7,
 			'isReportPanelShow': false,
 			'reportSelect': 'none',
+			'shareableLink': ''
 		};
 	},
 
@@ -78,7 +79,7 @@ var FloorView = React.createClass({
 		var objects = {};
 		var currentFloor = {};
 		var floorViewIndex = 1;
-		var scale = 1;
+		var scale = 0.7;
 		var previousSession = localStorage.getItem(this.props.normalModeStoreKey);
 
 		if(previousSession === "" || previousSession === null){
@@ -90,12 +91,18 @@ var FloorView = React.createClass({
 			scale = previousSession.scale;
 		}
 
+		// In view mode, load props serverPayload instead
+		if(this.props.serverPayload !== undefined && this.props.mode == 'VIEW'){
+			var serverSession = JSON.parse(this.props.serverPayload);
+			objects = serverSession.objects;
+		}
+
 		$(this.refs.containerBody).css('height', ($(window.top).height()-126)+'px');
 		this._adjustControlWidth();
 		this._constructCachedImage();
 
 		$('body').addClass("primary-color");
-		this.setState({'objects': objects, 'floorViewIndex': floorViewIndex, 'workLabel': this.props.workLabel, 'scale': scale});
+		this.setState({'objects': objects, 'floorViewIndex': floorViewIndex, 'workLabel': this.props.workLabel, 'scale': scale, 'shareableLink': this.props.shareableLink});
 	},
 
 	_constructCachedImage: function(){
@@ -146,37 +153,105 @@ var FloorView = React.createClass({
 	},
 
 	_saveSession: function(rawObject){
-		var state = JSON.stringify(rawObject);
+		if(this.props.mode == "NORMAL"){
+			var state = JSON.stringify(rawObject);
 
-		localStorage.setItem(this.props.normalModeStoreKey, state);
+			localStorage.setItem(this.props.normalModeStoreKey, state);
+		}
 	},
 
 	_serverSyncSession: function(){
+		if(this.props.mode == "NORMAL"){
+			var _this = this;
+			var interval = 60 * 1000 * this.props.serverInterval;
+
+			setTimeout(function(){
+				var stateString = JSON.stringify(_this.state);
+
+				var sessionIds = [_this.props.id];
+				var sessionData = [stateString];
+
+			    if(sessionIds.length > 0){
+			    	var param = {
+			    		id: sessionIds,
+			    		data: sessionData
+			    	};
+			    	$.ajax({
+						url: '/ajax/session_save',
+						data: param,
+						method: "POST",
+						dataType: "json"
+					});
+			    }
+
+				_this._serverSyncSession();
+			}, interval);
+		}
+	},
+
+	_getShareableLink: function(e){
 		var _this = this;
-		var interval = 60 * 1000 * this.props.serverInterval;
+		var stateString = JSON.stringify(this.state);
 
-		setTimeout(function(){
-			var stateString = JSON.stringify(_this.state);
+		var sessionIds = [_this.props.id];
+		var sessionData = [stateString];
 
-			var sessionIds = [_this.props.id];
-			var sessionData = [stateString];
+		// GA #52
+		ga('send', 'event', 'Normal Mode', 'Get shareable link clicked');
 
-		    if(sessionIds.length > 0){
-		    	var param = {
-		    		id: sessionIds,
-		    		data: sessionData
-		    	};
-		    	$.ajax({
-					url: '/ajax/session_save',
-					data: param,
-					method: "POST",
-					dataType: "json"
-				});
-		    }
+	    if(sessionIds.length > 0){
+	    	var param = {
+	    		id: sessionIds,
+	    		data: sessionData
+	    	};
+	    	$(e.target).attr('disabled', 'disabled');
+	    	$.ajax({
+				url: '/ajax/get_shareable_link',
+				data: param,
+				method: "POST",
+				dataType: "json",
+				complete: function(rs){
+					$(e.target).removeAttr('disabled');
+				},
+				success: function(json){
+					console.log(json);
 
-			_this._serverSyncSession();
-		}, interval);
-		
+					_this.setState({'shareableLink': json.result.code});
+				},
+				error: function(e){
+					console.log(e);
+				}
+			});
+	    }
+	},
+
+	_removeShareableLink: function(e){
+		var _this = this;
+    	var param = {
+    		sid: this.props.id,
+    	};
+
+    	// GA #53
+		ga('send', 'event', 'Normal Mode', 'Remove shareable link clicked');
+
+    	$(e.target).attr('disabled', 'disabled');
+    	$.ajax({
+			url: '/ajax/remove_shareable_link',
+			data: param,
+			method: "POST",
+			dataType: "json",
+			complete: function(rs){
+				$(e.target).removeAttr('disabled');
+			},
+			success: function(json){
+				console.log(json);
+
+				_this.setState({'shareableLink': ''});
+			},
+			error: function(e){
+				console.log(e);
+			}
+		});
 	},
 
 	/**
@@ -189,6 +264,10 @@ var FloorView = React.createClass({
 	_popForRoom: function(roomId){
 		$('#roomRates').modal('show');
 		var room = this._findFloorObjects(this.state.floorViewIndex, roomId);
+
+		$(this.refs.upRateButton).hide();
+		$(this.refs.downRateButton).hide();
+		$(this.refs.showRateButton).show();
 
 		// GA #26
 		ga('send', 'event', 'Normal Mode', 'Room detail popup opened');
@@ -205,6 +284,13 @@ var FloorView = React.createClass({
 		this.setState(state);
 	},
 
+	_popForShareableLink: function(){
+		// GA #51
+		ga('send', 'event', 'Normal Mode', 'Popup for shareable link clicked');
+
+		$(this.refs.shareableLinkModal).modal('show');
+	},
+
 	_adjustControlWidth: function(){
 		var controlWidth = 0;
 		var windowWidth = $(window.top).width();
@@ -219,6 +305,7 @@ var FloorView = React.createClass({
 		}
 
 		$(this.refs.controlWrapper).css('width', controlWidth+'px');
+		$(this.refs.controlWrapper).parent().scrollLeft(controlWidth);
 	},
 
 	_nextRoomStatus: function(roomId, currentStatus){
@@ -248,7 +335,7 @@ var FloorView = React.createClass({
 		if(this.props.mode == 'VIEW'){
 			return ;
 		}
-		Materialize.toast(Locale.words.labelUpdate, 2000);
+		Materialize.toast(Locale.words.labelUpdate, 2000, 'toast-info');
 		this._updateRoomData(this.state.currentModalRoom, 'label', e.target.value);
 	},
 
@@ -263,7 +350,7 @@ var FloorView = React.createClass({
 		if(this.props.mode == 'VIEW'){
 			return ;
 		}
-		Materialize.toast(Locale.words.noteUpdate, 2000);
+		Materialize.toast(Locale.words.noteUpdate, 2000, 'toast-info');
 		this._updateRoomData(this.state.currentModalRoom, 'notes', e.target.value);
 	},
 
@@ -276,7 +363,7 @@ var FloorView = React.createClass({
 
 	_updateFloorLabel: function(e){
 		var label = e.target.value;
-		Materialize.toast(Locale.words.floorLabelUpdate, 2000);
+		Materialize.toast(Locale.words.floorLabelUpdate, 2000, 'toast-info');
 		
 		var param = {
 			name: label,
@@ -377,7 +464,7 @@ var FloorView = React.createClass({
 	},
 
 	_goToFloor: function(floorIndex){
-		Materialize.toast(Locale.words.onFloor.replace('`NAME`', this._getFloorData(floorIndex, 'name')), 2000);
+		Materialize.toast(Locale.words.onFloor.replace('`NAME`', this._getFloorData(floorIndex, 'name')), 2000, 'toast-info');
 		this.setState({'floorViewIndex': floorIndex});
 	},
 
@@ -398,7 +485,7 @@ var FloorView = React.createClass({
 		ga('send', 'event', 'Normal Mode', 'Go up floor clicked');
 
 		if(targetFloor == -1){
-			Materialize.toast(Locale.words.cannotGoUp, 2000);
+			Materialize.toast(Locale.words.cannotGoUp, 2000, 'toast-warning');
 		}else{
 			this._goToFloor(targetFloor);
 		}
@@ -421,7 +508,7 @@ var FloorView = React.createClass({
 		ga('send', 'event', 'Normal Mode', 'Go down floor clicked');
 
 		if(targetFloor == -1){
-			Materialize.toast(Locale.words.cannotGoDown, 2000);
+			Materialize.toast(Locale.words.cannotGoDown, 2000, 'toast-warning');
 		}else{
 			this._goToFloor(targetFloor);
 		}
@@ -464,7 +551,7 @@ var FloorView = React.createClass({
 		if(scale < 1.5){
 			this.setState({'scale': scale + 0.1});
 		}else{
-			Materialize.toast(Locale.words.cannotScaleUp, 2000);
+			Materialize.toast(Locale.words.cannotScaleUp, 2000, 'toast-warning');
 		}
 	},
 
@@ -477,7 +564,7 @@ var FloorView = React.createClass({
 		if(scale > 0.5){
 			this.setState({'scale': scale - 0.1});
 		}else{
-			Materialize.toast(Locale.words.cannotScaleDown, 2000);
+			Materialize.toast(Locale.words.cannotScaleDown, 2000, 'toast-warning');
 		}
 	},
 
@@ -538,6 +625,22 @@ var FloorView = React.createClass({
 
 		// GA #32
 		ga('send', 'event', 'Normal Mode', 'Rate room clicked', score+"");
+	},
+
+	_duplicateSession: function(){
+		Materialize.toast("Coming soon...", 3000, 'toast-neutral');
+
+		// GA #54
+		ga('send', 'event', 'Normal Mode', 'Duplicate session clicked');
+	},
+
+	_showRateButton: function(){
+		$(this.refs.upRateButton).show();
+		$(this.refs.downRateButton).show();
+		$(this.refs.showRateButton).hide();
+
+		// GA #55
+		ga('send', 'event', 'Normal Mode', 'I want rate button clicked');
 	},
 
 
@@ -628,6 +731,30 @@ var FloorView = React.createClass({
 				  </div>
 			  </div>
 			</div>
+			<div className="opacity-modal modal fade" ref="shareableLinkModal" tabindex="-1" role="dialog">
+			  <div className="modal-content">
+				  <div className="modal-body controls">
+				  	<div>{Locale.words.shareLinkPop.title}</div>
+				  	<p>&nbsp;</p>
+				  	<div hidden={this.state.shareableLink!=''}>
+				  		<button type="button" className="action-btn col-md-12 col-xs-12 col-sm-12" onClick={this._getShareableLink}>{Locale.words.shareLinkPop.getLink}</button>
+				  	</div>
+				  	<div hidden={this.state.shareableLink==''}>
+					  	<div className="col-md-8">
+					  		<input type="text" value={window.location.origin + '/s/' + this.state.shareableLink} readOnly onClick={this._highlightText} />
+					  	</div>
+					  	<div className="col-md-4">
+					  		<button type="button" className="danger-btn col-md-12 col-xs-12 col-sm-12" onClick={this._removeShareableLink}>{Locale.words.shareLinkPop.disableShareLink}</button>
+					  	</div>
+				  	</div>
+				  	<div className="clearfix"></div>
+				  	<p>&nbsp;</p>
+				  </div>
+				  <div className="modal-footer">
+				  	<button type="button" className="btn btn-lg col-md-12 col-xs-12 col-sm-12 waves-effect waves-green" data-dismiss="modal">{Locale.words.close}</button>
+				  </div>
+			  </div>
+			</div>
 			<div className="opacity-modal modal fade" id="roomRates" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			  <div className="modal-content">
 				  <div className="modal-header compact">
@@ -667,20 +794,21 @@ var FloorView = React.createClass({
 					  				<div>
 					  					<span className="rates-label like-rates"><i className="ion-heart"></i> x <span ref="likeRatesDisplay">0</span></span>
 					  				</div>
-							    	<button type="button" className="btn btn-lg waves-effect waves-red like-btn rate-btn" style={this.props.mode=='VIEW'?{'display': 'none'}:{}} disabled={this.props.mode=='VIEW'} onClick={this._rateRoom.bind(null, 1)}><i className="ion-heart"></i></button> 
+							    	<button type="button" className="btn btn-lg waves-effect waves-red like-btn rate-btn" style={this.props.mode=='VIEW'?{'display': 'none'}:{}} disabled={this.props.mode=='VIEW'} onClick={this._rateRoom.bind(null, 1)} ref="upRateButton"><i className="ion-heart"></i></button> 
 							    </div>
 							    <div className="rate-block">
 							    	<div>
 							    		<span className="rates-label dislike-rates"><i className="ion-sad"></i> x <span ref="dislikeRatesDisplay">0</span></span>
 							    	</div>
-							    	<button type="button" className="waves-effect waves-blue btn btn-lg dislike-btn rate-btn" style={this.props.mode=='VIEW'?{'display': 'none'}:{}} disabled={this.props.mode=='VIEW'} onClick={this._rateRoom.bind(null, -1)}><i className="ion-sad"></i></button>
+							    	<button type="button" className="waves-effect waves-blue btn btn-lg dislike-btn rate-btn" style={this.props.mode=='VIEW'?{'display': 'none'}:{}} disabled={this.props.mode=='VIEW'} onClick={this._rateRoom.bind(null, -1)} ref="downRateButton"><i className="ion-sad"></i></button>
 							    </div>
 							    <div className="stats-info small">(Last 7 days)</div>
+							    <div><button type="button" className="btn waves-effect waves-green" ref="showRateButton" onClick={this._showRateButton}>{Locale.words.wantRate}</button></div>
 						    </div>
 					    </div>
 				    </div>
 				  	<div>{Locale.words.modalLabel + ((this.props.u)?'':Locale.words.loginToUse)}</div>
-				  	<input type="text" maxLength="10" value={this.state.modalLabel} onChange={this._updateModalLabel} onKeyPress={this._enterToBlur} onBlur={this._updateRoomLabel} disabled={this.props.mode=='VIEW'||!this.props.u} />
+				  	<input type="text" maxLength="10" value={this.state.modalLabel==null?"":this.state.modalLabel} onChange={this._updateModalLabel} onKeyPress={this._enterToBlur} onBlur={this._updateRoomLabel} disabled={this.props.mode=='VIEW'||!this.props.u} />
 				  	<div>{Locale.words.modalNote + ((this.props.u)?'':Locale.words.loginToUse)}</div>
 				  	<div className="input-field animated">
 						<i className="ion-ios-compose-outline prefix"></i>
@@ -696,6 +824,7 @@ var FloorView = React.createClass({
 			  </div>
 			</div>
 			<div className="floor-container" ref="containerBody">
+				<div className="last-update" hidden={this.props.mode!='VIEW'}>Last update: {this.props.lastUpdateDate}</div>
 				{this._renderFloorObject()}
 			</div>
 			<div className="floor-controls">
@@ -726,6 +855,16 @@ var FloorView = React.createClass({
 					<div className="control-div fixed-width active" onClick={this._scaleUp}>
 						<span className="control-content">
 							<i className="ion-ios-plus-outline"></i><div>{Locale.words.scaleUp}</div>
+						</span>
+					</div>
+					<div className="control-div fixed-width active" onClick={this._popForShareableLink} hidden={this.props.mode=='VIEW'}>
+						<span className="control-content">
+							<i className="ion-ios-paperplane-outline"></i><div>{Locale.words.shareLink}</div>
+						</span>
+					</div>
+					<div className="control-div fixed-width active" onClick={this._duplicateSession} hidden={this.props.mode!='VIEW'}>
+						<span className="control-content">
+							<i className="ion-ios-copy-outline"></i><div>{Locale.words.duplicate}</div>
 						</span>
 					</div>
 				</div>
