@@ -211,11 +211,9 @@ var FloorView = React.createClass({
 				method: "POST",
 				dataType: "json",
 				complete: function(rs){
-					$(e.target).removeAttr('disabled');
 				},
 				success: function(json){
-					console.log(json);
-
+					$(_this.refs.removeLinkButton).removeAttr('disabled');
 					_this.setState({'shareableLink': json.result.code});
 				},
 				error: function(e){
@@ -241,11 +239,9 @@ var FloorView = React.createClass({
 			method: "POST",
 			dataType: "json",
 			complete: function(rs){
-				$(e.target).removeAttr('disabled');
 			},
 			success: function(json){
-				console.log(json);
-
+				$(_this.refs.getLinkButton).removeAttr('disabled');
 				_this.setState({'shareableLink': ''});
 			},
 			error: function(e){
@@ -737,14 +733,14 @@ var FloorView = React.createClass({
 				  	<div>{Locale.words.shareLinkPop.title}</div>
 				  	<p>&nbsp;</p>
 				  	<div hidden={this.state.shareableLink!=''}>
-				  		<button type="button" className="action-btn col-md-12 col-xs-12 col-sm-12" onClick={this._getShareableLink}>{Locale.words.shareLinkPop.getLink}</button>
+				  		<button type="button" className="action-btn col-md-12 col-xs-12 col-sm-12" onClick={this._getShareableLink} ref="getLinkButton">{Locale.words.shareLinkPop.getLink}</button>
 				  	</div>
 				  	<div hidden={this.state.shareableLink==''}>
 					  	<div className="col-md-8">
 					  		<input type="text" value={window.location.origin + '/s/' + this.state.shareableLink} readOnly onClick={this._highlightText} />
 					  	</div>
 					  	<div className="col-md-4">
-					  		<button type="button" className="danger-btn col-md-12 col-xs-12 col-sm-12" onClick={this._removeShareableLink}>{Locale.words.shareLinkPop.disableShareLink}</button>
+					  		<button type="button" className="danger-btn col-md-12 col-xs-12 col-sm-12" onClick={this._removeShareableLink} ref="removeLinkButton">{Locale.words.shareLinkPop.disableShareLink}</button>
 					  	</div>
 				  	</div>
 				  	<div className="clearfix"></div>
