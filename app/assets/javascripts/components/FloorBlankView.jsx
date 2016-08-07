@@ -39,6 +39,17 @@ var FloorBlankView = React.createClass({
 	componentDidMount: function(){
 		var _this = this;
 
+		try {
+			localStorage.setItem('localStorage', 1);
+			localStorage.removeItem('localStorage');
+		} catch (e) {
+			// GA #57
+			ga('send', 'event', 'Blank Mode', 'Browser not support localStorage');
+			Storage.prototype._setItem = Storage.prototype.setItem;
+			Storage.prototype.setItem = function() {};
+			alert(Locale.words.noLocalStorage);
+		}
+
 		this._constructSession();
 		this._bindEvents();
 	},
