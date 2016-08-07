@@ -51,7 +51,7 @@ var Locale = {
 	</div>
 
 	<% if current_user.membership.membership_id == Settings.MEMBERSHIP_ID.ACTIVE %>
-	<div class="col-md-12 profile-row col-sm-12 col-xs-12 non-qualify">
+	<div class="col-md-12 profile-row col-sm-12 col-xs-12 <%= (@monthly_count >= Settings.KEEP_ACTIVE_CONFIG.MONTHLY_SESSION) ? 'qualify' : 'non-qualify' %>">
 		<div class="col-md-6 col-sm-6 col-xs-6"><b><%= I18n.t 'profile.active_target' %></b></div><div class="col-md-6 col-sm-6 col-xs-6"><%= @monthly_count %> / <%= Settings.KEEP_ACTIVE_CONFIG.MONTHLY_SESSION %></div>
 	</div>
 	<% end %>
