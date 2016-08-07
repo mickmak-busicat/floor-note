@@ -7,11 +7,10 @@
 <div class="valign center-align w-100 login-form-content">
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 
-
   <h1 class="m-0"><strong><%= I18n.t 'login.title' %></strong></h1>
   <div class="p-20 form-content">
     <div class="input-field center">
-      <input type="email" autofocus id="login" name="user[email]" />
+      <input type="email" autofocus id="login" name="user[email]" value="<%= resource.email %>" />
       <label for="login"><%= I18n.t 'login.email' %></label>
     </div>
 
@@ -23,7 +22,7 @@
     <div class="center">
       <% if devise_mapping.rememberable? -%>
         <div class="field">
-          <%= f.check_box :remember_me %>
+          <%= f.check_box :remember_me, {:checked => true} %>
           <label for="user_remember_me"><%= I18n.t 'login.remember_me' %></label>
         </div>
       <% end -%>
