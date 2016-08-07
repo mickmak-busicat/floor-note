@@ -8,6 +8,7 @@ var FloorView = React.createClass({
 		return {
 			'mode': 'NORMAL',
 			'serverInterval': 5, // min
+			'heartIndex': 3,
 		};
 	},
 
@@ -687,8 +688,18 @@ var FloorView = React.createClass({
 		var result = [];
 		var floors = this.props.buildingData.building.ordered_floors;
 
+		console.log(this.state.objects);
+
 		$.each(floors, function(index, floor){
-			result.unshift(<option key={floor.id} value={floor.seq} disabled={_this.state.floorViewIndex==floor.seq}>{floor.name}</option>);
+			var goodCount = 0;
+			var floorObjectIds = _this._findFloorObjects(floor.seq).floor_objects.map(function(f){ return f.id; });
+			for(var i=0; i<floorObjectIds.length; i++){
+				var targetRoom = _this.state.objects[floorObjectIds[i]];
+				if(targetRoom !== undefined && targetRoom.status == _this.props.heartIndex){
+					goodCount ++;
+				}
+			}
+			result.unshift(<option key={floor.id} value={floor.seq} disabled={_this.state.floorViewIndex==floor.seq}>{floor.name}{goodCount>0?' ❤'+goodCount:''}</option>);
 		});
 
 		return result;
