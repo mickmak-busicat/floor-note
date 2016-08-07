@@ -79,8 +79,8 @@ class WorkController < ApplicationController
 	end
 
 	def view_share_link
-		store_location_for(:user, request.url)
-		redirect_to new_user_session_path(:locale => I18n.locale) and return if !user_signed_in?
+		# store_location_for(:user, request.url)
+		# redirect_to new_user_session_path(:locale => I18n.locale) and return if !user_signed_in?
 
 		@title_name = ''
 		code = params[:code]
