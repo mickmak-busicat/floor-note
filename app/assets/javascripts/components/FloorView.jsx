@@ -7,7 +7,7 @@ var FloorView = React.createClass({
 	getDefaultProps: function(){
 		return {
 			'mode': 'NORMAL',
-			'serverInterval': 5, // min
+			'serverInterval': 3, // min
 			'heartIndex': 3,
 		};
 	},
@@ -698,8 +698,6 @@ var FloorView = React.createClass({
 		var _this = this;
 		var result = [];
 		var floors = this.props.buildingData.building.ordered_floors;
-
-		console.log(this.state.objects);
 
 		$.each(floors, function(index, floor){
 			var goodCount = 0;
