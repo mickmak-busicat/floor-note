@@ -112,6 +112,8 @@ zh:
       disable_share_link: "停止分享"
     want_to_rate: "我要評分！"
     no_localstorage: "如你使用Safari，請避免使用「私密瀏覽」(Private Browsing)模式。FloorNote可能會在私密瀏覽下不能正常運作。"
+    login_to_duplicate: "請登入以使用。"
+    ask_for_duplicate: "你確定要複製此工作？這會使用你 1 個工作數量。"
   request:
     thanks_request: "感謝你的資料。我們會盡快處理。"
     please_wait: "不過請等等！"

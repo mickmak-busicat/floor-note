@@ -133,6 +133,8 @@ en:
       disable_share_link: "Disable Link"
     want_to_rate: "I want to rate!"
     no_localstorage: 'In safari, please avoid using 「Private Browsing Mode」. FloorNote may not work properly in Private browsing mode.'
+    login_to_duplicate: "Please login to use this."
+    ask_for_duplicate: "Are you sure to duplicate this session? This will use up 1 session count."
   request:
     thanks_request: "Thanks for your information. We will fix it ASAP."
     please_wait: "But wait!"

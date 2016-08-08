@@ -15,6 +15,8 @@ class AjaxController < ApplicationController
   	count = get_active_session_count
     month_usage = 0
   	@building_session = nil
+    from_session = nil
+    from_session_id = work_params[:from_session_id]
 
     activeLimit = (user_signed_in?) ? current_user.membership.active_limit : Settings.GUEST_SESSION_COUNT
     statusMsg = I18n.t('index.full_quota').sub!('`COUNT`', activeLimit.to_s)
@@ -39,17 +41,20 @@ class AjaxController < ApplicationController
     # 2. upgrade to ACTIVE for BASIC user
   	if count < activeLimit
       if user_signed_in?
+        if !from_session_id.nil?
+          from_session = BuildingSession.find_by(:id => from_session_id)
+        end
         # checking for registered users
         if month_usage >= current_user.membership.monthly_limit
           if current_user.use_extra_quota?
             # registered users can create session when they reach limit and account have extra quota.
-            create_building_session
+            create_building_session(from_session)
           else
             statusMsg = I18n.t('index.limit_reach')
           end
         else
           # registered users can create session when not reach limit.
-          create_building_session
+          create_building_session(from_session)
         end
       else
         # guest can create session when there is no active session
@@ -269,7 +274,7 @@ class AjaxController < ApplicationController
 	  end
 
 	  def work_params
-	  	params.permit(:building, :name)
+	  	params.permit(:building, :name, :from_session_id)
 	  end
 
 	  def session_name_params
@@ -300,8 +305,15 @@ class AjaxController < ApplicationController
       params.permit(:floor_id, :x, :y, :label, :object_type, :width, :height, :direction, :default_status)
     end
 
-	  def create_building_session
-	  	@building_session = BuildingSession.create!(:name => work_params[:name], :building_id => work_params[:building], :user => current_user, :status => 1, :guest_key => session[:guest_key])
+	  def create_building_session(from_session = nil)
+      payload = ''
+      if !from_session.nil?
+        payload = from_session.payload
+      end
+
+      puts payload
+
+	  	@building_session = BuildingSession.create!(:name => work_params[:name], :building_id => work_params[:building], :user => current_user, :status => 1, :guest_key => session[:guest_key], :payload => payload)
 
 	  	if @building_session.save
 	  		add_active_session(@building_session.id, work_params[:name])

@@ -96,6 +96,10 @@ var FloorView = React.createClass({
 
 		if(previousSession === "" || previousSession === null || this.props.normalModeStoreKey === undefined){
 			floorViewIndex = this.props.buildingData.building.floors[0].seq;
+			if(this.props.buildingData.payload != undefined){
+				var serverSession = JSON.parse(this.props.buildingData.payload);
+				objects = serverSession.objects;
+			}
 		}else{
 			previousSession = JSON.parse(previousSession);
 			objects = previousSession.objects;
@@ -636,7 +640,46 @@ var FloorView = React.createClass({
 	},
 
 	_duplicateSession: function(){
-		Materialize.toast("Coming soon...", 3000, 'toast-neutral');
+
+		if(this.props.u){
+			if(confirm(Locale.words.askForDuplicate)){
+				var param = {
+					building: this.props.buildingData.building.id,
+					name: this.props.workLabel,
+					from_session_id: this.props.buildingData.id
+				};
+
+				$.ajax({
+					url: '/ajax/work',
+					data: param,
+					method: "POST",
+					dataType: "json",
+					complete: function(json){
+
+					},
+					success: function(json){
+						console.log('success');
+
+						window.location = '/'+SidebarLocale.current+'/work/session/'+json.session.id;
+					},
+					error: function(e){
+						console.log('error');
+
+						// GA #59
+						ga('send', 'event', 'Normal Mode', 'Duplicate work session full');
+
+						var errJson = JSON.parse(e.responseText);
+
+						Materialize.toast(errJson.error, 5000, 'toast-warning');
+					}
+				});
+			}
+		}else{
+			Materialize.toast(Locale.words.loginToDuplicate, 5000, 'toast-warning');
+
+			// GA #58
+			ga('send', 'event', 'Normal Mode', 'Duplicate work session full');
+		}
 
 		// GA #54
 		ga('send', 'event', 'Normal Mode', 'Duplicate session clicked');

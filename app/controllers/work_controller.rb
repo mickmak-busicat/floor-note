@@ -17,7 +17,7 @@ class WorkController < ApplicationController
 		if @building_data.nil? || @session_data.nil?
 			flash[:alert] = I18n.t 'work.no_session'
 			remove_active_session(session_id)
-			redirect_to root_path(:locale => I18n.locale)
+			redirect_to root_path(:locale => I18n.locale) and return
 		end
 
 		slink = ShareableLink.find_by(:building_session_id => @building_data.id)
