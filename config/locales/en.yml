@@ -177,6 +177,7 @@ en:
     use_public_session: "Use public mode"
     share_link_view: "View shareable link"
     share_link_use: "Get shareable link"
+    duplicate_session: "Duplicate shareable link session"
   profile:
     title: "Profile"
     email: "Email"

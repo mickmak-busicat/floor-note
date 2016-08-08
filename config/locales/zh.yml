@@ -156,6 +156,7 @@ zh:
     use_public_session: "使用公用工作模式"
     share_link_view: "查看分享連結"
     share_link_use: "取得分享連結"
+    duplicate_session: "複製已分享的工作"
   profile:
     title: "我的帳戶"
     email: "電郵地址"
