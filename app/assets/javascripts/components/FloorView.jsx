@@ -97,8 +97,12 @@ var FloorView = React.createClass({
 		if(previousSession === "" || previousSession === null || this.props.normalModeStoreKey === undefined){
 			floorViewIndex = this.props.buildingData.building.floors[0].seq;
 			if(this.props.buildingData.payload != undefined){
-				var serverSession = JSON.parse(this.props.buildingData.payload);
-				objects = serverSession.objects;
+				var serverSession = {};
+				try{
+					JSON.parse(this.props.buildingData.payload);
+					objects = serverSession.objects;
+				}catch(e){
+				}
 			}
 		}else{
 			previousSession = JSON.parse(previousSession);
@@ -161,11 +165,27 @@ var FloorView = React.createClass({
 		this.cachedImage.loadedCount ++;
 
 		if(this.cachedImage.loadedCount == allImagesCount){
-			this.cachedImage.loadDone = true;
-			this._releaseAllHooks('preloadIcon');
-
-			$('.screen-block.real-block').remove();
+			this._workReadyFromInit();
 		}
+	},
+
+	_workReadyFromInit: function(){
+		var _this = this;
+		var delay = 3000;
+
+		if(this.props.u){
+			delay = 100;
+		}
+
+		this.cachedImage.loadDone = true;
+		this._releaseAllHooks('preloadIcon');
+
+		// $('.screen-block.real-block .cell').append($('<div>').addClass('info').html('Close'));
+
+		setTimeout(function(){
+			Materialize.toast(Locale.words.longTapReminder, 7000, 'toast-info');
+			$('.screen-block.real-block').remove();
+		}, delay);
 	},
 
 	_saveSession: function(rawObject){

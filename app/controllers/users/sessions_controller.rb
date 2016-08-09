@@ -36,11 +36,21 @@ class Users::SessionsController < Devise::SessionsController
 
   private
     def assign_session_to_user
+      session[:dead_session] ||= []
+
       if !session[:active_session].nil?
         session[:active_session].each do |s|
+          month_usage = current_user.get_monthly_usage
+
           db_session = BuildingSession.find_by(:id => s['id'], :status => 1)
           if !db_session.nil?
             db_session.user = current_user
+            if month_usage >= current_user.membership.monthly_limit
+              if !current_user.use_extra_quota?
+                db_session.status = 0
+                session[:dead_session].push(s['id'].to_i)
+              end
+            end
             db_session.save
           end
         end

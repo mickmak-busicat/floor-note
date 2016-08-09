@@ -135,6 +135,7 @@ en:
     no_localstorage: 'In safari, please avoid using 「Private Browsing Mode」. FloorNote may not work properly in Private browsing mode.'
     login_to_duplicate: "Please login to use this."
     ask_for_duplicate: "Are you sure to duplicate this session? This will use up 1 session count."
+    long_tap_reminder: "Warm reminder: Long tap on rooms can manage and view advance notes of it."
   request:
     thanks_request: "Thanks for your information. We will fix it ASAP."
     please_wait: "But wait!"

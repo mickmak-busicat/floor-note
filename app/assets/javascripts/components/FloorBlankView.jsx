@@ -50,6 +50,8 @@ var FloorBlankView = React.createClass({
 			alert(Locale.words.noLocalStorage);
 		}
 
+		Materialize.toast(Locale.words.longTapReminder, 7000, 'toast-info');
+		
 		this._constructSession();
 		this._bindEvents();
 	},
