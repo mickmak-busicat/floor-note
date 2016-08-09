@@ -99,7 +99,7 @@ var FloorView = React.createClass({
 			if(this.props.buildingData.payload != undefined){
 				var serverSession = {};
 				try{
-					JSON.parse(this.props.buildingData.payload);
+					serverSession = JSON.parse(this.props.buildingData.payload);
 					objects = serverSession.objects;
 				}catch(e){
 				}
@@ -729,6 +729,7 @@ var FloorView = React.createClass({
 		var maxX = 0;
 		var maxY = 0;
 		var margin = 50;
+
 		$.each(floorObjects, function(index, obj){
 			var finalObject = $.extend(obj, (_this.state.objects[obj.id] || {}));
 			var boundaryX = finalObject.x + (finalObject.width || 100);
