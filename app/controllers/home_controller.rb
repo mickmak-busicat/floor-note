@@ -77,6 +77,7 @@ class HomeController < ApplicationController
   end
 
   def confirm_token
+    store_location_for(:user, request.url)
     redirect_to new_user_session_path(:locale => I18n.locale) and return if !user_signed_in?
 
     token = confirm_token_params[:token]
